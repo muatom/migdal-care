@@ -862,196 +862,448 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   mask-image: linear-gradient(to bottom, transparent 0, #000 calc(28 * var(--dpx)));
 }
 </style>
-<style>/* Migdal Care v3 · demo.css · the demo is one phone, nothing else.
-   520px and wider: a single phone frame (390 by 844 at full size, scaled down to fit a shorter window) on the navy
-   Migdal background, with one quiet line above it. Under 520px: the chat is the whole screen.
-   Everything inside the phone is chat.css (calc(N * var(--dpx)); --dpx = the screen width / 390, 1px on a phone). */
+<style>/* Migdal Care v3 · demo.css · one phone on a calm stage, an iOS-quality chat inside it.
+   520px and wider: deep navy with a slow indigo and mint glow, the logo above the phone, a tiny caption below,
+   the phone with a thin titanium frame, a black bezel, its side keys and a soft floor shadow. The screen is
+   390 by 844 at most; a shorter window makes it squatter first (down to a 16:9 phone), then smaller.
+   Under 520px: the chat is the whole screen (safe areas, keyboard).
+   Inside the phone this file refines chat.css (never edited here): every chat size is calc(N * var(--dpx)),
+   --dpx = the screen width / 390, 1px on a phone. Core palette only (Tom): navy, Migdal blue, mint, white,
+   mist and tint blues, slate greys. No amber. */
 
 :root {
-  --dm-bg: #020140;
-  --dm-glow-a: rgba(60, 101, 227, .30);
-  --dm-glow-b: rgba(162, 235, 154, .10);
-  --dm-fg: rgba(255, 255, 255, .62);
-  --dm-fg-strong: #ffffff;
-  /* the screen: 844 tall at most, never taller than the window allows (caption, bezel, air), 480 at least.
-     Width: 390 at most; on a shorter window the phone gets squatter before it gets narrower (down to a 16:9
-     phone), so the chat keeps its reading size */
-  --dm-h: min(844px, max(480px, calc(100dvh - 102px)));
+  --dm-navy: #020140;
+  --dm-blue: #3c65e3;
+  --dm-mint: #a2eb9a;
+  --dm-mint-d: #74cf6f;
+  --dm-slate: #5b658a;
+  --dm-slate-2: #9aa3bd;
+  --dm-paper: #f5f6fa;
+  --dm-hair: rgba(2, 1, 64, .08);
+  --dm-spring: cubic-bezier(.2, 1.2, .35, 1);
+  --dm-ease: cubic-bezier(.2, .8, .2, 1);
+  /* the screen: 844 tall at most, never taller than the window allows (logo, frame, caption, air), 500 at least */
+  --dm-h: min(844px, max(500px, calc(100dvh - 134px)));
   --dm-w: min(390px, calc(var(--dm-h) * 375 / 667));
-  --dm-bezel: 11px;
+  --dm-r: calc(var(--dm-w) * 50 / 390);
 }
 
 html.js:not(.ready) body { visibility: hidden; }
 html, body.dm { min-height: 100%; }
 body.dm {
-  margin: 0; color: var(--dm-fg);
-  background-color: var(--dm-bg);
-  background-image:
-    radial-gradient(1000px 640px at 88% -10%, var(--dm-glow-a), transparent 62%),
-    radial-gradient(860px 600px at 6% 110%, var(--dm-glow-b), transparent 60%);
-  background-attachment: fixed;
-  font-family: var(--font-ui); font-weight: 300;
+  margin: 0; color: rgba(255, 255, 255, .6); background: #010127;
+  font-family: var(--font-ui); font-weight: 300; overflow-x: hidden;
 }
 .icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 :where(.dm) button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
-/* ---------- the stage: one line, one phone ---------- */
-.dm-stage {
-  min-height: 100dvh; box-sizing: border-box;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-  padding: 16px;
+/* ---------- the stage: a slow glow on deep navy ---------- */
+.dm-glow {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% -10%, #0b0b5e 0%, #020140 46%, #010124 100%);
 }
-.dm-cap {
-  width: max(calc(var(--dm-w) + 2 * var(--dm-bezel)), 340px); max-width: 100%; box-sizing: border-box;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 0 10px; font-size: 13px; line-height: 1.3;
+.dm-glow i { position: absolute; display: block; border-radius: 50%; }
+.dm-glow i:nth-child(1) {
+  width: 70vmax; height: 70vmax; left: 50%; top: 46%; translate: -50% -50%;
+  background: radial-gradient(closest-side, rgba(60, 101, 227, .34), rgba(60, 101, 227, .10) 55%, rgba(60, 101, 227, 0));
 }
-.dm-cap-t { margin: 0; display: flex; align-items: center; gap: 0 8px; white-space: nowrap; }
-/* the wordmark (option F, Tom 17.10.2026): LTR, "Care" in blue on light and mint on dark, a tiny "AI" at the top
-   right in Migdal mint (#a2eb9a on dark, the darker #74cf6f on white). .3em of the wordmark, never under 7px. */
-.dm-wm {
-  direction: ltr; unicode-bidi: isolate; display: inline-flex; align-items: flex-start; white-space: nowrap;
-  font-weight: 900; letter-spacing: -.015em; line-height: 1; color: var(--mig-ink);
+.dm-glow i:nth-child(2) {
+  width: 56vmax; height: 56vmax; right: -18vmax; top: -24vmax;
+  background: radial-gradient(closest-side, rgba(92, 104, 240, .28), rgba(92, 104, 240, 0));
 }
-.dm-wm .c { color: var(--mig-blue); }
-.dm-wm .n { font-size: max(.3em, 7px); font-weight: 900; color: var(--mig-green-700, #74cf6f); margin-inline-start: .08em; margin-top: .02em; letter-spacing: .04em; }
-.dm-cap .dm-wm { color: var(--dm-fg-strong); font-size: 17px; }
-.dm-cap .dm-wm .c, .dm-cap .dm-wm .n { color: var(--mig-green); }
-.dm-sep { opacity: .55; }
-.dm-restart {
-  flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 4px; border-radius: 4px;
-  color: rgba(255, 255, 255, .74); font-size: 13px; font-weight: 700; white-space: nowrap;
-  transition: color var(--dur-fast, 200ms);
+.dm-glow i:nth-child(3) {
+  width: 48vmax; height: 48vmax; left: -16vmax; bottom: -22vmax;
+  background: radial-gradient(closest-side, rgba(162, 235, 154, .13), rgba(162, 235, 154, 0));
 }
-.dm-restart .ic { width: 14px; height: 14px; }
-.dm-restart:hover { color: #fff; }
-.dm-restart:hover span { text-decoration: underline; text-underline-offset: 3px; }
-.dm-restart:focus-visible { box-shadow: 0 0 0 3px rgba(162, 235, 154, .6); }
+@keyframes dm-breathe { from { scale: .94; opacity: .8; } to { scale: 1.05; opacity: 1; } }
+@keyframes dm-drift-a { to { translate: -9vmax 7vmax; scale: 1.12; } }
+@keyframes dm-drift-b { to { translate: 10vmax -6vmax; scale: 1.1; } }
+@media (prefers-reduced-motion: no-preference) {
+  .dm-glow i:nth-child(1) { animation: dm-breathe 14s ease-in-out infinite alternate; }
+  .dm-glow i:nth-child(2) { animation: dm-drift-a 26s ease-in-out infinite alternate; }
+  .dm-glow i:nth-child(3) { animation: dm-drift-b 32s ease-in-out infinite alternate; }
+}
 
-/* ---------- the phone frame ---------- */
+.dm-stage {
+  position: relative; z-index: 1; box-sizing: border-box; min-height: 100dvh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  padding: 18px 16px;
+}
+.dm-top {
+  position: relative; width: calc(var(--dm-w) + 24px); max-width: 100%; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+}
+.dm-top .dm-wm { font-size: 21px; color: #fff; }
+.dm-top .dm-wm .c, .dm-top .dm-wm .n { color: var(--dm-mint); }
+.dm-restart {
+  position: absolute; inset-inline-end: 2px; top: 50%; translate: 0 -50%;
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  color: rgba(255, 255, 255, .5); transition: color 200ms, background 200ms;
+}
+.dm-restart .ic { width: 17px; height: 17px; }
+.dm-restart:hover { color: #fff; background: rgba(255, 255, 255, .08); }
+.dm-restart:focus-visible { box-shadow: 0 0 0 3px rgba(162, 235, 154, .55); }
+.dm-caption { margin: 0; font-size: 12px; letter-spacing: .03em; color: rgba(255, 255, 255, .52); }
+
+/* ---------- the phone ---------- */
 .dm-device {
-  position: relative; flex: none; padding: var(--dm-bezel);
-  border-radius: calc(var(--dm-w) * 52 / 390 + var(--dm-bezel));
-  background: #0b0c22;
+  position: relative; flex: none; padding: 3px; border-radius: calc(var(--dm-r) + 12px);
+  background: linear-gradient(145deg, #50535f 0%, #1c1d25 20%, #2d2f3a 48%, #15161d 76%, #43464f 100%);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, .10),
-    inset 0 0 0 1px rgba(255, 255, 255, .05),
-    0 34px 90px rgba(0, 0, 0, .50),
-    0 0 140px rgba(60, 101, 227, .16);
+    0 0 0 1px rgba(255, 255, 255, .07),
+    0 50px 90px -30px rgba(0, 0, 0, .7),
+    0 24px 44px -30px rgba(0, 0, 0, .55);
+}
+/* the soft shadow the phone casts below it */
+.dm-device::after {
+  content: ""; position: absolute; z-index: -1; left: 14%; right: 14%; bottom: -30px; height: 34px;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0));
+}
+.dm-key { position: absolute; width: 3px; border-radius: 2px; background: linear-gradient(90deg, #2a2c36, #4a4d58); }
+.dm-key-1 { right: -2px; top: 25%; height: 10%; }
+.dm-key-2 { left: -2px; top: 19%; height: 6.5%; }
+.dm-key-3 { left: -2px; top: 27.5%; height: 6.5%; }
+.dm-bezel {
+  padding: 9px; border-radius: calc(var(--dm-r) + 9px); background: #050508;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
 }
 .dm-scr {
-  position: relative; width: var(--dm-w); height: var(--dm-h);
-  border-radius: calc(var(--dm-w) * 52 / 390); overflow: hidden; isolation: isolate;
-  container-type: inline-size; background: #fff;
-  /* the phone is always the light Migdal app, whatever the OS theme */
+  position: relative; width: var(--dm-w); height: var(--dm-h); border-radius: var(--dm-r);
+  overflow: hidden; isolation: isolate; container-type: inline-size; background: var(--dm-paper);
   color-scheme: light;
+}
+/* a faint reflection on the glass */
+.dm-scr::after {
+  content: ""; position: absolute; inset: 0; z-index: 40; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(118deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, 0) 26%);
 }
 #phone { position: absolute; inset: 0; }
 
-/* ---------- inside the phone: the demo's own header and day chip ---------- */
-.dm .mc-head { grid-template-columns: auto 1fr auto; padding-inline: calc(14 * var(--dpx)) calc(12 * var(--dpx)); }
-.dm .mc-head .mc-av { grid-row: 1 / span 2; grid-column: 1; }
-.dm .mc-who-title { grid-row: 1; grid-column: 2; display: flex; padding-bottom: calc(2 * var(--dpx)); }
-.dm .mc-who-title .dm-wm { font-size: calc(19 * var(--dpx)); }
-.dm .mc-who-sub { grid-row: 2; grid-column: 2; }
-/* the tower avatar in a mint disc */
-.dm .mc-av {
-  width: calc(38 * var(--dpx)); height: calc(38 * var(--dpx));
-  background: var(--mig-green);
-  box-shadow: 0 0 0 calc(2 * var(--dpx)) #fff, 0 0 0 calc(3 * var(--dpx)) rgba(2, 1, 64, .07);
-}
-.dm .mc-av-tower { background: var(--mig-ink); }
-.dm-hrestart {
-  grid-row: 1 / span 2; grid-column: 3; align-self: center;
-  display: none; align-items: center; gap: calc(5 * var(--dpx));
-  min-height: calc(32 * var(--dpx)); padding: 0 calc(10 * var(--dpx)); border-radius: 999px;
-  border: 1px solid var(--mig-line, #d4ddec); background: #fff;
-  color: var(--mig-slate-600, #5b658a); font-size: calc(12.5 * var(--dpx)); font-weight: 700; white-space: nowrap;
-}
-.dm-hrestart .mc-ic { width: calc(14 * var(--dpx)); height: calc(14 * var(--dpx)); }
-.dm-hrestart:active { background: var(--mig-mist, #f3f6fb); }
+/* ================= inside the phone ================= */
+.dm .dm-chat { background: var(--dm-paper); }
 
+/* ---------- the floating top bar: status bar, avatar, wordmark ---------- */
+.dm-bar {
+  position: absolute; z-index: 5; inset: 0 0 auto 0;
+  background: rgba(247, 248, 252, .74);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px); backdrop-filter: saturate(1.8) blur(20px);
+  border-bottom: 1px solid transparent; transition: border-color 240ms;
+}
+.dm-bar.dm-scrolled { border-bottom-color: var(--dm-hair); }
+.dm .mc-status {
+  position: relative; height: calc(50 * var(--dpx)); padding: calc(4 * var(--dpx)) calc(32 * var(--dpx)) 0;
+  background: transparent; font-size: calc(15.5 * var(--dpx)); letter-spacing: .01em;
+}
+.dm-island {
+  position: absolute; top: calc(11 * var(--dpx)); left: 50%; translate: -50% 0;
+  width: calc(116 * var(--dpx)); height: calc(33 * var(--dpx)); border-radius: 999px; background: #000;
+}
+.dm .mc-head {
+  grid-template-columns: auto 1fr auto; column-gap: calc(11 * var(--dpx));
+  padding: calc(2 * var(--dpx)) calc(16 * var(--dpx)) calc(11 * var(--dpx));
+  background: transparent; border: 0;
+}
+.dm .mc-head .mc-av { grid-row: 1 / span 2; grid-column: 1; }
+.dm .mc-who-title { grid-row: 1; grid-column: 2; display: flex; }
+.dm .mc-who-title .dm-wm { font-size: calc(18.5 * var(--dpx)); }
+.dm .mc-who-sub { grid-row: 2; grid-column: 2; margin-top: calc(3 * var(--dpx)); font-size: calc(12 * var(--dpx)); color: var(--dm-slate); }
+.dm .mc-av {
+  width: calc(38 * var(--dpx)); height: calc(38 * var(--dpx)); background: var(--dm-mint);
+  box-shadow: 0 0 0 calc(.5 * var(--dpx)) rgba(2, 1, 64, .12);
+}
+.dm .mc-av-tower { background: var(--dm-navy); }
+.dm-hrestart {
+  grid-row: 1 / span 2; grid-column: 3; align-self: center; display: none; place-items: center;
+  width: calc(34 * var(--dpx)); height: calc(34 * var(--dpx)); border-radius: 50%;
+  background: rgba(2, 1, 64, .05); color: var(--dm-slate);
+}
+.dm-hrestart .mc-ic { width: calc(16 * var(--dpx)); height: calc(16 * var(--dpx)); }
+.dm-hrestart:active { background: rgba(2, 1, 64, .1); }
+
+/* the wordmark (option F): LTR, "Care" in Migdal blue on light, a tiny "AI" at the top right in mint
+   (#a2eb9a on dark, the darker #74cf6f on white). .3em of the wordmark, never under 7px. */
+.dm-wm {
+  direction: ltr; unicode-bidi: isolate; display: inline-flex; align-items: flex-start; white-space: nowrap;
+  font-weight: 900; letter-spacing: -.015em; line-height: 1; color: var(--dm-navy);
+}
+.dm-wm .c { color: var(--dm-blue); }
+.dm-wm .n { font-size: max(.3em, 7px); font-weight: 900; color: var(--dm-mint-d); margin-inline-start: .08em; margin-top: .02em; letter-spacing: .04em; }
+
+/* ---------- the log: content scrolls under both bars ---------- */
+.dm .mc-log {
+  position: absolute; inset: 0; gap: calc(6 * var(--dpx));
+  padding-inline: calc(14 * var(--dpx)); background: var(--dm-paper);
+  scrollbar-width: none;
+}
+.dm .mc-log::-webkit-scrollbar { display: none; }
 .dm-day {
-  align-self: center; margin: calc(2 * var(--dpx)) 0 calc(4 * var(--dpx));
-  padding: calc(3 * var(--dpx)) calc(11 * var(--dpx)); border-radius: 999px;
-  background: #e6ecf6; color: var(--mig-slate-600, #5b658a);
-  font-size: calc(12 * var(--dpx)); font-weight: 700; line-height: 1.5;
+  align-self: center; margin: calc(2 * var(--dpx)) 0 calc(8 * var(--dpx));
+  color: var(--dm-slate-2); font-size: calc(11.5 * var(--dpx)); font-weight: 700; letter-spacing: .02em;
 }
 .dm-day-s { display: none; }
 
-/* ״הצצה לעתיד״: the tag on what the first stage does not do yet (the travel teaser) */
+/* ---------- bubbles ---------- */
+.dm .mc-msg {
+  max-width: 80%; padding: calc(9 * var(--dpx)) calc(14 * var(--dpx));
+  border-radius: calc(20 * var(--dpx)); font-size: calc(16 * var(--dpx)); line-height: 1.42;
+}
+.dm .mc-bot {
+  background: #fff; border: 0; border-end-start-radius: calc(7 * var(--dpx));
+  box-shadow: 0 0 0 .5px rgba(2, 1, 64, .13), 0 1px 2px rgba(2, 1, 64, .04);
+  transform-origin: 100% 100%;
+}
+.dm .mc-user {
+  margin-top: calc(8 * var(--dpx)); background: var(--dm-blue); color: #fff; box-shadow: none;
+  border-end-end-radius: calc(7 * var(--dpx)); transform-origin: 0 100%;
+}
+.dm .mc-user + .mc-bot, .dm .mc-user + .mc-typing { margin-top: calc(8 * var(--dpx)); }
+/* no one-word last lines */
+.dm .mc-msg p, .dm .mc-note p, .dm .mc-row-x, .dm .mc-cfoot { text-wrap: pretty; }
+.dm .mc-bot.mc-wide { width: 92%; max-width: 92%; padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
+
+/* the ״הצצה לעתיד״ tag */
 .dm-future {
-  display: inline-flex; align-items: center; gap: calc(4 * var(--dpx)); align-self: flex-start;
-  margin-bottom: calc(6 * var(--dpx)); padding: calc(2.5 * var(--dpx)) calc(9 * var(--dpx)); border-radius: 999px;
-  border: 1px dashed var(--mig-ink); background: #fff; color: var(--mig-ink);
+  display: inline-flex; align-items: center; gap: calc(4 * var(--dpx)); width: max-content;
+  margin-bottom: calc(6 * var(--dpx)); padding: calc(3 * var(--dpx)) calc(9 * var(--dpx)); border-radius: 999px;
+  background: rgba(60, 101, 227, .09); color: #2a49ad;
   font-size: calc(11.5 * var(--dpx)); font-weight: 700; line-height: 1.3; white-space: nowrap;
 }
-.dm-future .mc-ic { width: calc(12 * var(--dpx)); height: calc(12 * var(--dpx)); color: var(--mig-blue); }
-.mc-msg > .dm-future { display: flex; width: max-content; }
-.dm-card-future { background: #fff; border: calc(1.2 * var(--dpx)) dashed #b9c6e6; }
-.dm-card-future > .dm-future { margin-bottom: 0; }
+.dm-future .mc-ic { width: calc(12 * var(--dpx)); height: calc(12 * var(--dpx)); }
+.mc-msg > .dm-future { display: flex; }
 
-/* the travel teaser's checklist: numbered steps */
-.dm-steps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: calc(8 * var(--dpx)); }
-.dm-steps-list li { display: flex; align-items: flex-start; gap: calc(9 * var(--dpx)); font-size: calc(15 * var(--dpx)); line-height: 1.45; }
+/* ---------- cards: air, a hairline, no boxes inside boxes ---------- */
+.dm .mc-card {
+  gap: calc(12 * var(--dpx)); padding: calc(16 * var(--dpx));
+  background: #fff; border: 0; border-radius: calc(22 * var(--dpx)); border-end-start-radius: calc(8 * var(--dpx));
+  box-shadow: 0 0 0 .5px rgba(2, 1, 64, .13), 0 8px 24px -16px rgba(2, 1, 64, .22);
+  font-size: calc(15 * var(--dpx)); line-height: 1.45;
+}
+.dm .mc-card-head { gap: calc(6 * var(--dpx)) calc(10 * var(--dpx)); }
+.dm .mc-card-title { font-size: calc(17 * var(--dpx)); letter-spacing: -.005em; }
+.dm .mc-dot { font-size: calc(13 * var(--dpx)); }
+.dm .mc-tag { padding: calc(3 * var(--dpx)) calc(8 * var(--dpx)); border-radius: 999px; background: var(--mig-mist, #f3f6fb); color: var(--dm-slate); font-size: calc(11.5 * var(--dpx)); }
+.dm .mc-tag-strong { background: var(--mig-tint, #e3eef8); color: var(--mig-ink-2, #212058); margin-inline-start: auto; }
+/* colours: core palette only */
+.dm .mc-c-green { --c: var(--dm-navy); --dotc: var(--dm-mint-d); }
+.dm .mc-c-indigo { --c: var(--dm-blue); --dotc: var(--dm-blue); }
+.dm .mc-c-amber { --c: var(--dm-navy); --dotc: var(--dm-navy); }
+.dm .mc-c-slate, .dm .mc-c-grey { --c: var(--dm-slate); --dotc: #c3cbe0; }
+.dm .mc-row.mc-c-amber { background: rgba(2, 1, 64, .04); }
+.dm .mc-row.mc-c-amber .mc-row-x { color: var(--dm-navy); }
+
+.dm .mc-meter { gap: calc(8 * var(--dpx)); }
+.dm .mc-meter-t { padding: calc(11 * var(--dpx)) calc(4 * var(--dpx)) calc(9 * var(--dpx)); border-radius: calc(16 * var(--dpx)); background: var(--dm-paper); }
+.dm .mc-meter-t b { font-size: calc(27 * var(--dpx)); letter-spacing: -.02em; }
+.dm .mc-meter-t span { font-size: calc(12 * var(--dpx)); }
+.dm .mc-meter-t.mc-hi { background: var(--dm-mint); }
+
+.dm .mc-rows { gap: 0; }
+.dm .mc-row { padding-block: calc(9 * var(--dpx)); font-size: calc(15 * var(--dpx)); line-height: 1.4; }
+.dm .mc-row:first-child { padding-top: calc(2 * var(--dpx)); }
+.dm .mc-row:last-child { padding-bottom: 0; }
+.dm .mc-row + .mc-row { border-top: 1px solid rgba(2, 1, 64, .06); }
+.dm .mc-row-dot { width: calc(7 * var(--dpx)); height: calc(7 * var(--dpx)); margin-top: calc(7.5 * var(--dpx)); }
+.dm .mc-status-line { margin: 0; padding: 0; background: none; color: var(--dm-slate); font-size: calc(12.5 * var(--dpx)); }
+.dm-card-end { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: calc(4 * var(--dpx)) calc(10 * var(--dpx)); }
+.dm-card-end:empty { display: none; }
+.dm .mc-card-foot { margin: 0; padding: 0; border: 0; color: var(--dm-slate-2); font-size: calc(11.5 * var(--dpx)); }
+.dm .mc-link { font-size: calc(13.5 * var(--dpx)); color: var(--dm-blue); }
+.dm .mc-source { font-weight: 700; }
+
+/* the note under the coverage card */
+.dm .mc-note {
+  gap: calc(10 * var(--dpx)); padding: calc(12 * var(--dpx)) calc(14 * var(--dpx));
+  border: 0; border-radius: calc(20 * var(--dpx)); border-end-start-radius: calc(8 * var(--dpx));
+  font-size: calc(15 * var(--dpx)); line-height: 1.45;
+}
+.dm .mc-note > .mc-ic { width: calc(17 * var(--dpx)); height: calc(17 * var(--dpx)); }
+.dm .mc-note-info { background: rgba(60, 101, 227, .075); color: var(--mig-ink-2, #212058); }
+.dm .mc-note-info > .mc-ic { color: var(--dm-blue); }
+.dm .mc-note-flat, .dm .mc-note-warn { background: #fff; color: var(--mig-ink-2, #212058); box-shadow: 0 0 0 .5px rgba(2, 1, 64, .13); }
+.dm .mc-note-flat > .mc-ic, .dm .mc-note-warn > .mc-ic { color: var(--dm-slate); }
+
+/* in-network providers: a list with hairlines, not boxes */
+.dm .dm-prov { gap: calc(8 * var(--dpx)); padding-block: calc(6 * var(--dpx)) calc(14 * var(--dpx)); }
+.dm-prov-list { list-style: none; margin: 0; padding: 0; }
+.dm-prov-list li { display: flex; align-items: center; gap: calc(12 * var(--dpx)); padding-block: calc(11 * var(--dpx)); }
+.dm-prov-list li + li { border-top: 1px solid rgba(2, 1, 64, .06); }
+.dm-prov-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: calc(3 * var(--dpx)); }
+.dm-prov-name { font-size: calc(15.5 * var(--dpx)); font-weight: 700; line-height: 1.3; }
+.dm-prov-meta { display: flex; flex-wrap: wrap; gap: calc(2 * var(--dpx)) calc(12 * var(--dpx)); color: var(--dm-slate); font-size: calc(13 * var(--dpx)); }
+.dm-prov-meta > span { display: inline-flex; align-items: center; gap: calc(4 * var(--dpx)); }
+.dm-prov-meta .mc-ic { width: calc(13.5 * var(--dpx)); height: calc(13.5 * var(--dpx)); }
+.dm-prov-price {
+  flex: none; padding: calc(4 * var(--dpx)) calc(10 * var(--dpx)); border-radius: 999px;
+  background: var(--dm-mint); color: var(--dm-navy); font-size: calc(13.5 * var(--dpx)); font-weight: 900; white-space: nowrap;
+}
+.dm-prov-foot { display: flex; flex-direction: column; gap: calc(4 * var(--dpx)); padding-top: calc(10 * var(--dpx)); border-top: 1px solid rgba(2, 1, 64, .06); }
+.dm .mc-disclosure { color: var(--dm-slate); font-size: calc(12.5 * var(--dpx)); }
+
+/* compare: two soft panels */
+.dm .mc-compare { gap: calc(8 * var(--dpx)); padding: calc(8 * var(--dpx)); }
+.dm .mc-col { padding: calc(12 * var(--dpx)); border: 0; border-radius: calc(16 * var(--dpx)); background: var(--dm-paper); }
+.dm .mc-col.mc-hi { background: rgba(162, 235, 154, .28); box-shadow: none; }
+.dm .mc-col-t { margin-bottom: calc(6 * var(--dpx)); font-size: calc(14.5 * var(--dpx)); }
+.dm .mc-col ul { gap: calc(4 * var(--dpx)); font-size: calc(14 * var(--dpx)); }
+
+/* confirmation */
+.dm .mc-confirm { background: #fff; }
+.dm .mc-confirm-head { gap: calc(12 * var(--dpx)); }
+.dm .mc-confirm-head b { font-size: calc(17 * var(--dpx)); }
+.dm .mc-confirm-ic { width: calc(40 * var(--dpx)); height: calc(40 * var(--dpx)); background: var(--dm-mint); color: var(--dm-navy); }
+.dm .mc-confirm-ic .mc-ic { width: calc(19 * var(--dpx)); height: calc(19 * var(--dpx)); }
+.dm .mc-kv { gap: 0; font-size: calc(15 * var(--dpx)); }
+.dm .mc-kv-r { padding-block: calc(8 * var(--dpx)); grid-template-columns: minmax(calc(64 * var(--dpx)), max-content) 1fr; }
+.dm .mc-kv-r + .mc-kv-r { border-top: 1px solid rgba(2, 1, 64, .06); }
+.dm .mc-kv dt { font-size: calc(13.5 * var(--dpx)); color: var(--dm-slate); }
+.dm .mc-cfoot { color: var(--dm-slate); font-size: calc(13 * var(--dpx)); }
+.dm .dm-card-future { box-shadow: inset 0 0 0 calc(1.2 * var(--dpx)) rgba(60, 101, 227, .28); }
+.dm .dm-card-future > .dm-future { margin-bottom: 0; }
+
+/* consent */
+.dm .mc-consent .mc-actions { gap: calc(8 * var(--dpx)); }
+.dm .mc-btn { min-height: calc(44 * var(--dpx)); border-radius: 999px; font-size: calc(15 * var(--dpx)); }
+.dm .mc-btn-primary { background: var(--dm-mint); color: var(--dm-navy); }
+.dm .mc-btn-ghost { background: var(--dm-paper); border: 0; color: var(--dm-navy); }
+.dm .mc-rule { border-radius: calc(14 * var(--dpx)); background: rgba(60, 101, 227, .07); color: var(--mig-ink-2, #212058); font-size: calc(13.5 * var(--dpx)); }
+
+/* layers (שב״ן) */
+.dm .mc-layer-list { gap: calc(6 * var(--dpx)); }
+.dm .mc-layer-row { padding: calc(10 * var(--dpx)) calc(12 * var(--dpx)); border-radius: calc(14 * var(--dpx)); background: var(--dm-paper); font-size: calc(14.5 * var(--dpx)); }
+.dm .mc-layer-row.mc-hi { background: rgba(162, 235, 154, .3); box-shadow: none; color: var(--dm-navy); }
+.dm .mc-layer-row .mc-tag { background: #fff; }
+
+/* claim timeline */
+.dm .mc-tl li { padding-bottom: calc(14 * var(--dpx)); }
+.dm .mc-tl-body b { font-size: calc(15 * var(--dpx)); }
+.dm .mc-tl-future .mc-tl-body b { color: var(--dm-slate-2); }
+.dm .mc-tl-note { color: var(--dm-slate); font-size: calc(13 * var(--dpx)); }
+.dm .mc-tl-foot { padding-top: calc(10 * var(--dpx)); border-top: 1px solid rgba(2, 1, 64, .06); }
+.dm .mc-chipstat { margin-inline-start: auto; background: rgba(60, 101, 227, .09); color: #2a49ad; border-radius: 999px; }
+
+/* the travel teaser's checklist */
+.dm .dm-steps { gap: calc(10 * var(--dpx)); }
+.dm-steps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.dm-steps-list li { display: flex; align-items: flex-start; gap: calc(11 * var(--dpx)); padding-block: calc(8 * var(--dpx)); font-size: calc(15 * var(--dpx)); line-height: 1.45; }
+.dm-steps-list li + li { border-top: 1px solid rgba(2, 1, 64, .06); }
 .dm-step-n {
   flex: none; width: calc(22 * var(--dpx)); height: calc(22 * var(--dpx)); margin-top: calc(1 * var(--dpx)); border-radius: 50%;
-  display: grid; place-items: center; background: var(--mig-ink); color: var(--mig-green);
-  font-size: calc(12.5 * var(--dpx)); font-weight: 900; font-variant-numeric: tabular-nums;
+  display: grid; place-items: center; background: var(--dm-navy); color: var(--dm-mint);
+  font-size: calc(12 * var(--dpx)); font-weight: 900; font-variant-numeric: tabular-nums;
 }
+
+/* ---------- chips: soft pills ---------- */
+.dm .mc-chips { gap: calc(8 * var(--dpx)); padding: calc(6 * var(--dpx)) 0 calc(2 * var(--dpx)); }
+.dm .mc-chip {
+  min-height: calc(36 * var(--dpx)); padding: calc(8 * var(--dpx)) calc(15 * var(--dpx));
+  border: 0; border-radius: 999px; box-shadow: none;
+  background: rgba(60, 101, 227, .09); color: #2a49ad;
+  font-size: calc(14.5 * var(--dpx)); font-weight: 700; line-height: 1.3;
+  transition: background 200ms, transform 220ms var(--dm-spring);
+}
+.dm .mc-chip:hover:not([disabled]) { background: rgba(60, 101, 227, .15); border-color: transparent; }
+.dm .mc-chip.mc-star { background: var(--dm-mint); color: var(--dm-navy); }
+.dm .mc-chip.mc-star:hover:not([disabled]) { background: #95e38c; }
+.dm .mc-chip.mc-alt { background: rgba(2, 1, 64, .05); color: var(--dm-slate); font-weight: 700; }
+.dm .mc-chip:active:not([disabled]) { transform: scale(.95); }
+.dm .mc-chip span { overflow-wrap: anywhere; }
+
+/* ---------- typing ---------- */
+.dm .mc-typing {
+  gap: calc(5 * var(--dpx)); padding: calc(13 * var(--dpx)) calc(15 * var(--dpx));
+  background: #fff; border: 0; border-radius: calc(20 * var(--dpx)); border-end-start-radius: calc(7 * var(--dpx));
+  box-shadow: 0 0 0 .5px rgba(2, 1, 64, .13), 0 1px 2px rgba(2, 1, 64, .04);
+}
+.dm .mc-typing i { width: calc(7 * var(--dpx)); height: calc(7 * var(--dpx)); background: #a3abc4; }
+
+/* ---------- composer: iMessage ---------- */
+.dm .mc-composer {
+  position: absolute; z-index: 5; inset: auto 0 0 0; display: block;
+  padding: calc(8 * var(--dpx)) calc(12 * var(--dpx)) calc(10 * var(--dpx) + env(safe-area-inset-bottom, 0px));
+  background: rgba(247, 248, 252, .8);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px); backdrop-filter: saturate(1.8) blur(20px);
+  border-top: 1px solid var(--dm-hair);
+}
+.dm-field { position: relative; display: flex; }
+.dm .mc-input {
+  flex: 1; height: calc(40 * var(--dpx)); border-radius: 999px;
+  padding-inline: calc(16 * var(--dpx)) calc(46 * var(--dpx));
+  background: #fff; border: 1px solid rgba(2, 1, 64, .12); font-weight: 300;
+}
+.dm .mc-input:focus { border-color: rgba(60, 101, 227, .45); background: #fff; box-shadow: 0 0 0 3px rgba(60, 101, 227, .1); }
+.dm .mc-input::placeholder { color: var(--dm-slate-2); }
+.dm .mc-send {
+  position: absolute; inset-inline-end: calc(5 * var(--dpx)); top: 50%; translate: 0 -50%;
+  width: calc(30 * var(--dpx)); height: calc(30 * var(--dpx)); background: var(--dm-blue); color: #fff;
+  transition: opacity 200ms, transform 160ms var(--dm-spring), background 200ms;
+}
+.dm .mc-send .mc-ic { width: calc(17 * var(--dpx)); height: calc(17 * var(--dpx)); stroke-width: 2.4; }
+.dm .mc-send:hover { background: #2f56d6; }
+.dm .dm-empty .mc-send { opacity: .3; }
+.dm .mc-send.mc-press, .dm .mc-send:active { transform: scale(.88); }
+/* the field keeps the chat's scale in the desktop frame (chat.css holds it at 16px or more, for phones) */
+@media (min-width: 520px) and (hover: hover) and (pointer: fine) {
+  .dm .mc-input { font-size: calc(16 * var(--dpx)); }
+}
+
+/* sheet and toast, softer */
+.dm .mc-sheet { border-radius: calc(26 * var(--dpx)) calc(26 * var(--dpx)) 0 0; padding: calc(22 * var(--dpx)) calc(20 * var(--dpx)) calc(20 * var(--dpx) + env(safe-area-inset-bottom, 0px)); }
+.dm .mc-toast { bottom: calc(86 * var(--dpx)); }
 
 /* the short joining hyphen (same as the deck): the clip keeps the middle of the RagSans bar */
 @supports (clip-path: inset(0 27%)) {
   .dm .mc-hy { clip-path: inset(0 27%); margin-inline: -.08em; }
 }
 
-/* the composer is live: a text field that looks it */
-.dm .mc-input:focus { border-color: #b8c8f2; background: #fff; box-shadow: 0 0 0 3px rgba(60, 101, 227, .12); }
-.dm .mc-send:hover { background: #12115a; }
-/* the field keeps the chat's scale in the desktop frame (chat.css holds it at 16px or more, for phones) */
-@media (min-width: 520px) and (hover: hover) and (pointer: fine) {
-  .dm .mc-input { font-size: calc(16 * var(--dpx)); }
+/* ---------- motion: a soft spring rise ---------- */
+@keyframes dm-rise { from { opacity: 0; transform: translateY(calc(14 * var(--dpx))) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes dm-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dm-dot { 0%, 60%, 100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(calc(-3 * var(--dpx))); opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  .dm .mc-msg { animation: dm-rise 560ms var(--dm-spring) both; }
+  .dm .mc-chip { animation: dm-rise 520ms var(--dm-spring) both; animation-delay: calc(var(--i, 0) * 45ms + 40ms); }
+  .dm .mc-typing { animation: dm-fade 220ms ease-out both; }
+  .dm .mc-typing i { animation: dm-dot 1.1s ease-in-out infinite; }
+  .dm .mc-typing i:nth-child(2) { animation-delay: .14s; }
+  .dm .mc-typing i:nth-child(3) { animation-delay: .28s; }
+  .dm-day { animation: dm-fade 600ms ease-out both; }
 }
-/* a long chip label wraps inside the chip, never past the screen */
-.dm .mc-chip span { overflow-wrap: anywhere; }
 
 /* ---------- a phone: the chat is the whole screen ---------- */
 @media (max-width: 519.98px) {
-  body.dm { background: #fff; background-image: none; }
+  body.dm { background: var(--dm-paper); }
+  .dm-glow, .dm-top, .dm-caption, .dm-key { display: none; }
   .dm-stage { display: block; min-height: 0; padding: 0; }
-  .dm-cap { display: none; }
-  .dm-device { padding: 0; border-radius: 0; box-shadow: none; background: none; }
+  .dm-device, .dm-bezel { padding: 0; border-radius: 0; box-shadow: none; background: none; }
+  .dm-device::after, .dm-scr::after { display: none; }
   .dm-scr { position: fixed; inset: 0 0 auto 0; width: 100%; height: var(--vvh, 100dvh); border-radius: 0; }
   .dm .mc-status { display: none; }
   .dm .mc-head {
-    padding-top: calc(8px + env(safe-area-inset-top, 0px));
-    padding-inline: calc(14px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-left, 0px));
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    padding-inline: calc(16px + env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-left, 0px));
   }
-  .dm .mc-log { padding-inline: calc(12px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-left, 0px)); }
+  .dm .mc-log { padding-inline: calc(14px + env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-left, 0px)); }
   .dm .mc-composer { padding-inline: calc(12px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-left, 0px)); }
-  .dm-hrestart { display: inline-flex; }
+  .dm-hrestart { display: grid; }
   .dm-day-s { display: inline; }
-}
-@media (max-width: 359.98px) {
-  .dm-hrestart span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .dm-hrestart { padding: 0; width: 32px; justify-content: center; }
 }
 
 /* ---------- a phone held sideways: a full-height column, no frame ---------- */
 @media (min-width: 520px) and (max-height: 559.98px) and (pointer: coarse) {
-  body.dm { background-attachment: scroll; }
+  .dm-top, .dm-caption, .dm-key { display: none; }
   .dm-stage { padding: 0; min-height: 0; }
-  .dm-cap { display: none; }
-  .dm-device { padding: 0; border-radius: 0; box-shadow: none; background: none; }
+  .dm-device, .dm-bezel { padding: 0; border-radius: 0; box-shadow: none; background: none; }
+  .dm-device::after, .dm-scr::after { display: none; }
   .dm-scr { width: min(100vw, 560px); height: var(--vvh, 100dvh); border-radius: 0; }
   .dm .screen { --dpx: 1px; }
   .dm .mc-status { display: none; }
-  .dm-hrestart { display: inline-flex; }
+  .dm .mc-head { padding-top: calc(8px + env(safe-area-inset-top, 0px)); }
+  .dm-hrestart { display: grid; }
   .dm-day-s { display: inline; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dm-restart, .dm .mc-chip { transition: none; }
+  .dm-restart, .dm .mc-chip, .dm .mc-send, .dm-bar { transition: none; }
 }
 </style>
 <script>
@@ -1136,16 +1388,21 @@ body.dm {
 </defs>
 </svg>
 
+<div class="dm-glow" aria-hidden="true"><i></i><i></i><i></i></div>
 <main class="dm-stage">
-  <header class="dm-cap">
-    <p class="dm-cap-t"><bdi class="en dm-wm" aria-label="Migdal Care AI">Migdal&nbsp;<span class="c">Care</span><span class="n">AI</span></bdi><span class="dm-sep" aria-hidden="true">·</span>הדגמה<span class="dm-sep" aria-hidden="true">·</span>נתוני דוגמה</p>
-    <button type="button" class="dm-restart" data-restart><svg class="ic" aria-hidden="true"><use href="#i-rotate-ccw"/></svg><span>התחלה מחדש</span></button>
+  <header class="dm-top">
+    <bdi class="en dm-wm" aria-label="Migdal Care AI">Migdal&nbsp;<span class="c">Care</span><span class="n">AI</span></bdi>
+    <button type="button" class="dm-restart" data-restart aria-label="התחלה מחדש" title="התחלה מחדש"><svg class="ic" aria-hidden="true"><use href="#i-rotate-ccw"/></svg></button>
   </header>
   <div class="dm-device">
-    <div class="dm-scr">
-      <div id="phone" aria-label="הטלפון של הלקוח, צ׳אט לדוגמה"></div>
+    <i class="dm-key dm-key-1" aria-hidden="true"></i><i class="dm-key dm-key-2" aria-hidden="true"></i><i class="dm-key dm-key-3" aria-hidden="true"></i>
+    <div class="dm-bezel">
+      <div class="dm-scr">
+        <div id="phone" aria-label="הטלפון של הלקוח, צ׳אט לדוגמה"></div>
+      </div>
     </div>
   </div>
+  <p class="dm-caption">הדגמה · נתוני דוגמה</p>
 </main>
 <script>/* Migdal Care v3 · router.js · free-text router. Pure logic, no DOM.
 
@@ -1472,15 +1729,20 @@ body.dm {
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
 <script>/* Migdal Care v3 · demo.js · the demo: one phone, one free chat, one sample customer (עמית).
-   Self-contained: it needs only router.js (window.MCRouter) and the chat.css classes. No network, no storage.
+   Self-contained: it needs only router.js (window.MCRouter) and the chat.css classes (demo.css refines them).
+   No network, no storage.
 
    Flow of a turn: a chip click or the composer -> resolve() (context first: a yes/no the bot asked for, a chip
-   label, a value the bot is waiting for; then MCRouter.intent) -> play(node) renders the node's bot items one by
-   one behind the typing dots, then its chips. Every node ends with chips, so the chat never dead-ends.
+   label, a value the bot is waiting for; then MCRouter.intent) -> play(node): the typing dots for 0.9 to 1.4s
+   (by length), then the node's bubbles 250 to 350ms apart, then its chips. Every node ends with chips.
 
    Deep link: #s=physio | specialist | surgery | claim | travel | car (old S1, S2, S7, S8, S6 map to them) auto-sends
    that question after the greeting. The car sales lead is reachable by typing only (no chip offers it); travel is a
-   future teaser for all insurance lines (״הצצה לעתיד״). Any other hash shows the greeting only. window.MCDemo = { send, restart } (tests).
+   future teaser for all insurance lines (״הצצה לעתיד״). Any other hash shows the greeting only.
+   window.MCDemo = { send, restart, state } (tests).
+
+   The screen: a translucent top bar (status bar on desktop, avatar, wordmark) and an iMessage-style composer float
+   over the log, which scrolls under both; their heights set the log's padding (ResizeObserver).
 
    Copy rules (lint): gender-neutral customer copy, the assistant speaks of itself in the past or future only
    ("בדקתי", "אעביר"), Hebrew quotes ״ and geresh ׳, an amount and its ₪ joined by a no-break space. */
@@ -1494,21 +1756,21 @@ body.dm {
 
   /* ---------------- sample data (נתוני דוגמה) ---------------- */
   const CLOCK = '22:47';
-  const FOOT = 'המספרים ממערכות מגדל · הניסוח: AI';
-  const DISCLOSURE = 'נותני שירות בהסדר עובדים בהסכם עם מגדל, ולכן המחיר קבוע מראש. אפשר לבחור גם כל נותן שירות אחר, במסלול ההחזר.';
+  const FOOT = 'ממערכות מגדל · הניסוח: AI';
+  const DISCLOSURE = 'אפשר לבחור גם כל נותן שירות אחר, במסלול ההחזר.';
   const SPECS = (R && R.specs) || {};
   const SPEC_ANY = { sg: 'רופא מומחה', pl: 'רופאים מומחים', subs: [] };
   const ORGANS = {};
   ((R && R.organs) || []).forEach(o => { ORGANS[o.k] = o; });
 
   const PHYSIO_PROV = [
-    { name: 'מכון פיזיותרפיה · רמת גן', dist: '1.2 ק״מ', price: ILS(60), reasons: ['בהסדר', ILS(60), 'תור מחר'], when: 'מחר, 17:30' },
-    { name: 'מרכז שיקום וספורט · גבעתיים', dist: '2.8 ק״מ', price: ILS(60), reasons: ['בהסדר', ILS(60), 'תור ביום ה׳'], when: 'יום ה׳ 15.10, 08:15' },
-    { name: 'קליניקת פיזיותרפיה · תל אביב', dist: '4.1 ק״מ', price: ILS(60), reasons: ['בהסדר', ILS(60), 'תור ביום א׳'], when: 'יום א׳ 18.10, 19:00' }
+    { name: 'מכון פיזיותרפיה, רמת גן', dist: '1.2 ק״מ', when: 'מחר, 17:30', price: ILS(60) },
+    { name: 'מרכז שיקום וספורט, גבעתיים', dist: '2.8 ק״מ', when: 'יום ה׳, 08:15', price: ILS(60) },
+    { name: 'קליניקת פיזיותרפיה, תל אביב', dist: '4.1 ק״מ', when: 'יום א׳, 19:00', price: ILS(60) }
   ];
   const docProv = sp => [
-    { name: sp.sg + (sp.subs[0] || '') + ' · מרפאת מומחים, רמת גן', dist: '1.5 ק״מ', price: ILS(0), reasons: ['בהסדר', ILS(0) + ' מהכיס', 'תור מחר'], when: 'מחר, 10:20' },
-    { name: sp.sg + (sp.subs[1] || '') + ' · מרכז רפואי, תל אביב', dist: '3.9 ק״מ', price: ILS(0), reasons: ['בהסדר', ILS(0) + ' מהכיס', 'תור ביום ה׳'], when: 'יום ה׳ 15.10, 16:40' }
+    { name: sp.sg + (sp.subs[0] || '') + ' · רמת גן', dist: '1.5 ק״מ', when: 'מחר, 10:20', price: ILS(0) },
+    { name: sp.sg + (sp.subs[1] || '') + ' · תל אביב', dist: '3.9 ק״מ', when: 'יום ה׳, 16:40', price: ILS(0) }
   ];
   const surgeonProv = o => {
     let a, b;
@@ -1517,8 +1779,8 @@ body.dm {
     else if (o.k === 'knee' || o.k === 'shoulder') { a = 'אורתופד מנתח, ' + o.l; b = 'אורתופד מנתח, ברך וכתף'; }
     else { a = 'אורתופד מנתח, ' + o.l; b = 'אורתופד מנתח, ' + o.l; }
     return [
-      { name: a + ' · מרכז רפואי פרטי, תל אביב', dist: '4.0 ק״מ', price: ILS(0) + ' · תשלום ישיר', reasons: ['בהסדר', ILS(0) + ' מהכיס', 'ייעוץ ביום ה׳'], when: 'ייעוץ · יום ה׳ 15.10, 16:00' },
-      { name: b + ' · מרכז רפואי פרטי, פתח תקווה', dist: '9.5 ק״מ', price: ILS(0) + ' · תשלום ישיר', reasons: ['בהסדר', ILS(0) + ' מהכיס', 'ייעוץ ביום ג׳'], when: 'ייעוץ · יום ג׳ 20.10, 09:40' }
+      { name: a + ' · תל אביב', dist: '4.0 ק״מ', when: 'ייעוץ ביום ה׳, 16:00', price: ILS(0) },
+      { name: b + ' · פתח תקווה', dist: '9.5 ק״מ', when: 'ייעוץ ביום ג׳, 09:40', price: ILS(0) }
     ];
   };
 
@@ -1530,12 +1792,12 @@ body.dm {
 
   /* what a callback is about, per topic: the confirmation card's title and its "בנושא" line */
   const TOPICS = {
-    physio: { coord: 1, subject: () => 'פיזיותרפיה במכון בהסדר' },
+    physio: { coord: 1, subject: () => 'פיזיותרפיה בהסדר' },
     specialist: { coord: 1, subject: () => 'התייעצות עם ' + specOf().sg + ' בהסדר' },
-    surgery: { coord: 1, subject: () => 'ייעוץ טרום ניתוח ואישור מראש' },
+    surgery: { coord: 1, subject: () => 'ייעוץ לפני ניתוח ואישור מראש' },
     mri: { subject: () => 'בדיקת MRI ואישור מראש' },
     claim: { subject: () => 'התביעה 77-10394' },
-    dental: { subject: () => 'בירור אפשרויות לטיפולי שיניים' },
+    dental: { subject: () => 'אפשרויות לטיפולי שיניים' },
     general: { subject: () => 'המשך השיחה' }
   };
 
@@ -1575,7 +1837,7 @@ body.dm {
     svg.appendChild(use);
     return svg;
   }
-  /* "Migdal Care" -> <bdi class="en">; Latin-led tokens (MC-20417, SMS, MRI, AI) -> <bdi>.
+  /* "Migdal Care" -> <bdi class="en">; Latin-led tokens (MC-20417, SMS, MRI, AI) and 24/7 -> <bdi>.
      RagSans draws "-" about as wide as an en dash, so a joining hyphen ("ב-1.10", "ב-SMS", "MC-20417") is drawn
      short, as in the deck: <span class="mc-hy">-</span> (demo.css clips it; textContent is unchanged). */
   const LATIN = /(Migdal Care)|([A-Za-z][A-Za-z0-9]*(?:[-.][A-Za-z0-9]+)*|\d+\/\d+)/g;
@@ -1594,7 +1856,7 @@ body.dm {
       if (last < s.length) hyText(frag, s.slice(last), joinedNext);
       return;
     }
-    const rx = /[\u05d0-\u05ea]-/g;
+    const rx = /[א-ת]-/g;
     let last = 0, m;
     while ((m = rx.exec(s))) {
       const at = m.index + 1, after = s.charAt(at + 1);
@@ -1638,34 +1900,33 @@ body.dm {
     t: 'coverage', title: 'פיזיותרפיה', status: 'מכוסה', tag: 'דרך העבודה',
     meter: [{ n: 12, l: 'בשנה' }, { n: 3, l: 'נוצלו' }, { n: 9, l: 'נותרו', hi: 1, count: 1 }],
     rows: [
-      { c: 'green', x: 'אצל מטפל בהסדר: ' + ILS(60) + ' לטיפול, בלי תשלום מראש ובלי תביעה' },
-      { c: 'green', x: 'אצל מטפל שלא בהסדר: החזר של 70% מהעלות, עד ' + ILS(150) + ' לטיפול, דרך תביעה' },
-      { c: 'indigo', x: 'נדרשת הפניה מרופא' },
-      { c: 'slate', x: 'בתוקף עד 31.12.2026' }
+      { c: 'green', x: 'בהסדר: ' + ILS(60) + ' לטיפול, בלי תשלום מראש ובלי תביעה' },
+      { c: 'green', x: 'שלא בהסדר: החזר של 70%, עד ' + ILS(150) + ' לטיפול' },
+      { c: 'indigo', x: 'נדרשת הפניה מרופא' }
     ],
-    source: { l: 'המקור: פרק השירותים האמבולטוריים, סעיף 4.2',
+    source: { l: 'המקור: סעיף 4.2',
       body: 'פיזיותרפיה: עד 12 טיפולים בשנת ביטוח, בהפניית רופא. אצל נותן שירות בהסדר, השתתפות עצמית של ' + ILS(60) + ' לטיפול. אצל נותן שירות שאינו בהסדר, החזר של 70% מהעלות ועד ' + ILS(150) + ' לטיפול.' }
   });
   const covSpec = () => ({
     t: 'coverage', title: 'התייעצות עם רופא מומחה', status: 'מכוסה', tag: 'דרך העבודה',
     meter: [{ n: 3, l: 'בשנה' }, { n: 1, l: 'נוצלה' }, { n: 2, l: 'נותרו', hi: 1, count: 1 }],
     rows: [
-      { c: 'green', x: 'אצל רופא בהסדר: בלי השתתפות עצמית' },
-      { c: 'green', x: 'אצל רופא שלא בהסדר: החזר עד ' + ILS(800) + ' להתייעצות, דרך תביעה' },
+      { c: 'green', x: 'בהסדר: בלי השתתפות עצמית' },
+      { c: 'green', x: 'שלא בהסדר: החזר עד ' + ILS(800) },
       { c: 'slate', x: 'בלי צורך בהפניה' }
     ],
-    source: { l: 'המקור: פרק ההתייעצויות, סעיף 2.1',
+    source: { l: 'המקור: סעיף 2.1',
       body: 'התייעצות עם רופא מומחה: עד 3 התייעצויות בשנת ביטוח, בלי צורך בהפניה. אצל רופא בהסדר, בלי השתתפות עצמית. אצל רופא שאינו בהסדר, החזר עד ' + ILS(800) + ' להתייעצות.' }
   });
   const covSurgery = title => ({
     t: 'coverage', title: title, status: 'מכוסה', tag: 'פרטית',
     rows: [
-      { c: 'indigo', x: 'נדרש אישור מראש, לפני הניתוח' },
-      { c: 'green', x: 'אצל מנתח בהסדר: תשלום ישיר למנתח ולמוסד, ' + ILS(0) + ' מהכיס' },
-      { c: 'green', x: 'אצל מנתח שלא בהסדר: החזר עד תקרת הפוליסה, דרך תביעה' }
+      { c: 'indigo', x: 'נדרש אישור מראש' },
+      { c: 'green', x: 'בהסדר: תשלום ישיר, ' + ILS(0) + ' מהכיס' },
+      { c: 'green', x: 'שלא בהסדר: החזר עד תקרת הפוליסה' }
     ],
     statusLine: 'לפי הפוליסה · ההחלטה הסופית באישור המראש',
-    source: { l: 'המקור: פרק הניתוחים, סעיף 3.1',
+    source: { l: 'המקור: סעיף 3.1',
       body: 'ניתוחים: מכוסים בכפוף לאישור מראש. אצל מנתח בהסדר, התשלום ישירות למנתח ולמוסד, בלי השתתפות עצמית. אצל מנתח שאינו בהסדר, החזר עד תקרת הפוליסה.' }
   });
 
@@ -1675,7 +1936,7 @@ body.dm {
   const CANCEL = { cancel: true };
   function fresh() {
     return { visited: {}, leads: {}, lead: 20417, topic: null, spec: null, organ: null, shaban: null, shabanOpen: false,
-      car: {}, prov: {}, chips: [], specs: [], expect: null, capture: null, cbTopic: null, chain: Promise.resolve() };
+      car: {}, prov: {}, chips: [], specs: [], expect: null, capture: null, cbTopic: null, travelClaim: null, chain: Promise.resolve() };
   }
   const specOf = () => SPECS[S.spec] || SPEC_ANY;
 
@@ -1758,7 +2019,7 @@ body.dm {
   /* ---------------- the conversation ---------------- */
   const NODES = {
     greet: () => ({
-      bot: [txt('היי עמית, כאן Migdal Care, עוזר AI מטעם מגדל. אבדוק כל שאלה לפי הפוליסות שלך, ואפשר לבקש נציג בכל שלב.')],
+      bot: [txt('היי עמית, כאן Migdal Care, עוזר AI מטעם מגדל.'), txt('אבדוק כל שאלה לפי הפוליסות שלך. במה אפשר לעזור?')],
       chips: OPEN(), many: 1
     }),
 
@@ -1767,16 +2028,16 @@ body.dm {
       S.topic = 'physio';
       const o = ORGANS[a.organ] || null;
       const first = a.after
-        ? 'כן. אם הרופא ימליץ על פיזיותרפיה אחרי הניתוח, יש לך כיסוי בביטוח הבריאות דרך העבודה.'
-        : 'כן. בביטוח הבריאות דרך העבודה יש לך כיסוי לפיזיותרפיה' + (o ? ', גם לטיפולים ' + o.in : '') + '.';
+        ? 'כן. אם הרופא ימליץ על פיזיותרפיה אחרי הניתוח, יש לך כיסוי בביטוח דרך העבודה.'
+        : 'כן. בביטוח הבריאות דרך העבודה יש לך כיסוי לפיזיותרפיה' + (o ? ', גם ' + o.in : '') + '.';
       const shown = S.prov.physio;
       return {
         bot: [
           txt(first),
           covPhysio(),
-          note('כדאי לדעת: יש לך כרגע עוד 9 טיפולים עד סוף השנה. 3 מתוך 12 כבר נוצלו, האחרון ב-1.10. בדקתי גם את ההחרגות, ואין החרגה שנוגעת ' + (o ? o.to : 'לפיזיותרפיה') + '.'),
-          txt(shown ? 'המכונים בהסדר שהצגתי קודם עדיין רלוונטיים: ' + ILS(60) + ' לטיפול, בלי תביעה. איך נוח להתקדם?'
-            : 'הדרך הכי משתלמת היא מטפל בהסדר: ' + ILS(60) + ' לטיפול, בלי תביעה. להציג מכונים בהסדר קרוב לבית?')
+          note('כדאי לדעת: יש לך כרגע עוד 9 טיפולים השנה, האחרון נוצל ב-1.10. בדקתי גם את ההחרגות, ואין החרגה שנוגעת ' + (o ? o.to : 'לפיזיותרפיה') + '.'),
+          txt(shown ? 'המכונים שהצגתי קודם עדיין רלוונטיים. איך נוח להתקדם?'
+            : 'הכי משתלם בהסדר: ' + ILS(60) + ', בלי תביעה. להציג מכונים קרובים?')
         ],
         chips: shown
           ? [cbChip('physio', { star: 1 }), chip('ואם אלך למטפל פרטי?', 'physio_private')].concat(next('physio', 1))
@@ -1788,9 +2049,8 @@ body.dm {
       S.topic = 'physio'; S.prov.physio = true;
       return {
         bot: [
-          txt('שלושה מכונים בהסדר, לפי המרחק מהכתובת שלך ברמת גן:'),
-          { t: 'providers', list: PHYSIO_PROV, link: { l: 'לרשימה המלאה של נותני השירות בהסדר', toast: 'בהדגמה מוצגים שלושה' } },
-          txt('איך נוח להתקדם?')
+          txt('שלושה מכונים בהסדר, הכי קרובים לבית:'),
+          { t: 'providers', list: PHYSIO_PROV, link: { l: 'לרשימה המלאה', toast: 'בהדגמה מוצגים שלושה' } }
         ],
         chips: [cbChip('physio', { star: 1 }), chip('ואם אלך למטפל פרטי?', 'physio_private'), chip('לא עכשיו', 'later', { topic: 'physio' }, { alt: 1 })],
         expect: { no: ['later', { topic: 'physio' }] }
@@ -1801,27 +2061,27 @@ body.dm {
       const shown = S.prov.physio;
       return {
         bot: [
-          txt('אפשר, הבחירה שלך. אצל מטפל שלא בהסדר יש החזר של 70% מהעלות, עד ' + ILS(150) + ' לטיפול, אחרי הגשת תביעה עם קבלה.'),
+          txt('אפשר, הבחירה שלך. אצל מטפל שלא בהסדר יש החזר של 70%, עד ' + ILS(150) + ' לטיפול, עם קבלה.'),
           { t: 'compare', cols: [
             { title: 'בהסדר', hi: 1, lines: [ILS(60) + ' לטיפול', 'בלי תשלום מראש', 'בלי תביעה'] },
-            { title: 'פרטי, לדוגמה טיפול ב-' + ILS(250), lines: ['החזר ' + ILS(150), 'נשארים ' + ILS(100) + ' מהכיס', 'תביעה עם קבלה'] }
+            { title: 'פרטי, ב-' + ILS(250), lines: ['החזר ' + ILS(150), ILS(100) + ' מהכיס', 'תביעה עם קבלה'] }
           ] },
-          txt(shown ? 'ואם בכל זאת בהסדר, נציג יכול לתאם תור באחד המכונים שהצגתי.' : 'להציג בכל זאת את המכונים בהסדר?')
+          shown ? null : txt('להציג בכל זאת מכונים בהסדר?')
         ],
         chips: shown ? withCta('physio', 2) : [chip('כן, להציג', 'physio_prov', null, { star: 1 }), chip('לא, תודה', 'later', { topic: 'physio' }, { alt: 1 })],
         expect: shown ? null : { yes: ['physio_prov'], no: ['later', { topic: 'physio' }] }
       };
     },
-    later: a => ({ bot: [txt('בסדר גמור. שמרתי את מה שבדקנו, ואפשר לחזור לזה בכל רגע.')], chips: next(a.topic || S.topic) }),
+    later: a => ({ bot: [txt('בסדר גמור. שמרתי את מה שבדקנו.')], chips: next(a.topic || S.topic) }),
 
     /* ----- callback: one question, then a confirmation card ----- */
     cb: a => {
       const topic = TOPICS[a.topic] ? a.topic : 'general';
       const L = S.leads[topic];
-      if (L) return { bot: [txt('כבר פתחתי פנייה בנושא הזה, מספר ' + L.ref + '. נציג יחזור אליך ' + L.short + ', עם כל מה שבדקנו כאן.')], chips: next(topic) };
+      if (L) return { bot: [txt('כבר פתחתי פנייה בנושא הזה, ' + L.ref + '. נציג יחזור אליך ' + L.short + '.')], chips: next(topic) };
       S.cbTopic = topic;
       return {
-        bot: [txt(a.agent ? 'בשמחה. מתי נוח שנציג יחזור אליך?' : 'בשמחה. שאלה אחת קצרה, כדי שהנציג יגיע מוכן: מתי נוח שיחזרו?')],
+        bot: [txt('בשמחה. מתי נוח שיחזרו אליך?')],
         chips: Object.keys(WIN).map(k => chip(WIN[k].l, 'cb_done', { w: k }, { star: k === 'm', match: winMatch(WIN[k]) }))
       };
     },
@@ -1835,16 +2095,16 @@ body.dm {
       return {
         bot: [
           { t: 'confirm', icon: 'phone', title: T.coord ? 'נציג יחזור אליך לתאם' : 'נציג יחזור אליך',
-            rows: [['מתי', w.when], ['בנושא', T.subject()], ['מספר פנייה', ref]],
-            foot: 'הנציג יראה את כל מה שבדקנו כאן, כך שאין צורך להסביר מהתחלה.' },
-          txt('שלחתי ב-SMS סיכום של מה שבדקנו. עוד משהו?')
+            rows: [['מתי', w.when], ['בנושא', T.subject()], ['פנייה', ref]],
+            foot: 'הנציג יראה את מה שבדקנו כאן.' },
+          txt('שלחתי סיכום ב-SMS. עוד משהו?')
         ],
         chips: next(topic === 'general' ? S.topic : topic)
       };
     },
     agent: () => {
       const t = S.topic && TOPICS[S.topic] ? S.topic : 'general';
-      return NODES.cb({ topic: t, agent: !S.leads[t] });
+      return NODES.cb({ topic: t });
     },
 
     /* ----- specialist ----- */
@@ -1854,35 +2114,32 @@ body.dm {
       const bot = [
         txt('כן. בביטוח דרך העבודה יש לך כיסוי להתייעצות עם רופא מומחה' + (sp ? ', ו' + sp.sg + ' נכלל בו' : '') + '.'),
         covSpec(),
-        note('כדאי לדעת: יש לך כרגע עוד 2 התייעצויות השנה. אחת מתוך 3 כבר נוצלה, ב-13.8. בדקתי גם את ההחרגות, ואין החרגה רלוונטית.')
+        note('כדאי לדעת: יש לך כרגע עוד 2 התייעצויות השנה. בדקתי גם את ההחרגות, ואין החרגה רלוונטית.')
       ];
       if (sp) return specProv(a.spec, bot);
-      bot.push(txt('לאיזה תחום לחפש רופא בהסדר?'));
+      bot.push(txt('באיזה תחום לחפש רופא בהסדר?'));
       return {
         bot: bot,
         chips: [chip('אורתופד', 'spec_prov', { spec: 'ortho' }, { star: 1 }), chip('נוירולוג', 'spec_prov', { spec: 'neuro' }),
           chip('רופא עור', 'spec_prov', { spec: 'derm' }), chip('תחום אחר', 'spec_other')],
-        capture: captureSpec
+        capture: captureSpec, many: 1
       };
     },
     spec_prov: a => specProv(a.spec, []),
     spec_other: () => ({
-      bot: [txt('איזה תחום? אפשר לכתוב כאן, או לבחור:')],
+      bot: [txt('איזה תחום? אפשר לכתוב, או לבחור:')],
       chips: [chip('קרדיולוג', 'spec_prov', { spec: 'cardio' }), chip('גינקולוג', 'spec_prov', { spec: 'gyn' }),
         chip('רופא אף אוזן גרון', 'spec_prov', { spec: 'ent' }), chip('רופא עיניים', 'spec_prov', { spec: 'eye' })],
-      capture: captureSpec
+      capture: captureSpec, many: 1
     }),
     spec_private: () => ({
-      bot: [txt('אפשר, הבחירה שלך. אצל רופא שלא בהסדר יש החזר עד ' + ILS(800) + ' להתייעצות, דרך תביעה עם קבלה. אצל רופא בהסדר זה בלי השתתפות עצמית.')],
+      bot: [txt('אפשר, הבחירה שלך. אצל רופא שלא בהסדר יש החזר עד ' + ILS(800) + ', עם קבלה. בהסדר זה בלי השתתפות עצמית.')],
       chips: withCta('specialist')
     }),
     mri: () => {
       S.topic = 'mri';
       return {
-        bot: [
-          txt('בדיקת MRI מכוסה בביטוח דרך העבודה, בכפוף להפניה מרופא ולאישור מראש. אם הרופא ימליץ, נציג יכול לעזור בבקשת האישור.'),
-          { t: 'rows', rows: [{ c: 'indigo', x: 'MRI ו-CT · נדרשים הפניה ואישור מראש · בהסדר, בלי השתתפות עצמית', tags: ['דרך העבודה'] }], footer: 1 }
-        ],
+        bot: [txt('בדיקת MRI מכוסה בביטוח דרך העבודה, בהסדר ובלי השתתפות עצמית. היא בכפוף להפניה מרופא ולאישור מראש.')],
         chips: [cbChip('mri')].concat(next('mri', 2))
       };
     },
@@ -1898,7 +2155,7 @@ body.dm {
       };
     },
     surgery_other: () => ({
-      bot: [txt('איזה ניתוח? אפשר לכתוב כאן במילים פשוטות, או לבחור:')],
+      bot: [txt('איזה ניתוח? אפשר לכתוב, או לבחור:')],
       chips: [chip('ניתוח בגב', 'surgery', { organ: 'back' }), chip('ניתוח בקרסול', 'surgery', { organ: 'ankle' }), chip('ניתוח בירך', 'surgery', { organ: 'hip' })],
       capture: captureSurgery
     }),
@@ -1908,18 +2165,18 @@ body.dm {
       S.organ = o;
       const what = a.arthro ? 'ארתרוסקופיה' + (o ? ' ' + o.in : '') : (o ? 'ניתוח ' + o.in : null);
       const bot = [
-        txt(what ? 'כן. ' + (a.arthro ? 'ניתוח ' : '') + what + ' מכוסה בביטוח הבריאות הפרטי שלך, בכפוף לאישור מראש.'
-          : 'כן. ניתוחים מכוסים בביטוח הבריאות הפרטי שלך, בכפוף לאישור מראש.'),
+        txt(what ? 'כן. ' + (a.arthro ? 'ניתוח ' : '') + what + ' מכוסה בביטוח הפרטי שלך, בכפוף לאישור מראש.'
+          : 'כן. ניתוחים מכוסים בביטוח הפרטי שלך, בכפוף לאישור מראש.'),
         covSurgery(what || 'ניתוחים'),
-        note('כדאי לדעת: בדקתי גם את ההחרגות, ' + (o ? 'ואין החרגה שנוגעת ' + o.to : 'ואין החרגה רלוונטית') + '.')
+        note('בדקתי גם את ההחרגות, ' + (o ? 'ואין החרגה שנוגעת ' + o.to : 'ואין החרגה רלוונטית') + '.')
       ];
       if (S.shaban) {
-        bot.push(txt('ואצל מנתח בהסדר זה בלי תשלום מהכיס. להציג מנתחים בהסדר?'));
+        bot.push(txt('ובהסדר זה בלי תשלום מהכיס. להציג מנתחים בהסדר?'));
         return { bot: bot, chips: [chip('כן, להציג', 'surgery_prov', null, { star: 1 }), chip('לא עכשיו', 'later', { topic: 'surgery' }, { alt: 1 })],
           expect: { yes: ['surgery_prov'], no: ['later', { topic: 'surgery' }] } };
       }
       S.shabanOpen = true;
-      bot.push(txt('שאלה אחת, כדי שהתמונה תהיה מלאה: יש לך שב״ן, כלומר ביטוח משלים בקופת החולים?'));
+      bot.push(txt('שאלה אחת, כדי שהתמונה תהיה מלאה: יש לך שב״ן, ביטוח משלים בקופת החולים?'));
       return {
         bot: bot,
         chips: [chip('כן, יש לי', 'shaban', { v: 'yes' }, { star: 1 }), chip('אין לי', 'shaban', { v: 'no' }), chip('מה זה שב״ן?', 'shaban_what', null, { alt: 1 })],
@@ -1927,7 +2184,7 @@ body.dm {
       };
     },
     shaban_what: () => {
-      const bot = [txt('שב״ן הוא הביטוח המשלים של קופת החולים, מעבר לסל הבריאות. לחלק מהניתוחים יש בו מסלול משלו, לפי התנאים של הקופה. הפוליסות במגדל הן שכבה נוספת.')];
+      const bot = [txt('שב״ן הוא הביטוח המשלים של קופת החולים. לחלק מהניתוחים יש בו מסלול משלו, והפוליסות במגדל הן שכבה נוספת.')];
       if (!S.shabanOpen) return { bot: bot, chips: [chip('הרופא המליץ על ניתוח', 'surgery_ask')].concat(next(S.topic, 2)) };
       bot.push(txt('אז יש לך שב״ן?'));
       return { bot: bot, chips: [chip('כן, יש לי', 'shaban', { v: 'yes' }, { star: 1 }), chip('אין לי', 'shaban', { v: 'no' })], expect: shabanExpect };
@@ -1938,13 +2195,13 @@ body.dm {
       S.shaban = yes ? 'yes' : 'no'; S.shabanOpen = false;
       return {
         bot: [
-          { t: 'layers', title: 'שלוש שכבות, תמונה אחת', foot: 'הפוליסה ממערכות מגדל · השב״ן לפי ההצהרה שלך · הניסוח: AI', rows: [
-            { x: 'הפוליסה הפרטית במגדל · ניתוח בהסדר, ' + ILS(0) + ' מהכיס', tag: 'פרטית', hi: 1 },
-            { x: 'שב״ן · ' + (yes ? 'יש' : 'אין') + ', לפי ההצהרה שלך', tag: 'הצהרה' },
-            { x: 'קופת החולים · סל הבריאות', tag: 'לפי הקופה' }
+          { t: 'layers', title: 'שלוש שכבות, תמונה אחת', foot: 'השב״ן לפי ההצהרה שלך', rows: [
+            { x: 'הפוליסה הפרטית · בהסדר, ' + ILS(0) + ' מהכיס', tag: 'מגדל', hi: 1 },
+            { x: 'שב״ן · ' + (yes ? 'יש' : 'אין'), tag: 'הצהרה' },
+            { x: 'קופת החולים · סל הבריאות', tag: 'הקופה' }
           ] },
-          txt(yes ? 'בפוליסה שלך, ניתוח אצל מנתח בהסדר עם מגדל הוא בתשלום ישיר, בלי השתתפות עצמית. אפשר לבחור גם מנתח דרך השב״ן, לפי התנאים של הקופה. להציג מנתחים בהסדר?'
-            : 'אז התמונה פשוטה: הפוליסה הפרטית במגדל מכסה את הניתוח, ואצל מנתח בהסדר זה בלי תשלום מהכיס. להציג מנתחים בהסדר?')
+          txt(yes ? 'אצל מנתח בהסדר עם מגדל התשלום ישיר, בלי השתתפות עצמית. אפשר גם דרך השב״ן, לפי תנאי הקופה. להציג מנתחים בהסדר?'
+            : 'אז פשוט: הפוליסה הפרטית מכסה, ובהסדר בלי תשלום מהכיס. להציג מנתחים בהסדר?')
         ],
         chips: [chip('כן, להציג', 'surgery_prov', null, { star: 1 }), chip('לא עכשיו', 'later', { topic: 'surgery' }, { alt: 1 })],
         expect: { yes: ['surgery_prov'], no: ['later', { topic: 'surgery' }] }
@@ -1954,22 +2211,22 @@ body.dm {
       S.topic = 'surgery'; S.prov.surgery = true;
       return {
         bot: [
-          txt('שני מנתחים בהסדר, לפי התור הפנוי לייעוץ טרום ניתוח:'),
-          { t: 'providers', list: surgeonProv(S.organ), link: { l: 'לאיתור רופא מנתח באתר מגדל', toast: 'בהדגמה מוצגים שניים' } },
-          txt('אחרי הייעוץ, המנתח יכול להגיש את הבקשה לאישור מראש. איך נוח להתקדם?')
+          txt('שני מנתחים בהסדר, לפי התור הקרוב לייעוץ:'),
+          { t: 'providers', list: surgeonProv(S.organ), link: { l: 'לאיתור מנתח באתר מגדל', toast: 'בהדגמה מוצגים שניים' } },
+          txt('אחרי הייעוץ, המנתח יכול להגיש את הבקשה לאישור מראש.')
         ],
         chips: [cbChip('surgery', { star: 1 }), chip('מה זה אישור מראש?', 'pre'), chip('לא עכשיו', 'later', { topic: 'surgery' }, { alt: 1 })],
         expect: { no: ['later', { topic: 'surgery' }] }
       };
     },
     surgery_private: () => ({
-      bot: [txt('אפשר, הבחירה שלך. אצל מנתח שלא בהסדר יש החזר עד תקרת הפוליסה, דרך תביעה, ועדיין בכפוף לאישור מראש. אצל מנתח בהסדר התשלום ישיר, ' + ILS(0) + ' מהכיס.')],
+      bot: [txt('אפשר, הבחירה שלך. שלא בהסדר יש החזר עד תקרת הפוליסה, עדיין בכפוף לאישור מראש. בהסדר התשלום ישיר, ' + ILS(0) + ' מהכיס.')],
       chips: withCta('surgery')
     }),
     pre: () => {
       const inSurgery = S.topic === 'surgery';
       return {
-        bot: [txt('אישור מראש הוא אישור של מגדל לפני הטיפול, לפי הפוליסה. הוא נדרש למשל לניתוחים ולבדיקות הדמיה כמו MRI, ומגישים אותו עם ההפניה או סיכום הייעוץ מהרופא.')],
+        bot: [txt('אישור מראש הוא אישור של מגדל לפני הטיפול, למשל לניתוח או ל-MRI. מגישים אותו עם ההפניה או סיכום הייעוץ מהרופא.')],
         chips: inSurgery ? withCta('surgery') : [chip('הרופא המליץ על ניתוח', 'surgery_ask'), S.topic === 'mri' ? null : chip('ומה עם MRI?', 'mri')].concat(next(S.topic, 2))
       };
     },
@@ -1979,23 +2236,22 @@ body.dm {
       S.topic = 'claim';
       return {
         bot: [
-          txt('בדקתי: יש לך תביעה אחת פתוחה, החזר על טיפול פיזיותרפיה מ-1.10 אצל מטפל שלא בהסדר.'),
-          { t: 'timeline', title: 'תביעה 77-10394 · פיזיותרפיה', steps: [
-            { x: 'התביעה הוגשה · 2.10', st: 'done' },
-            { x: 'הקבלה וההפניה מרופא הגיעו', st: 'done' },
-            { x: 'בבדיקה אצל מיישב', st: 'active', note: 'לפי הפוליסה, ההחזר הצפוי הוא ' + ILS(150) + ': 70% מ-' + ILS(220) + ', עד תקרה של ' + ILS(150) + ' לטיפול. ההחלטה אצל המיישב, ותשובה צפויה עד 19.10.' },
-            { x: 'ההחזר מועבר לחשבון', st: 'future' }
+          txt('יש לך תביעה אחת פתוחה: החזר על פיזיותרפיה מ-1.10, אצל מטפל שלא בהסדר.'),
+          { t: 'timeline', title: 'תביעה 77-10394', steps: [
+            { x: 'הוגשה · 2.10', st: 'done' },
+            { x: 'המסמכים הגיעו', st: 'done' },
+            { x: 'בבדיקה אצל מיישב', st: 'active', note: 'תשובה צפויה עד 19.10.' },
+            { x: 'ההחזר בחשבון', st: 'future' }
           ], from: 'החזר צפוי: ' + ILS(150), chip: 'בבדיקה' },
-          txt('ולפעם הבאה: במכון בהסדר ברמת גן, 1.2 ק״מ מהבית, זה ' + ILS(60) + ' לטיפול, בלי תשלום מראש ובלי תביעה.')
+          txt('ולפעם הבאה: בהסדר זה ' + ILS(60) + ' לטיפול, בלי תשלום מראש ובלי תביעה.')
         ],
         chips: [S.prov.physio ? null : chip('להציג מכונים בהסדר', 'physio_prov', null, { star: 1 }), cbChip('claim')].concat(next('claim', S.prov.physio ? 2 : 1))
       };
     },
-
     claim_how: () => {
       S.topic = 'claim';
       return {
-        bot: [txt('אפשר להגיש תביעה עם הקבלה וההפניה מהרופא, דרך ״מגדל שלי״ באתר או באפליקציה. ולפעם הבאה: אצל מטפל בהסדר אין צורך בתביעה בכלל.')],
+        bot: [txt('מגישים עם הקבלה וההפניה, ב״מגדל שלי״ באתר או באפליקציה. ובהסדר אין צורך בתביעה בכלל.')],
         chips: [chip('מה עם התביעה שלי?', 'claim', null, { star: 1 }), S.prov.physio ? null : chip('להציג מכונים בהסדר', 'physio_prov')].concat(next('claim', 1))
       };
     },
@@ -2008,14 +2264,14 @@ body.dm {
           { t: 'text', future: 1, x: 'בשלב הראשון אענה על ביטוח הבריאות. בהמשך, על כל הביטוחים. כך זה ייראה:' },
           { t: 'coverage', title: 'אובדן כבודה', status: 'מכוסה', tag: 'ביטוח נסיעות',
             rows: [
-              { c: 'green', x: 'כבודה: עד ' + ILS('2,500') + ' לנסיעה, עד ' + ILS(600) + ' לפריט' },
+              { c: 'green', x: 'עד ' + ILS('2,500') + ' לנסיעה, עד ' + ILS(600) + ' לפריט' },
               { c: 'green', x: 'הוצאות חיוניות בזמן העיכוב: עד ' + ILS(300) },
               { c: 'slate', x: 'השתתפות עצמית: ' + ILS(150) }
             ],
-            statusLine: 'פוליסת נסיעות לדוגמה · ההחלטה הסופית בבדיקת התביעה',
-            source: { l: 'המקור: פרק הכבודה, סעיף 5.1',
+            statusLine: 'פוליסת נסיעות לדוגמה',
+            source: { l: 'המקור: סעיף 5.1',
               body: 'כבודה: אובדן, גניבה או נזק לכבודה בזמן הנסיעה, עד ' + ILS('2,500') + ' לנסיעה ועד ' + ILS(600) + ' לפריט, בהשתתפות עצמית של ' + ILS(150) + '. עיכוב כבודה: החזר הוצאות חיוניות עד ' + ILS(300) + ', לפי קבלות.' },
-            foot: 'פוליסת נסיעות לדוגמה · הניסוח: AI' },
+            foot: false },
           { t: 'steps', title: 'מה עושים עכשיו', items: [
             'לדווח לחברת התעופה ולקבל מספר דיווח (PIR)',
             'לשמור קבלות על קניות חיוניות',
@@ -2033,8 +2289,8 @@ body.dm {
       return {
         bot: [
           { t: 'confirm', icon: 'file-text', future: 1, title: 'התביעה על הכבודה נפתחה',
-            rows: [['מספר תביעה', S.travelClaim], ['נושא', 'אובדן כבודה בחו״ל'], ['מה עוד חסר', 'מספר הדיווח וקבלות']],
-            foot: 'אפשר לצלם כאן את המסמכים כשהם אצלך, ואעדכן כאן בכל שלב. נתוני דוגמה.' },
+            rows: [['תביעה', S.travelClaim], ['נושא', 'אובדן כבודה בחו״ל'], ['חסר', 'מספר הדיווח וקבלות']],
+            foot: 'אפשר לצלם כאן את המסמכים, ואעדכן בכל שלב.' },
           txt('עוד משהו?')
         ],
         chips: [chip('לדבר עם המוקד בחו״ל 24/7', 'travel_call')].concat(next('travel', 2))
@@ -2045,29 +2301,29 @@ body.dm {
       return {
         bot: [
           { t: 'confirm', icon: 'headset', future: 1, title: 'המוקד בחו״ל, 24/7',
-            rows: [['זמינות', '24/7, גם בסופי שבוע ובחגים'], ['שיחה', 'חיוג ישיר מהאפליקציה']],
-            foot: 'הנציג יראה את מה שבדקנו כאן, כולל פרטי הכבודה, כך שאין צורך להסביר מהתחלה.' },
+            rows: [['זמינות', 'כל השבוע, כל היום'], ['שיחה', 'ישירות מהאפליקציה']],
+            foot: 'הנציג יראה את מה שבדקנו כאן.' },
           txt('עוד משהו?')
         ],
         chips: [S.travelClaim ? null : chip('לפתוח תביעה מכאן', 'travel_claim', null, { star: 1 })].concat(next('travel', 2))
       };
     },
 
-    /* ----- car: a sales lead only because the customer asked, with consent, no medical data ----- */
+    /* ----- car: a sales lead only because the customer asked (typed), with consent, no medical data ----- */
     car: () => {
       S.topic = 'car';
-      if (S.leads.car) return { bot: [txt('כבר העברתי את הבקשה לנציג מכירות רכב, מספר פנייה ' + S.leads.car.ref + '. הנציג יחזור אליך מחר, עד 12:00.')], chips: next('car') };
+      if (S.leads.car) return { bot: [txt('כבר העברתי את הבקשה לנציג מכירות רכב, ' + S.leads.car.ref + '. הנציג יחזור אליך מחר, עד 12:00.')], chips: next('car') };
       S.car = {};
       return {
         bot: [
-          txt('בטח. כרגע אין לך ביטוח רכב במגדל, אז אעביר את הבקשה לנציג מכירות רכב. שלוש שאלות קצרות, כדי שההצעה תגיע מדויקת.'),
+          txt('בטח. כרגע אין לך ביטוח רכב במגדל, אז אעביר את הבקשה לנציג מכירות. שלוש שאלות קצרות.'),
           txt('1 מתוך 3 · איזה רכב?')
         ],
         chips: [chip('טויוטה קורולה 2021', 'car2', { car: 'טויוטה קורולה 2021' }, { star: 1 }), chip('יונדאי טוסון 2023', 'car2', { car: 'יונדאי טוסון 2023' }), chip('רכב אחר', 'car_other')],
         capture: captureCar
       };
     },
-    car_other: () => ({ bot: [txt('איזה רכב? אפשר לכתוב כאן דגם ושנה.')], chips: [], capture: captureCar }),
+    car_other: () => ({ bot: [txt('איזה רכב? אפשר לכתוב דגם ושנה.')], chips: [], capture: captureCar }),
     car2: a => {
       S.topic = 'car'; S.car.model = a.car;
       return {
@@ -2087,7 +2343,7 @@ body.dm {
       S.topic = 'car'; S.car.drivers = a.d;
       return {
         bot: [{ t: 'consent', title: 'לפני שאעביר:', rows: [['רכב', S.car.model || 'לא צוין'], ['ביטוח', S.car.type || 'לא צוין'], ['נהגים', S.car.drivers]],
-          rule: 'יעבור לנציג המכירות: הפרטים האלה בלבד, בלי מידע רפואי ובלי השיחה על הבריאות.',
+          rule: 'יעברו רק הפרטים האלה, בלי מידע רפואי.',
           buttons: [chip('אישור, שיחזרו אליי', 'car_lead', null, { star: 1 }), chip('לא עכשיו', 'car_no', null, { alt: 1 })] }],
         expect: { yes: ['car_lead'], no: ['car_no'] }
       };
@@ -2097,8 +2353,8 @@ body.dm {
       S.leads.car = { ref: ref, short: 'מחר, עד 12:00' };
       return {
         bot: [
-          { t: 'confirm', icon: 'phone', title: 'נציג מכירות רכב יחזור אליך', rows: [['מתי', 'מחר, עד 12:00'], ['בנושא', 'הצעה לביטוח רכב'], ['מספר פנייה', ref]],
-            foot: 'הנציג יראה רק את פרטי הרכב, בלי מידע רפואי. אפשר לבטל בכל רגע.' },
+          { t: 'confirm', icon: 'phone', title: 'נציג מכירות רכב יחזור אליך', rows: [['מתי', 'מחר, עד 12:00'], ['בנושא', 'הצעה לביטוח רכב'], ['פנייה', ref]],
+            foot: 'הנציג יראה רק את פרטי הרכב.' },
           txt('עוד משהו?')
         ],
         chips: next('car')
@@ -2111,9 +2367,8 @@ body.dm {
       S.topic = 'dental';
       return {
         bot: [
-          txt('לא. טיפולי שיניים לא נכללים בביטוח דרך העבודה ולא בביטוח הפרטי. עדיף לדעת את זה מראש.'),
-          { t: 'rows', rows: [{ c: 'grey', x: 'טיפולי שיניים · לא נכלל', tags: ['דרך העבודה', 'פרטית'] }], statusLine: 'לפי הפוליסה · לא החלטה על תביעה' },
-          txt('כדאי לבדוק גם מה כולל הביטוח המשלים בקופת החולים. ואם זה עוזר, נציג יכול לעבור איתך על האפשרויות.')
+          txt('לא. טיפולי שיניים לא נכללים באף אחת מהפוליסות שלך.'),
+          txt('כדאי לבדוק מה כולל הביטוח המשלים בקופת החולים.')
         ],
         chips: [cbChip('dental')].concat(next('dental', 2))
       };
@@ -2124,12 +2379,12 @@ body.dm {
       S.topic = 'overview';
       return {
         bot: [
-          txt('בדקתי את שתי הפוליסות שלך, דרך העבודה והפרטית. בתמונה אחת:'),
-          { t: 'rows', footer: 1, rows: [
-            { c: 'green', x: 'פיזיותרפיה · נותרו 9 מתוך 12 · ' + ILS(60) + ' בהסדר', tags: ['דרך העבודה'] },
-            { c: 'green', x: 'התייעצות עם רופא מומחה · נותרו 2 מתוך 3', tags: ['דרך העבודה'] },
-            { c: 'indigo', x: 'MRI ו-CT · בכפוף להפניה ולאישור מראש', tags: ['דרך העבודה'] },
-            { c: 'indigo', x: 'ניתוחים · בהסדר בלי תשלום מהכיס, בכפוף לאישור מראש', tags: ['פרטית'] },
+          txt('שתי הפוליסות שלך, בתמונה אחת:'),
+          { t: 'rows', rows: [
+            { c: 'green', x: 'פיזיותרפיה · נותרו 9 מתוך 12', tags: ['דרך העבודה'] },
+            { c: 'green', x: 'רופא מומחה · נותרו 2 מתוך 3', tags: ['דרך העבודה'] },
+            { c: 'indigo', x: 'MRI ו-CT · באישור מראש', tags: ['דרך העבודה'] },
+            { c: 'indigo', x: 'ניתוחים · באישור מראש', tags: ['פרטית'] },
             { c: 'green', x: 'תרופות שאינן בסל', tags: ['פרטית'] },
             { c: 'grey', x: 'טיפולי שיניים · לא נכלל' }
           ] }
@@ -2140,28 +2395,28 @@ body.dm {
     exclusion: () => ({
       bot: [
         txt('בדקתי את שתי הפוליסות שלך, ואין בהן החרגה אישית.'),
-        note('החרגה אישית נרשמת בגלל מצב רפואי קודם, בדרך כלל בהצטרפות. היא חלה על אותו מצב בכל הפוליסות, ולא רק באחת מהן.', 'flat')
+        note('החרגה בגלל מצב רפואי קודם חלה על אותו מצב בכל הפוליסות.', 'flat')
       ],
       chips: next(S.topic, 3)
     }),
 
     /* ----- short answers that build on the topic in context ----- */
     price: () => topical({
-      physio: 'אצל מטפל בהסדר: ' + ILS(60) + ' לטיפול, בלי תשלום מראש ובלי תביעה. אצל מטפל שלא בהסדר: החזר של 70% מהעלות, עד ' + ILS(150) + ' לטיפול.',
-      specialist: 'אצל רופא בהסדר: בלי השתתפות עצמית. אצל רופא שלא בהסדר: החזר עד ' + ILS(800) + ' להתייעצות, דרך תביעה.',
-      surgery: 'אצל מנתח בהסדר: תשלום ישיר, ' + ILS(0) + ' מהכיס. אצל מנתח שלא בהסדר: החזר עד תקרת הפוליסה, דרך תביעה. בשני המקרים, בכפוף לאישור מראש.',
+      physio: 'בהסדר: ' + ILS(60) + ' לטיפול, בלי תביעה. שלא בהסדר: החזר של 70%, עד ' + ILS(150) + '.',
+      specialist: 'בהסדר: בלי השתתפות עצמית. שלא בהסדר: החזר עד ' + ILS(800) + '.',
+      surgery: 'בהסדר: תשלום ישיר, ' + ILS(0) + ' מהכיס. שלא בהסדר: החזר עד תקרת הפוליסה. בשני המקרים, בכפוף לאישור מראש.',
       mri: 'בהסדר, בלי השתתפות עצמית, בכפוף להפניה ולאישור מראש.',
-      claim: 'ההחזר הצפוי על התביעה הוא ' + ILS(150) + '.',
+      claim: 'ההחזר הצפוי על התביעה: ' + ILS(150) + '.',
       car: 'את המחיר יציג נציג המכירות, לפי פרטי הרכב.'
     }, 'price'),
     balance: () => topical({
-      physio: 'נותרו לך 9 טיפולים מתוך 12 השנה. 3 כבר נוצלו, האחרון ב-1.10.',
-      specialist: 'נותרו לך 2 התייעצויות מתוך 3 השנה. אחת כבר נוצלה, ב-13.8.'
+      physio: 'נותרו לך 9 טיפולים מתוך 12 השנה. האחרון נוצל ב-1.10.',
+      specialist: 'נותרו לך 2 התייעצויות מתוך 3 השנה.'
     }, 'overview'),
     referral: () => topical({
-      physio: 'כן, לפיזיותרפיה נדרשת הפניה מרופא. אפשר לבקש אותה מרופא המשפחה.',
+      physio: 'כן, לפיזיותרפיה נדרשת הפניה. אפשר לבקש אותה מרופא המשפחה.',
       specialist: 'להתייעצות עם רופא מומחה אין צורך בהפניה.',
-      mri: 'כן, ל-MRI נדרשת הפניה מרופא, וגם אישור מראש.',
+      mri: 'כן, ל-MRI נדרשת הפניה, וגם אישור מראש.',
       surgery: 'לניתוח נדרש אישור מראש, עם סיכום הייעוץ מהרופא.'
     }, 'clarify'),
     network: () => {
@@ -2179,7 +2434,7 @@ body.dm {
     clarify: a => {
       const net = a.kind === 'network', priv = a.kind === 'private';
       return {
-        bot: [txt(net ? 'לאיזה טיפול לחפש נותני שירות בהסדר?' : 'לאיזה טיפול לבדוק?')],
+        bot: [txt(net ? 'לאיזה טיפול לחפש בהסדר?' : 'לאיזה טיפול לבדוק?')],
         chips: [
           chip('פיזיותרפיה', net ? 'physio_prov' : priv ? 'physio_private' : 'physio', null, { star: 1 }),
           chip('רופא מומחה', priv ? 'spec_private' : 'specialist'),
@@ -2202,7 +2457,7 @@ body.dm {
     yes_open: () => ({ bot: [txt('בשמחה. על מה לבדוק?')], chips: S.topic ? next(S.topic) : OPEN(), many: !S.topic }),
     no_open: () => ({ bot: [txt('בסדר גמור. אפשר לחזור לכאן בכל רגע.')], chips: next(S.topic, 2) }),
     again: a => ({ bot: [txt('אפשר לבחור אחת מהאפשרויות:')], chips: (a.chips || []).map(c => Object.assign({}, c, { done: false, el: null })), many: 1 }),
-    fallback: () => ({ bot: [txt('לא הצלחתי להבין עד הסוף. אפשר לנסח אחרת, או לבחור אחד מאלה:')], chips: OPEN(), many: 1 })
+    fallback: () => ({ bot: [txt('לא הצלחתי להבין עד הסוף. אפשר לנסח אחרת, או לבחור:')], chips: OPEN(), many: 1 })
   };
 
   /* a short answer that depends on what we were talking about; without a topic, ask which treatment */
@@ -2218,9 +2473,9 @@ body.dm {
     if (SPECS[key]) S.spec = key;
     S.prov.specialist = true;
     const sp = SPECS[key] || SPEC_ANY;
-    bot.push(txt(sp.pl + ' בהסדר קרוב אליך, לפי התור הפנוי הקרוב:'));
-    bot.push({ t: 'providers', list: docProv(sp), link: { l: 'לרשימה המלאה של נותני השירות בהסדר', toast: 'בהדגמה מוצגים שניים' } });
-    bot.push(txt('ואם הרופא ימליץ על בדיקת MRI או על ניתוח, אפשר לחזור לכאן ולבדוק מה מכוסה. בדיקות וניתוחים כאלה בכפוף לאישור מראש.'));
+    bot.push(txt(sp.pl + ' בהסדר, לפי התור הקרוב:'));
+    bot.push({ t: 'providers', list: docProv(sp), link: { l: 'לרשימה המלאה', toast: 'בהדגמה מוצגים שניים' } });
+    bot.push(txt('אם הרופא ימליץ על MRI או על ניתוח, אפשר לבדוק כאן. שניהם בכפוף לאישור מראש.'));
     return {
       bot: bot,
       chips: [cbChip('specialist', { star: 1 }), chip('ומה עם MRI?', 'mri'), chip('ואם ימליץ על ניתוח?', 'surgery_ask')]
@@ -2297,13 +2552,17 @@ body.dm {
     if (c) return c;
     if (S.capture && S.capture.accept.indexOf(r.intent) >= 0) return S.capture.go(text, r);
     if (r.no) { const alt = live.find(x => x.alt); if (alt) return alt; }
-    /* a bare yes or no to a choice the bot did not ask as a yes/no question: show the choices again */
+    /* a bare yes to a choice the bot did not ask as a yes/no question: show the choices again */
     if (r.intent === 'yes' && live.length && !ex.yes) return ['again', { chips: S.specs }];
     return fromIntent(r);
   }
 
   /* ---------------- the shell ---------------- */
   const E = {};
+  /* the wordmark Tom chose (option F): "Migdal Care" with a tiny mint "AI" at its top right */
+  function wordmark() {
+    return h('bdi', { class: 'en dm-wm', 'aria-label': 'Migdal Care AI' }, ['Migdal ', h('span', { class: 'c', text: 'Care' }), h('span', { class: 'n', text: 'AI' })]);
+  }
   function build(root) {
     root.classList.add('screen', 'mc-screen', 'mc-mode-guided', 'dm-chat');
     root.setAttribute('dir', 'rtl');
@@ -2311,37 +2570,44 @@ body.dm {
     while (root.firstChild) root.removeChild(root.firstChild);
     const status = h('div', { class: 'mc-status', 'aria-hidden': 'true' }, [
       h('span', { class: 'mc-sb-time', text: CLOCK }),
+      h('i', { class: 'dm-island' }),
       h('span', { class: 'mc-sb-icons' }, [h('i', { class: 'mc-sb-signal' }, [h('b'), h('b'), h('b'), h('b')]), h('i', { class: 'mc-sb-batt' }, h('b'))])
     ]);
-    E.restartIn = h('button', { type: 'button', class: 'dm-hrestart', onclick: () => restart() }, [icon('rotate-ccw'), h('span', { text: 'התחלה מחדש' })]);
     const head = h('header', { class: 'mc-head dm-head' }, [
       h('span', { class: 'mc-av', 'aria-hidden': 'true' }, h('span', { class: 'mc-av-tower' })),
       h('b', { class: 'mc-who-title' }, wordmark()),
       h('small', { class: 'mc-who-sub', text: 'העוזר האישי שלך מטעם מגדל' }),
-      E.restartIn
+      h('button', { type: 'button', class: 'dm-hrestart', 'aria-label': 'התחלה מחדש', title: 'התחלה מחדש', onclick: () => restart() }, icon('rotate-ccw'))
     ]);
+    E.top = h('div', { class: 'dm-bar' }, [status, head]);
     E.log = h('div', { class: 'mc-log', role: 'log', 'aria-live': 'polite', 'aria-relevant': 'additions', 'aria-label': 'השיחה עם העוזר' });
-    E.input = h('input', { class: 'mc-input', type: 'text', placeholder: 'מה לבדוק?', enterkeyhint: 'send', autocomplete: 'off',
+    E.input = h('input', { class: 'mc-input', type: 'text', placeholder: 'הודעה', enterkeyhint: 'send', autocomplete: 'off',
       autocorrect: 'off', spellcheck: 'false', dir: 'rtl', maxlength: '300', 'aria-label': 'הודעה לעוזר' });
-    E.send = h('button', { class: 'mc-send', type: 'submit', 'aria-label': 'שליחה' }, icon('send'));
-    E.form = h('form', { class: 'mc-composer', onsubmit: e => { e.preventDefault(); submit(); } }, [E.input, E.send]);
+    E.send = h('button', { class: 'mc-send', type: 'submit', 'aria-label': 'שליחה' }, icon('arrow-up'));
+    E.form = h('form', { class: 'mc-composer dm-empty', onsubmit: e => { e.preventDefault(); submit(); } }, [h('div', { class: 'dm-field' }, [E.input, E.send])]);
+    E.input.addEventListener('input', () => E.form.classList.toggle('dm-empty', !E.input.value.trim()));
     E.input.addEventListener('focus', () => { if (!FINE()) setTimeout(() => scroll(null, true), 320); });
     E.layer = h('div', { class: 'mc-layer' });
-    append(root, [status, head, E.log, E.form, E.layer]);
+    append(root, [E.log, E.top, E.form, E.layer]);
+    /* the bars float over the log: their heights become its padding, so nothing hides under them */
+    const pad = () => {
+      E.log.style.paddingTop = (E.top.offsetHeight + 14) + 'px';
+      E.log.style.paddingBottom = (E.form.offsetHeight + 14) + 'px';
+    };
+    pad();
+    if (window.ResizeObserver) { const ro = new ResizeObserver(pad); ro.observe(E.top); ro.observe(E.form); }
+    else window.addEventListener('resize', pad);
+    E.log.addEventListener('scroll', () => { E.top.classList.toggle('dm-scrolled', E.log.scrollTop > 4); }, { passive: true });
   }
 
-  /* the wordmark Tom chose (option F): "Migdal Care" with a tiny mint "AI" at its top right */
-  function wordmark() {
-    return h('bdi', { class: 'en dm-wm', 'aria-label': 'Migdal Care AI' }, ['Migdal\u00a0', h('span', { class: 'c', text: 'Care' }), h('span', { class: 'n', text: 'AI' })]);
-  }
   function put(el) {
     if (E.typing && E.typing.parentNode === E.log && el !== E.typing) E.log.insertBefore(el, E.typing);
     else E.log.appendChild(el);
     scroll(el);
     return el;
   }
-  /* the newest element shows from its top: a short one lands at the bottom, a tall card shows its head first.
-     The typing dots keep the last element's head in view (they wait below the fold). */
+  /* the newest element shows from its top: a short one lands at the bottom, a tall card shows its head first,
+     just under the floating top bar. The typing dots keep the last element's head in view. */
   let pin = null;
   function scroll(el, now) {
     const log = E.log;
@@ -2350,8 +2616,9 @@ body.dm {
     const anchor = typing ? pin : el;
     const go = () => {
       const max = Math.max(0, log.scrollHeight - log.clientHeight);
+      const cover = E.top ? E.top.offsetHeight + 10 : 8;
       let top = max;
-      if (anchor && anchor.parentNode === log && anchor.offsetHeight > 0) top = Math.max(0, Math.min(max, anchor.offsetTop - 8));
+      if (anchor && anchor.parentNode === log && anchor.offsetHeight > 0) top = Math.max(0, Math.min(max, anchor.offsetTop - cover));
       if (now || REDUCED()) log.scrollTop = top;
       else if (Math.abs(log.scrollTop - top) > 1) { try { log.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { log.scrollTop = top; } }
     };
@@ -2372,14 +2639,14 @@ body.dm {
   function rowEl(r) {
     return h('li', { class: 'mc-row mc-c-' + (r.c || 'slate') }, [h('i', { class: 'mc-row-dot', 'aria-hidden': 'true' }), h('span', { class: 'mc-row-x', rich: r.x }), tags(r.tags)]);
   }
-  function footer(text) { return h('div', { class: 'mc-card-foot' }, h('span', { rich: text || FOOT })); }
+  function footer(text) { return text === false ? null : h('div', { class: 'mc-card-foot' }, h('span', { rich: text || FOOT })); }
   function sourceLink(s) {
     return s ? h('button', { type: 'button', class: 'mc-link mc-source', onclick: () => sheet('נוסח לדוגמה', s.body) },
       [h('span', { text: s.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ›' })]) : null;
   }
   function countUp(el, to) {
     if (REDUCED() || !(to > 0)) { el.textContent = String(to); return; }
-    const t0 = performance.now(), dur = 800;
+    const t0 = performance.now(), dur = 900;
     const tick = now => {
       const k = Math.min(1, (now - t0) / dur);
       el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3))));
@@ -2387,6 +2654,11 @@ body.dm {
     };
     el.textContent = '0';
     requestAnimationFrame(tick);
+  }
+  /* the ״הצצה לעתיד״ tag: what this teaser shows is not in the first stage */
+  function future() { return h('span', { class: 'dm-future' }, [icon('sparkle'), h('span', { text: 'הצצה לעתיד' })]); }
+  function kv(rows) {
+    return h('dl', { class: 'mc-kv' }, rows.map(r => h('div', { class: 'mc-kv-r' }, [h('dt', { text: r[0] }), h('dd', { rich: r[1] })])));
   }
 
   /* renders one bot item; returns the choices it holds (consent buttons), if any */
@@ -2408,8 +2680,7 @@ body.dm {
         meter,
         h('ul', { class: 'mc-rows' }, it.rows.map(rowEl)),
         it.statusLine ? h('p', { class: 'mc-status-line', rich: it.statusLine }) : null,
-        sourceLink(it.source),
-        footer(it.foot)
+        h('div', { class: 'dm-card-end' }, [sourceLink(it.source), footer(it.foot)])
       ])], 'mc-wide');
       counters.forEach(c => countUp(c[0], c[1]));
       return null;
@@ -2417,25 +2688,27 @@ body.dm {
     if (it.t === 'rows') {
       bubble([h('div', { class: 'mc-card mc-rows-card' }, [
         h('ul', { class: 'mc-rows' }, it.rows.map(rowEl)),
-        it.statusLine ? h('p', { class: 'mc-status-line', rich: it.statusLine }) : null,
-        it.footer ? footer() : null
+        it.statusLine ? h('p', { class: 'mc-status-line', rich: it.statusLine }) : null
       ])], 'mc-wide');
       return null;
     }
     if (it.t === 'providers') {
-      bubble([h('div', { class: 'mc-card mc-providers' }, [
-        h('ul', { class: 'mc-prov-list' }, it.list.map(p => h('li', { class: 'mc-prov' }, [
-          h('div', { class: 'mc-prov-top' }, h('b', { class: 'mc-prov-name', rich: p.name })),
-          h('div', { class: 'mc-reasons' }, p.reasons.map((x, i) => h('span', { class: 'mc-reason' + (i === 0 ? ' mc-reason-net' : ''), text: x }))),
-          h('div', { class: 'mc-prov-meta' }, [
-            h('span', { class: 'mc-meta' }, [icon('map-pin'), h('span', { text: p.dist })]),
-            h('span', { class: 'mc-meta' }, [icon('clock'), h('span', { text: p.when })]),
-            h('span', { class: 'mc-price', text: p.price })
-          ])
+      bubble([h('div', { class: 'mc-card dm-prov' }, [
+        h('ul', { class: 'dm-prov-list' }, it.list.map(p => h('li', {}, [
+          h('div', { class: 'dm-prov-main' }, [
+            h('b', { class: 'dm-prov-name', rich: p.name }),
+            h('span', { class: 'dm-prov-meta' }, [
+              h('span', {}, [icon('map-pin'), h('span', { text: p.dist })]),
+              h('span', {}, [icon('clock'), h('span', { text: p.when })])
+            ])
+          ]),
+          h('span', { class: 'dm-prov-price', text: p.price })
         ]))),
-        h('p', { class: 'mc-disclosure', rich: DISCLOSURE }),
-        it.link ? h('button', { type: 'button', class: 'mc-link', onclick: () => toast(it.link.toast) },
-          [h('span', { text: it.link.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ›' })]) : null
+        h('div', { class: 'dm-prov-foot' }, [
+          h('p', { class: 'mc-disclosure', rich: DISCLOSURE }),
+          it.link ? h('button', { type: 'button', class: 'mc-link', onclick: () => toast(it.link.toast) },
+            [h('span', { text: it.link.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ›' })]) : null
+        ])
       ])], 'mc-wide');
       return null;
     }
@@ -2456,14 +2729,14 @@ body.dm {
     }
     if (it.t === 'steps') {
       bubble([h('div', { class: 'mc-card dm-steps' }, [
-        h('div', { class: 'mc-card-head' }, [icon('list'), h('b', { class: 'mc-card-title', rich: it.title })]),
+        h('b', { class: 'mc-card-title', rich: it.title }),
         h('ol', { class: 'dm-steps-list' }, it.items.map((x, i) => h('li', {}, [h('span', { class: 'dm-step-n', 'aria-hidden': 'true', text: String(i + 1) }), h('span', { rich: x })])))
       ])], 'mc-wide');
       return null;
     }
     if (it.t === 'layers') {
       bubble([h('div', { class: 'mc-card mc-layers' }, [
-        h('div', { class: 'mc-card-head' }, [icon('layers'), h('b', { class: 'mc-card-title', rich: it.title })]),
+        h('b', { class: 'mc-card-title', rich: it.title }),
         h('ol', { class: 'mc-layer-list' }, it.rows.map(r => h('li', { class: 'mc-layer-row' + (r.hi ? ' mc-hi' : '') }, [
           h('span', { class: 'mc-layer-x', rich: r.x }), h('span', { class: 'mc-tag', text: r.tag })
         ]))),
@@ -2473,13 +2746,12 @@ body.dm {
     }
     if (it.t === 'timeline') {
       bubble([h('div', { class: 'mc-card mc-timeline' }, [
-        h('div', { class: 'mc-card-head' }, [icon('file-text'), h('b', { class: 'mc-card-title', rich: it.title })]),
+        h('div', { class: 'mc-card-head' }, [h('b', { class: 'mc-card-title', rich: it.title }), h('span', { class: 'mc-chipstat', text: it.chip })]),
         h('ol', { class: 'mc-tl' }, it.steps.map(s => h('li', { class: 'mc-tl-' + s.st }, [
           h('i', { class: 'mc-tl-dot', 'aria-hidden': 'true' }),
           h('div', { class: 'mc-tl-body' }, [h('b', { rich: s.x }), s.note ? h('p', { class: 'mc-tl-note', rich: s.note }) : null])
         ]))),
-        h('div', { class: 'mc-tl-foot' }, [h('b', { class: 'mc-from', rich: it.from }), h('span', { class: 'mc-chipstat', text: it.chip })]),
-        footer()
+        h('div', { class: 'mc-tl-foot' }, h('b', { class: 'mc-from', rich: it.from }))
       ])], 'mc-wide');
       return null;
     }
@@ -2498,11 +2770,6 @@ body.dm {
       return choices;
     }
     return null;
-  }
-  /* the ״הצצה לעתיד״ tag: what this teaser shows is not in the first stage */
-  function future() { return h('span', { class: 'dm-future' }, [icon('sparkle'), h('span', { text: 'הצצה לעתיד' })]); }
-  function kv(rows) {
-    return h('dl', { class: 'mc-kv' }, rows.map(r => h('div', { class: 'mc-kv-r' }, [h('dt', { text: r[0] }), h('dd', { rich: r[1] })])));
   }
 
   function renderChips(list) {
@@ -2537,12 +2804,16 @@ body.dm {
     const t = token, mine = S;
     mine.chain = mine.chain.then(() => (t === token ? fn(t) : null)).catch(e => { if (e !== CANCEL && window.console) console.error('[Migdal Care demo]', e); });
   }
-  function typeMs(it, first) {
-    if (REDUCED()) return 160;
-    const len = (it.x || it.title || '').length;
-    if (first) return Math.max(650, Math.min(600 + len * 7, 1300));
-    if (it.t === 'text' || it.t === 'note') return Math.max(420, Math.min(280 + len * 6, 950));
-    return 520;
+  const textLen = it => (it.x || it.title || '').length + (it.rows ? it.rows.length * 18 : 0);
+  /* pace: the dots for 0.9 to 1.4s before an answer (by its length), then 250 to 350ms between bubbles */
+  function typeMs(items) {
+    if (REDUCED()) return 200;
+    const len = items.slice(0, 2).reduce((n, it) => n + textLen(it), 0);
+    return Math.round(Math.max(900, Math.min(1400, 850 + len * 4)));
+  }
+  function gapMs(it) {
+    if (REDUCED()) return 40;
+    return Math.round(250 + Math.min(100, textLen(it) * 0.9));
   }
   async function play(target, t) {
     const go = Array.isArray(target) ? target[0] : target.go;
@@ -2553,14 +2824,16 @@ body.dm {
     if (S.topic) S.visited[S.topic] = true;
     const items = (node.bot || []).filter(Boolean);
     let held = [];
-    for (let i = 0; i < items.length; i++) {
+    if (items.length) {
       typingOn();
-      await wait(typeMs(items[i], i === 0), t);
+      await wait(typeMs(items), t);
       typingOff();
-      held = held.concat(render(items[i]) || []);
-      if (i < items.length - 1) await wait(REDUCED() ? 40 : 200, t);
     }
-    await wait(REDUCED() ? 20 : 120, t);
+    for (let i = 0; i < items.length; i++) {
+      held = held.concat(render(items[i]) || []);
+      if (i < items.length - 1) await wait(gapMs(items[i + 1]), t);
+    }
+    await wait(REDUCED() ? 20 : 160, t);
     /* at most 3 chips after an answer (the greeting and the fallback offer the 5 starting questions); no repeats */
     const seen = {};
     const specs = (node.chips || []).filter(c => c && !seen[c.l] && (seen[c.l] = 1)).slice(0, node.many ? 5 : 3);
@@ -2576,7 +2849,7 @@ body.dm {
     disableChoices(c);
     enqueue(async t => {
       user(c.l);
-      await wait(REDUCED() ? 60 : 260, t);
+      await wait(REDUCED() ? 60 : 280, t);
       await play(c, t);
     });
   }
@@ -2587,13 +2860,14 @@ body.dm {
       const target = resolve(text);
       disableChoices(target && target.kind ? target : null);
       user(text);
-      await wait(REDUCED() ? 60 : 260, t);
+      await wait(REDUCED() ? 60 : 280, t);
       await play(target, t);
     });
   }
   function submit() {
     const v = E.input.value;
     E.input.value = '';
+    E.form.classList.add('dm-empty');
     send(v);
   }
 
@@ -2611,7 +2885,7 @@ body.dm {
     const close = () => {
       scrim.classList.remove('mc-on'); box.classList.remove('mc-on');
       document.removeEventListener('keydown', esc, true);
-      setTimeout(() => { scrim.remove(); box.remove(); }, 260);
+      setTimeout(() => { scrim.remove(); box.remove(); }, 320);
       try { if (back && back.focus) back.focus({ preventScroll: true }); } catch (e) { /* noop */ }
     };
     const esc = e => { if (e.key === 'Escape') { e.stopPropagation(); close(); } };
@@ -2650,30 +2924,30 @@ body.dm {
   /* the deep-linked question is typed into the composer, then sent */
   async function typeIn(text, t) {
     if (REDUCED()) return;
-    const per = Math.min(32, 900 / Math.max(1, text.length));
-    E.form.classList.add('mc-typing-in');
+    const per = Math.min(30, 800 / Math.max(1, text.length));
+    E.form.classList.remove('dm-empty');
     for (let i = 1; i <= text.length; i++) { E.input.value = text.slice(0, i); await wait(per, t); }
-    await wait(200, t);
+    await wait(220, t);
     E.send.classList.add('mc-press');
     await wait(140, t);
     E.send.classList.remove('mc-press');
     E.input.value = '';
-    E.form.classList.remove('mc-typing-in');
+    E.form.classList.add('dm-empty');
   }
 
   function start(deep) {
-    const day = h('div', { class: 'dm-day' }, [h('span', { text: 'היום' }), h('span', { class: 'dm-day-s', text: ' · נתוני דוגמה' })]);
+    const day = h('div', { class: 'dm-day' }, [h('span', { text: 'היום, ' + CLOCK }), h('span', { class: 'dm-day-s', text: ' · נתוני דוגמה' })]);
     put(day);
     enqueue(async t => {
-      await wait(REDUCED() ? 50 : 350, t);
+      await wait(REDUCED() ? 50 : 450, t);
       await play(['greet'], t);
       if (deep && DEEP[deep]) {
-        await wait(REDUCED() ? 50 : 700, t);
+        await wait(REDUCED() ? 50 : 600, t);
         await typeIn(DEEP[deep], t);
         const target = resolve(DEEP[deep]);
         disableChoices(null);
         user(DEEP[deep]);
-        await wait(REDUCED() ? 60 : 260, t);
+        await wait(REDUCED() ? 60 : 280, t);
         await play(target, t);
       }
       if (FINE()) { try { E.input.focus({ preventScroll: true }); } catch (e) { /* noop */ } }
@@ -2687,8 +2961,9 @@ body.dm {
     while (E.log.firstChild) E.log.removeChild(E.log.firstChild);
     while (E.layer.firstChild) E.layer.removeChild(E.layer.firstChild);
     E.input.value = '';
-    E.form.classList.remove('mc-typing-in');
+    E.form.classList.add('dm-empty');
     E.log.scrollTop = 0;
+    E.top.classList.remove('dm-scrolled');
     if (!deep && location.hash) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* noop */ } }
     start(deep || null);
   }

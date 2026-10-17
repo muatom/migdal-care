@@ -1000,6 +1000,37 @@ html:not(.js) .mc-ui, html:not(.js) .mc-progress, html:not(.js) .mc-scroll-bar {
   color: var(--clock-fg, var(--mig-line-blue));
 }
 .slide.dark .clock { color: var(--clock-fg, rgba(255, 255, 255, .26)); }
+
+/* ================= 13. v3 premium layer (Tom, 17/10/2026: "Apple / Spotify", elegant, little text) =================
+   One place for the calm look: quieter chrome, bigger and tighter titles, soft cards, and the takeaway as a
+   statement instead of a navy box. Later rules here win over the base above. */
+.slide { background: #fcfcfd; }
+.mc-tracker { display: none; }
+.mc-foot .mc-org { display: none; }
+.mc-foot { font-weight: 300; }
+.mc-foot .mc-note { color: var(--mig-slate-400); text-align: start; }
+.mc-lockup { border-inline-start: 0; padding-inline-start: 0; }
+.eyebrow { letter-spacing: .1em; }
+.eyebrow::before { width: calc(10 * var(--px)); height: calc(10 * var(--px)); border-radius: 50%; transform: none; }
+.title { letter-spacing: -.025em; line-height: 1.04; }
+html.mode-stage .slide, html.mode-print .slide { --t-title: calc(84 * var(--px)); }
+.card {
+  border-radius: calc(26 * var(--px));
+  box-shadow: 0 calc(1 * var(--px)) calc(2 * var(--px)) rgba(2, 1, 64, .04), 0 calc(18 * var(--px)) calc(44 * var(--px)) rgba(2, 1, 64, .07);
+}
+.banner {
+  background: none; color: var(--mig-ink); border-radius: 0; box-shadow: none;
+  padding: calc(26 * var(--px)) 0 0; border-top: var(--hair) solid var(--mig-line-soft);
+  font-size: calc(40 * var(--px)); font-weight: 300; letter-spacing: -.01em;
+}
+.banner::before { width: calc(34 * var(--px)); height: calc(6 * var(--px)); border-radius: calc(3 * var(--px)); transform: none; align-self: center; }
+.banner b, .banner strong { color: var(--mig-ink); }
+.slide.dark .banner { background: none; box-shadow: none; color: rgba(255, 255, 255, .78); border-top-color: rgba(255, 255, 255, .14); }
+.slide.dark .banner b, .slide.dark .banner strong { color: var(--mig-white); }
+@media screen {
+  html.mode-scroll .banner { font-size: 19px; padding-top: 14px; gap: 10px; }
+  html.mode-scroll .banner::before { width: 20px; height: 4px; }
+}
 </style>
 <style>/* Migdal Care v1 · chat.css · the phone screen and every chat component (plan 3.2, 4.5, 4.6).
    Shared by deck slide 10 (compact mode) and the demo. Uses tokens.css (--mig-*, --st-*, --dur-*, --ease-out).
@@ -2267,238 +2298,111 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   html.mode-scroll #s-01 .tagline .bar { width: 4px; height: 26px; }
 </style>
 
-<section class="slide" id="s-02" data-chapter="1" data-title="היום" data-steps="2">
-  <p class="eyebrow">01 · היום</p>
-  <h2 class="title">שאלה אחת פשוטה, <b>עוברת היום חמש תחנות</b></h2>
+<section class="slide dark" id="s-02" data-chapter="1" data-title="היום" data-footnote="">
+  <p class="eyebrow">היום</p>
+  <h2 class="title">שאלה פשוטה. <b>אין לה היום תשובה אחת.</b></h2>
 
-  <div class="hook">
-    <div class="night anim a-rise">
-      <span class="clock" aria-label="השעה 22:47">22:47</span>
-      <div class="story">
-        <p class="anim a-rise" style="--delay:220ms">כאב גב שלא עובר כבר שבועיים.</p>
-        <p class="anim a-rise" style="--delay:420ms">המלצה של רופא המשפחה: פיזיותרפיה.</p>
-        <p class="lead-in anim a-rise" style="--delay:620ms">ושאלה אחת, מהטלפון:</p>
-      </div>
-      <p class="bubble anim a-pop" style="--delay:900ms"><svg class="ic" aria-hidden="true"><use href="#i-smartphone"/></svg><span>יש לי כיסוי לפיזיותרפיה?</span></p>
+  <div class="s02-hook anim a-rise" style="--i:0">
+    <p class="s02-clock" aria-label="22:47"><bdi>22:47</bdi></p>
+    <div class="s02-story">
+      <p>כאב גב כבר שבועיים. רופא המשפחה המליץ על פיזיותרפיה.</p>
+      <p class="s02-q"><svg class="ic" aria-hidden="true"><use href="#i-smartphone"/></svg><span>יש לי כיסוי לפיזיותרפיה?</span></p>
     </div>
-    <p class="footnote anim a-fade" style="--delay:1100ms">הסיפור לדוגמה. השאלה עצמה היא מהשאלות הנפוצות של לקוחות בריאות.</p>
   </div>
 
-  <div class="flow" data-flow="asis" data-step="1"></div>
+  <ol class="s02-ways" aria-label="איפה מחפשים תשובה היום">
+    <li class="s02-way anim a-rise" style="--i:2">
+      <span class="s02-ic" aria-hidden="true"><svg class="ic"><use href="#i-file-text"/></svg></span>
+      <h3>הפוליסה</h3>
+      <p>מסמך ארוך. התשובה שם, אבל לא בשפה של הלקוח.</p>
+    </li>
+    <li class="s02-way anim a-rise" style="--i:3">
+      <span class="s02-ic" aria-hidden="true"><svg class="ic"><use href="#i-headset"/></svg></span>
+      <h3>המוקד</h3>
+      <p>שיחת טלפון, המתנה, ונציג שמחפש בשבילו.</p>
+    </li>
+    <li class="s02-way anim a-rise" style="--i:4">
+      <span class="s02-ic" aria-hidden="true"><svg class="ic"><use href="#i-map-pin"/></svg></span>
+      <h3>נותני השירות</h3>
+      <p>חיפוש נפרד, בלי קשר לכיסוי ולמה שכבר נוצל.</p>
+    </li>
+  </ol>
 
-  <div class="end" data-step="2">
-    <div class="card anchor">
-      <span class="icon-halo amber" aria-hidden="true"><svg class="ic"><use href="#i-headset"/></svg></span>
-      <div class="anchor-txt">
-        <p class="anchor-num"><span class="num a-count" data-num="board.calls" data-num-chip></span></p>
-        <p class="anchor-label"><span class="num" data-num="board.calls" data-num-part="he"></span></p>
-      </div>
-    </div>
-    <p class="banner inline"><span>מגדל פוגשת את הלקוח רק בסוף, <b>אחרי שהכסף כבר יצא.</b></span></p>
-  </div>
+  <div class="banner anim a-rise" style="--i:6"><span>המידע קיים. <b>חסרה תשובה אחת, אישית, ברגע שהשאלה נשאלת.</b></span></div>
 
-  <aside class="notes">דיבור (מבחן הידיים, על פס ה-22:47 לפני הלחיצה הראשונה): הרימו יד מי שיודע מתי יגיע הוולט שלו הערב. תשאירו אותה למעלה אם אתם יודעים כמה יעלה לכם הצעד הרפואי הבא.</aside>
+  <aside class="notes">דיבור (מבחן הידיים, לפני שמתחילים): הרימו יד מי שיודע מתי יגיע הוולט שלו הערב. תשאירו אותה למעלה אם אתם יודעים כמה יעלה לכם הצעד הרפואי הבא. ועכשיו, 22:47: כאב גב, המלצה לפיזיותרפיה, ושאלה אחת. היום התשובה מפוזרת: בפוליסה, במוקד, ובחיפוש נפרד של נותני שירות. ולא פעם הלקוח הולך לטיפול פרטי, ופוגש אותנו רק בתביעת ההחזר. הסיפור לדוגמה.</aside>
 </section>
 <style>
-  #s-02 .hook { display: flex; flex-direction: column; gap: calc(12 * var(--px)); }
-
-  /* on entry: the night band (the hook). Same clock as slide 25 (shared .clock), faint white on ink */
-  #s-02 .night {
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; gap: calc(44 * var(--px));
-    padding: calc(26 * var(--px)) calc(48 * var(--px)) calc(26 * var(--px)) calc(40 * var(--px));
-    border-radius: var(--card-r); color: var(--mig-white);
-    background:
-      radial-gradient(70% 160% at 100% 0%, rgba(60, 101, 227, .34) 0%, rgba(60, 101, 227, 0) 60%),
-      radial-gradient(40% 120% at 0% 100%, rgba(162, 235, 154, .12) 0%, rgba(162, 235, 154, 0) 70%),
-      var(--mig-ink);
-    box-shadow: var(--sh-3);
+  #s-02 .s02-hook {
+    display: flex; align-items: center; gap: calc(56 * var(--px));
+    margin-top: calc(20 * var(--px));
   }
-  #s-02 .clock { --clock-fg: rgba(255, 255, 255, .26); flex: none; margin-block: calc(-6 * var(--px)); }
-  #s-02 .story {
-    flex: 1 1 auto; display: flex; flex-direction: column; gap: calc(4 * var(--px));
-    padding-inline-start: calc(40 * var(--px)); border-inline-start: var(--hair) solid rgba(255, 255, 255, .18);
-    font-size: calc(31 * var(--px)); line-height: 1.32; color: rgba(255, 255, 255, .78);
+  #s-02 .s02-clock {
+    flex: none; font-size: calc(190 * var(--px)); font-weight: 200; line-height: .9; letter-spacing: -.04em;
+    color: rgba(255, 255, 255, .92); font-variant-numeric: tabular-nums;
+    padding-inline-end: calc(56 * var(--px)); border-inline-end: var(--hair) solid rgba(255, 255, 255, .16);
   }
-  #s-02 .story .lead-in { color: var(--mig-white); font-weight: 700; }
-  #s-02 .bubble {
-    flex: none; display: inline-flex; align-items: center; gap: calc(16 * var(--px));
-    padding: calc(24 * var(--px)) calc(32 * var(--px));
-    border-radius: calc(30 * var(--px)) calc(30 * var(--px)) calc(8 * var(--px)) calc(30 * var(--px));
-    background: var(--mig-white); color: var(--mig-blue);
-    font-size: calc(36 * var(--px)); font-weight: 700; line-height: 1.15; white-space: nowrap;
-    box-shadow: 0 calc(14 * var(--px)) calc(34 * var(--px)) rgba(0, 0, 0, .28);
+  #s-02 .s02-story { display: flex; flex-direction: column; align-items: flex-start; gap: calc(22 * var(--px)); }
+  #s-02 .s02-story > p:first-child { font-size: var(--t-lead); color: rgba(255, 255, 255, .72); line-height: 1.35; }
+  #s-02 .s02-q {
+    display: inline-flex; align-items: center; gap: calc(14 * var(--px));
+    background: var(--mig-white); color: var(--mig-blue); border-radius: calc(999 * var(--px));
+    padding: calc(16 * var(--px)) calc(30 * var(--px)); font-size: calc(38 * var(--px)); font-weight: 700;
+    box-shadow: 0 calc(16 * var(--px)) calc(40 * var(--px)) rgba(0, 0, 0, .28);
   }
-  #s-02 .bubble .ic { width: calc(34 * var(--px)); height: calc(34 * var(--px)); color: var(--mig-slate-400); }
-  #s-02 .hook .footnote { padding-inline-start: calc(4 * var(--px)); }
+  #s-02 .s02-q .ic { width: 1em; height: 1em; color: var(--mig-slate-400); }
 
-  /* step 1: the As-Is rail (flows.js, 1640 x 236) */
-  #s-02 .flow { margin-top: calc(14 * var(--px)); }
-
-  /* step 2: the anchor card (with its לאימות chip on the card) and the banner, one row */
-  #s-02 .end { display: flex; align-items: stretch; gap: var(--gap-g); margin-top: auto; }
-  #s-02 .anchor {
-    flex: none; flex-direction: row; align-items: center; gap: calc(26 * var(--px));
-    padding: calc(24 * var(--px)) calc(36 * var(--px));
-    box-shadow: var(--sh-2), inset calc(-6 * var(--px)) 0 0 var(--mig-amber);
+  #s-02 .s02-ways {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(28 * var(--px));
+    margin-top: calc(48 * var(--px));
   }
-  #s-02 .anchor .icon-halo { width: calc(76 * var(--px)); height: calc(76 * var(--px)); }
-  #s-02 .anchor-txt { display: flex; flex-direction: column; gap: calc(6 * var(--px)); }
-  #s-02 .anchor-num { display: flex; align-items: center; gap: calc(18 * var(--px)); }
-  #s-02 .anchor-num .num { font-size: calc(88 * var(--px)); font-weight: 900; line-height: .95; letter-spacing: -.02em; }
-  #s-02 .anchor-label { font-size: var(--t-body); color: var(--mig-slate-600); line-height: 1.25; }
-  #s-02 .end .banner { flex: 1 1 auto; font-size: calc(38 * var(--px)); padding: calc(26 * var(--px)) calc(48 * var(--px)); }
-
-  /* the bubble-to-dot ghost (stage only, built by the step hook) */
-  #s-02 .q-ghost {
-    position: absolute; z-index: 6; pointer-events: none;
-    display: flex; align-items: center; justify-content: center; overflow: hidden; white-space: nowrap;
-    background: var(--mig-white); color: var(--mig-blue); font-weight: 700;
-    border-radius: calc(30 * var(--px)) calc(30 * var(--px)) calc(8 * var(--px)) calc(30 * var(--px));
-    box-shadow: 0 calc(14 * var(--px)) calc(34 * var(--px)) rgba(0, 0, 0, .28);
+  #s-02 .s02-way {
+    display: flex; flex-direction: column; gap: calc(12 * var(--px));
+    padding: calc(30 * var(--px)) calc(32 * var(--px));
+    border-radius: calc(26 * var(--px));
+    background: rgba(255, 255, 255, .055); box-shadow: inset 0 0 0 var(--hair) rgba(255, 255, 255, .1);
   }
-  #s-02 .q-ghost span { display: block; }
+  #s-02 .s02-ic {
+    display: grid; place-items: center; width: calc(58 * var(--px)); height: calc(58 * var(--px)); border-radius: 50%;
+    background: rgba(255, 255, 255, .08); color: var(--mig-green); margin-bottom: calc(6 * var(--px));
+  }
+  #s-02 .s02-ic .ic { width: 48%; height: 48%; }
+  #s-02 .s02-way h3 { font-size: calc(38 * var(--px)); font-weight: 900; color: var(--mig-white); line-height: 1.1; }
+  #s-02 .s02-way p { font-size: var(--t-body); color: rgba(255, 255, 255, .66); line-height: 1.38; text-wrap: pretty; }
 
-  /* phone: hook card on top, the vertical rail (flows.js), then the anchor card and the banner */
-  html.mode-scroll #s-02 .night { flex-direction: column; align-items: stretch; gap: 14px; padding: 18px 18px 20px; }
-  html.mode-scroll #s-02 .clock { margin: 0; align-self: flex-start; }
-  html.mode-scroll #s-02 .story { padding-inline-start: 0; border-inline-start: 0; font-size: 17px; gap: 2px; }
-  html.mode-scroll #s-02 .bubble { align-self: flex-start; font-size: 18px; padding: 12px 16px; gap: 8px; border-radius: 20px 20px 6px 20px; white-space: normal; }
-  html.mode-scroll #s-02 .bubble .ic { width: 18px; height: 18px; }
-  html.mode-scroll #s-02 .flow { margin-top: 6px; }
-  html.mode-scroll #s-02 .end { flex-direction: column; gap: 12px; margin-top: 8px; }
-  html.mode-scroll #s-02 .anchor { padding: 16px 18px; gap: 14px; box-shadow: var(--sh-2), inset -4px 0 0 var(--mig-amber); }
-  html.mode-scroll #s-02 .anchor .icon-halo { width: 44px; height: 44px; }
-  html.mode-scroll #s-02 .anchor-num { flex-wrap: wrap; gap: 10px; }
-  html.mode-scroll #s-02 .anchor-num .num { font-size: var(--t-bignum); }
-  html.mode-scroll #s-02 .end .banner { font-size: 18px; padding: 14px 16px; }
+  @media screen {
+    html.mode-scroll #s-02 .s02-hook { flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 4px; }
+    html.mode-scroll #s-02 .s02-clock { font-size: 72px; padding: 0; border: 0; }
+    html.mode-scroll #s-02 .s02-story > p:first-child { font-size: 17px; }
+    html.mode-scroll #s-02 .s02-q { font-size: 18px; padding: 10px 16px; gap: 8px; }
+    html.mode-scroll #s-02 .s02-ways { grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 18px; }
+    html.mode-scroll #s-02 .s02-way { padding: 16px 18px; gap: 6px; border-radius: 16px; }
+    html.mode-scroll #s-02 .s02-ic { width: 36px; height: 36px; margin: 0; }
+    html.mode-scroll #s-02 .s02-way h3 { font-size: 19px; }
+    html.mode-scroll #s-02 .s02-way p { font-size: 15.5px; }
+  }
 </style>
-<script>
-  /* Step 1 on stage: a copy of the question bubble shrinks into a mint dot and drops onto the start of
-     the rail; the step (and with it the flow, whose own dot and "השאלה" chip carry on) is revealed as
-     the dot lands. Everything else (steps, counts, print, reduced motion, phone) is the deck's default. */
-  window.MCSlideHooks = window.MCSlideHooks || {};
-  (function () {
-    var timers = [];
-    var ghost = null;
-    function clear() {
-      timers.forEach(clearTimeout);
-      timers = [];
-      if (ghost && ghost.parentNode) ghost.parentNode.removeChild(ghost);
-      ghost = null;
-    }
-    function reveal(el) {
-      var f = el.querySelector('.flow[data-step="1"]');
-      if (f) f.setAttribute('data-shown', '');
-    }
-    MCSlideHooks['02'] = {
-      enter: function () { clear(); },
-      leave: function () { clear(); },
-      print: function (el) { clear(); },
-      step: function (el, k, info) {
-        info = info || {};
-        if (info.dir < 0) { clear(); return false; }
-        if (k !== 1 || info.instant) return false;
-        var root = document.documentElement;
-        var still = (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) || root.classList.contains('mc-noanim');
-        if (!root.classList.contains('mode-stage') || still || !el.hasAttribute('data-active')) return false;
-        var bubble = el.querySelector('.bubble');
-        var box = el.querySelector('.flow[data-step="1"] .fl-full .fl-box');
-        if (!bubble || !box || !bubble.animate) return false;
-        clear();
-        /* the hook band animates in on entry; settle it so a quick first Next measures the real bubble */
-        if (el.getAnimations) {
-          var hook = el.querySelector('.hook');
-          if (hook) hook.getAnimations({subtree: true}).forEach(function (a) { try { a.finish(); } catch (e) { /* infinite or idle */ } });
-        }
-        var s = el.getBoundingClientRect();
-        var b = bubble.getBoundingClientRect();
-        var r = box.getBoundingClientRect();
-        var u = s.width / 1920;
-        var d = 26 * u;
-        var tx = r.left - s.left + r.width * (1636 / 1640) - d / 2;
-        var ty = r.top - s.top + r.height * (50 / 236) - d / 2;
-        ghost = document.createElement('div');
-        ghost.className = 'q-ghost';
-        ghost.setAttribute('aria-hidden', 'true');
-        var t = document.createElement('span');
-        t.textContent = bubble.textContent.trim();
-        ghost.appendChild(t);
-        var fs = getComputedStyle(bubble).fontSize;
-        ghost.style.fontSize = fs;
-        ghost.style.left = (b.left - s.left) + 'px';
-        ghost.style.top = (b.top - s.top) + 'px';
-        ghost.style.width = b.width + 'px';
-        ghost.style.height = b.height + 'px';
-        el.appendChild(ghost);
-        var x0 = b.left - s.left, y0 = b.top - s.top;
-        ghost.animate([
-          {left: x0 + 'px', top: y0 + 'px', width: b.width + 'px', height: b.height + 'px', borderRadius: (30 * u) + 'px', backgroundColor: '#ffffff', offset: 0},
-          {left: (x0 + b.width / 2 - d / 2) + 'px', top: (y0 + b.height / 2 - d / 2) + 'px', width: d + 'px', height: d + 'px', borderRadius: '50%', backgroundColor: '#a2eb9a', offset: .42},
-          {left: tx + 'px', top: ty + 'px', width: d + 'px', height: d + 'px', borderRadius: '50%', backgroundColor: '#a2eb9a', offset: 1}
-        ], {duration: 760, easing: 'cubic-bezier(.45,.05,.35,1)', fill: 'forwards'});
-        t.animate([{opacity: 1}, {opacity: 0}], {duration: 200, easing: 'linear', fill: 'forwards'});
-        ghost.animate([{boxShadow: '0 0 0 0 rgba(2,1,64,0)'}, {boxShadow: '0 0 0 ' + (3 * u) + 'px #020140'}], {duration: 300, delay: 300, fill: 'forwards'});
-        timers.push(setTimeout(function () { reveal(el); }, 700));
-        timers.push(setTimeout(function () {
-          if (!ghost) return;
-          var g = ghost;
-          var an = g.animate([{opacity: 1}, {opacity: 0}], {duration: 220, fill: 'forwards'});
-          an.onfinish = function () { if (g.parentNode) g.parentNode.removeChild(g); if (ghost === g) ghost = null; };
-        }, 900));
-        return true;
-      }
-    };
-  })();
-</script>
 
 <section class="slide" id="s-03" data-chapter="1" data-title="קול הלקוח" data-foot-tpl="ניתוח פולי · 18 יום, {polly.window:range}, בעונת המס · אחוזים מצרפיים, ייתכן שהתמונה השתנתה · המטרה: מתנאי השימוש של הבוט">
-  <p class="eyebrow">קול הלקוח · פולי</p>
+  <p class="eyebrow">קול הלקוח</p>
   <h2 class="title">באתר השיווקי יש היום בוט: <b>פולי</b></h2>
+
   <div class="s03-gr">
-    <p class="s03-g"><span class="s03-k">המטרה שלו</span><span>כלי עזר לאיתור מידע מתוך אתר מגדל. מידע כללי בלבד, בלי גישה לפוליסה של הלקוח.</span></p>
-    <p class="s03-r"><span class="s03-k">בפועל</span><span><b>הלקוחות שואלים אותו על שירות: ארבע מתוך חמש פניות.</b></span></p>
+    <p class="s03-g"><span class="s03-k">המטרה שלו</span><span>כלי עזר לאיתור מידע מתוך אתר מגדל. מידע כללי, בלי גישה לפוליסה של הלקוח.</span></p>
+    <p class="s03-r"><span class="s03-k">בפועל</span><span>הלקוחות שואלים אותו על שירות.</span></p>
   </div>
 
-  <div class="voice">
-    <figure class="card donut-card anim a-rise" style="--i:0">
-      <div class="donut">
-        <svg viewBox="0 0 200 200" aria-hidden="true">
-          <circle class="track" cx="100" cy="100" r="82"/>
-          <path class="seg svc anim a-draw" pathLength="1" data-seg="polly.service" style="--delay:150ms"/>
-          <path class="seg mkt anim a-draw" pathLength="1" data-seg="polly.marketing" style="--delay:1350ms; --dur:360ms"/>
-          <path class="seg unk anim a-draw" pathLength="1" data-seg="polly.unknown" style="--delay:1700ms; --dur:200ms"/>
-        </svg>
-        <div class="donut-c">
-          <span class="num a-count donut-n" data-num="polly.service" style="--i:1"></span>
-          <span class="donut-sub">שאלות שירות</span>
-        </div>
-      </div>
-      <ul class="legend">
-        <li class="svc"><i aria-hidden="true"></i><span class="num a-count" data-num="polly.service" style="--i:2"></span><span class="lg-t">שירות</span></li>
-        <li class="mkt"><i aria-hidden="true"></i><span class="num" data-num="polly.marketing"></span><span class="lg-t">שיווק</span></li>
-        <li class="unk"><i aria-hidden="true"></i><span class="num" data-num="polly.unknown"></span><span class="lg-t">לא מזוהה</span></li>
-      </ul>
-    </figure>
-
-    <div class="stats">
-      <article class="card stat anim a-rise" style="--i:3">
-        <span class="num a-count stat-n" data-num="polly.personalPct" style="--i:5"></span>
-        <p class="stat-t">שאלו על המוצרים שלהם ועל תנאי הפוליסה. <b>בלי זיהוי, אין להן תשובה</b></p>
-      </article>
-      <article class="card stat anim a-rise" style="--i:4">
-        <span class="num a-count stat-n" data-num="polly.notfound" style="--i:6"></span>
-        <p class="stat-t">קיבלו ״לא נמצא״</p>
-      </article>
-      <article class="card stat anim a-rise" style="--i:5">
-        <span class="num a-count stat-n" data-num="polly.human" style="--i:7"></span>
-        <p class="stat-t">ביקשו בן אדם: תיאום שיחה או נציג</p>
-      </article>
-      <article class="card stat anim a-rise" style="--i:6">
-        <span class="num a-count stat-n" data-num="polly.purchasePct" style="--i:8"></span>
-        <p class="stat-t">כוונת רכישה מפורשת. <b>אף אחת לא הפכה לליד</b></p>
-      </article>
+  <div class="s03-main fill">
+    <div class="s03-hero anim a-rise" style="--i:0">
+      <p class="s03-big"><span class="num a-count" data-num="polly.service"></span></p>
+      <p class="s03-big-t">מהפניות לפולי הן <b>שאלות שירות</b></p>
     </div>
+    <ul class="s03-stats">
+      <li class="anim a-rise" style="--i:1"><span class="num a-count" data-num="polly.personalPct"></span><p>שאלו על הפוליסה שלהם. <b>בלי זיהוי, אין תשובה.</b></p></li>
+      <li class="anim a-rise" style="--i:2"><span class="num a-count" data-num="polly.notfound"></span><p>קיבלו ״לא נמצא״</p></li>
+      <li class="anim a-rise" style="--i:3"><span class="num a-count" data-num="polly.human"></span><p>ביקשו בן אדם</p></li>
+      <li class="anim a-rise" style="--i:4"><span class="num a-count" data-num="polly.purchasePct"></span><p>כוונת רכישה. <b>אף אחת לא הפכה לליד.</b></p></li>
+    </ul>
   </div>
 
   <div class="banner"><span>הביקוש לתשובה אישית כבר כאן. <b>חסר מי שיודע מה יש ללקוח.</b></span></div>
@@ -2506,96 +2410,34 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   <aside class="notes">דיבור: היום יש באתר השיווקי של מגדל בוט, פולי. לפי תנאי השימוש שלו, הוא כלי עזר לאיתור מידע מתוך האתר: מידע כללי בלבד, בלי גישה לפוליסה של הלקוח. ובפועל, ארבע מתוך חמש פניות אליו הן שאלות שירות. כמעט אחד מכל שבעה מבקש בן אדם, ומי ששואל על הפוליסה שלו לא מקבל תשובה. הנתונים מחלון של 18 יום בעונת המס, אז מדברים באחוזים.</aside>
 </section>
 <style>
-  #s-03 .lead { margin-top: calc(-6 * var(--px)); }
-  #s-03 .voice {
-    display: grid; grid-template-columns: calc(730 * var(--px)) minmax(0, 1fr); gap: calc(32 * var(--px));
-    margin-top: calc(8 * var(--px)); align-items: stretch;
-    flex: 1 1 auto; min-height: 0;
-  }
-  #s-03 .donut-card {
-    flex-direction: row; align-items: center; gap: calc(44 * var(--px));
-    padding: calc(24 * var(--px)) calc(36 * var(--px));
-  }
-  #s-03 .donut { position: relative; flex: none; width: calc(320 * var(--px)); aspect-ratio: 1; }
-  #s-03 .donut svg { display: block; width: 100%; height: 100%; overflow: visible; }
-  #s-03 .donut .track { fill: none; stroke: var(--mig-mist); stroke-width: 26; }
-  #s-03 .donut .seg { fill: none; stroke-width: 26; stroke-linecap: butt; }
-  #s-03 .donut .seg.svc { stroke: var(--mig-blue); }
-  #s-03 .donut .seg.mkt { stroke: var(--mig-line-blue); }
-  #s-03 .donut .seg.unk { stroke: var(--mig-slate-400); }
-  #s-03 .donut-c {
-    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: calc(4 * var(--px)); text-align: center;
-  }
-  #s-03 .donut-n { font-size: calc(64 * var(--px)); font-weight: 900; line-height: 1; letter-spacing: -.02em; color: var(--mig-ink); }
-  #s-03 .donut-sub { font-size: var(--t-small); font-weight: 700; color: var(--mig-slate-600); white-space: nowrap; }
-  #s-03 .legend { display: flex; flex-direction: column; gap: calc(26 * var(--px)); min-width: 0; }
-  #s-03 .legend li { display: grid; grid-template-columns: auto auto 1fr; align-items: baseline; column-gap: calc(14 * var(--px)); }
-  #s-03 .legend i { width: calc(18 * var(--px)); height: calc(18 * var(--px)); border-radius: calc(5 * var(--px)); align-self: center; }
-  #s-03 .legend .svc i { background: var(--mig-blue); }
-  #s-03 .legend .mkt i { background: var(--mig-line-blue); }
-  #s-03 .legend .unk i { background: var(--mig-slate-400); }
-  #s-03 .legend .num { font-size: calc(36 * var(--px)); font-weight: 900; line-height: 1.1; color: var(--mig-ink); }
-  #s-03 .legend .svc .num { font-size: calc(52 * var(--px)); color: var(--mig-blue); }
-  #s-03 .legend .lg-t { font-size: var(--t-body); font-weight: 300; color: var(--mig-slate-600); }
-  #s-03 .legend .svc .lg-t { font-weight: 700; color: var(--mig-ink); }
+  #s-03 .s03-gr { display: grid; grid-template-columns: 1fr 1fr; gap: calc(48 * var(--px)); margin-top: calc(6 * var(--px)); }
+  #s-03 .s03-gr p { display: flex; flex-direction: column; gap: calc(6 * var(--px)); font-size: var(--t-body); line-height: 1.35; }
+  #s-03 .s03-k { font-size: var(--t-label); font-weight: 700; letter-spacing: .08em; color: var(--mig-slate-400); }
+  #s-03 .s03-g { color: var(--mig-slate-600); }
+  #s-03 .s03-r { color: var(--mig-ink); font-weight: 700; }
+  #s-03 .s03-r .s03-k { color: var(--mig-blue); }
 
-  #s-03 .stats { --stagger: 80ms; display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: calc(12 * var(--px)); min-width: 0; }
-  #s-03 .stat {
-    flex-direction: row; align-items: center; gap: calc(30 * var(--px));
-    padding: calc(12 * var(--px)) calc(30 * var(--px));
-    position: relative; overflow: hidden;
-  }
-  /* the blue side bar: a real bar clipped by the card's radius (an inset shadow tapers at the corners) */
-  #s-03 .stat::after {
-    content: ""; position: absolute; inset-block: 0; inset-inline-start: 0;
-    width: calc(6 * var(--px)); background: var(--mig-blue); pointer-events: none;
-  }
-  #s-03 .stat-n {
-    flex: none; width: calc(200 * var(--px));
-    font-size: calc(58 * var(--px)); font-weight: 900; line-height: 1; letter-spacing: -.02em; color: var(--mig-blue);
-  }
-  #s-03 .stat-t { font-size: var(--t-body); line-height: 1.34; text-wrap: pretty; }
-  #s-03 .stat-t b { font-weight: 700; }
-  #s-03 .health {
-    align-self: flex-start; gap: calc(14 * var(--px));
-    padding: calc(12 * var(--px)) calc(24 * var(--px)); margin-top: calc(4 * var(--px));
-    box-shadow: var(--sh-1);
-  }
-  #s-03 .health .ic { color: var(--mig-blue); width: 1.15em; height: 1.15em; }
-  #s-03 .health b { font-weight: 700; }
+  #s-03 .s03-main { display: grid; grid-template-columns: calc(640 * var(--px)) minmax(0, 1fr); gap: calc(80 * var(--px)); align-items: center; min-height: 0; }
+  #s-03 .s03-big { font-size: calc(220 * var(--px)); font-weight: 900; line-height: .9; letter-spacing: -.045em; color: var(--mig-blue); }
+  #s-03 .s03-big-t { margin-top: calc(18 * var(--px)); font-size: calc(40 * var(--px)); line-height: 1.2; color: var(--mig-slate-600); }
+  #s-03 .s03-big-t b { color: var(--mig-ink); font-weight: 900; }
+  #s-03 .s03-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0 calc(56 * var(--px)); }
+  #s-03 .s03-stats li { display: flex; flex-direction: column; gap: calc(8 * var(--px)); padding: calc(26 * var(--px)) 0; border-top: var(--hair) solid var(--mig-line-soft); }
+  #s-03 .s03-stats .num { font-size: calc(66 * var(--px)); font-weight: 900; line-height: 1; letter-spacing: -.03em; color: var(--mig-ink); }
+  #s-03 .s03-stats p { font-size: var(--t-body); line-height: 1.32; color: var(--mig-slate-600); text-wrap: pretty; }
+  #s-03 .s03-stats p b { color: var(--mig-ink); font-weight: 700; }
 
   @media screen {
-    html:not(.mode-stage) #s-03 .lead { margin-top: 0; text-wrap: balance; }
-    /* phone: the two sentences of the title on their own lines */
-    html:not(.mode-stage) #s-03 .title b { display: block; text-wrap: balance; }
-    html:not(.mode-stage) #s-03 .voice { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 4px; flex: none; }
-    html:not(.mode-stage) #s-03 .donut-card { flex-direction: column; gap: 16px; padding: 20px 18px; }
-    html:not(.mode-stage) #s-03 .donut { width: 200px; }
-    html:not(.mode-stage) #s-03 .donut-n { font-size: 34px; }
-    html:not(.mode-stage) #s-03 .donut-sub { font-size: 13px; }
-    html:not(.mode-stage) #s-03 .legend { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px 18px; }
-    html:not(.mode-stage) #s-03 .legend li { column-gap: 6px; }
-    html:not(.mode-stage) #s-03 .legend i { width: 10px; height: 10px; border-radius: 3px; }
-    html:not(.mode-stage) #s-03 .legend .num, html:not(.mode-stage) #s-03 .legend .svc .num { font-size: 18px; }
-    html:not(.mode-stage) #s-03 .legend .lg-t { font-size: 15px; }
-    html:not(.mode-stage) #s-03 .stats { gap: 10px; grid-template-rows: none; }
-    html:not(.mode-stage) #s-03 .stat { gap: 14px; padding: 14px 16px; }
-    html:not(.mode-stage) #s-03 .stat::after { width: 4px; }
-    html:not(.mode-stage) #s-03 .stat-n { width: 86px; font-size: 30px; }
-    html:not(.mode-stage) #s-03 .health { white-space: normal; align-items: flex-start; border-radius: 14px; padding: 10px 14px; gap: 8px; }
-    html:not(.mode-stage) #s-03 .health .ic { margin-top: 2px; }
-    /* phone: the two halves of the evidence chip sit on two lines, so the "·" never dangles at a break */
-    html:not(.mode-stage) #s-03 .s05-sep { display: none; }
-    html:not(.mode-stage) #s-03 .s05-a, html:not(.mode-stage) #s-03 .s05-b { display: block; }
+    html.mode-scroll #s-03 .s03-gr { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    html.mode-scroll #s-03 .s03-gr p { font-size: 16px; gap: 2px; }
+    html.mode-scroll #s-03 .s03-main { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    html.mode-scroll #s-03 .s03-big { font-size: 76px; }
+    html.mode-scroll #s-03 .s03-big-t { font-size: 19px; margin-top: 6px; }
+    html.mode-scroll #s-03 .s03-stats { gap: 0 18px; }
+    html.mode-scroll #s-03 .s03-stats li { padding: 12px 0; gap: 4px; }
+    html.mode-scroll #s-03 .s03-stats .num { font-size: 30px; }
+    html.mode-scroll #s-03 .s03-stats p { font-size: 14.5px; }
   }
-  #s-03 .s03-gr { display: grid; grid-template-columns: 1fr 1fr; gap: calc(20 * var(--px)); margin-top: calc(-4 * var(--px)); }
-  #s-03 .s03-gr p { display: flex; align-items: baseline; gap: calc(16 * var(--px)); font-size: var(--t-body); line-height: 1.35; padding: calc(12 * var(--px)) calc(22 * var(--px)); border-radius: calc(14 * var(--px)); }
-  #s-03 .s03-g { background: var(--mig-mist); color: var(--mig-slate-600); }
-  #s-03 .s03-r { background: #e7ecfb; color: var(--mig-ink); }
-  #s-03 .s03-k { flex: none; font-size: var(--t-small); font-weight: 900; letter-spacing: .04em; color: var(--mig-blue); }
-  #s-03 .s03-g .s03-k { color: var(--mig-slate-600); }
-  @media screen { html:not(.mode-stage) #s-03 .s03-gr { grid-template-columns: minmax(0,1fr); gap: 8px; margin-top: 0; } html:not(.mode-stage) #s-03 .s03-gr p { flex-direction: column; gap: 2px; padding: 10px 12px; font-size: 15.5px; } }
 </style>
 <script>
   window.MCSlideHooks = window.MCSlideHooks || {};
@@ -2722,7 +2564,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   #s-04 .dot, #s-04 .dia { display: block; flex: none; }
   #s-04 .dot { width: calc(32 * var(--px)); height: calc(32 * var(--px)); border-radius: 50%; background: var(--mig-white); box-shadow: inset 0 0 0 calc(5 * var(--px)) var(--mig-ink); }
   #s-04 .st.q .dot { background: var(--mig-green); box-shadow: inset 0 0 0 calc(5 * var(--px)) var(--mig-ink), 0 0 0 calc(8 * var(--px)) rgba(162, 235, 154, .35); }
-  #s-04 .st.s5 .dot { background: var(--warning-bg); box-shadow: inset 0 0 0 calc(5 * var(--px)) var(--mig-amber); }
+  #s-04 .st.s5 .dot { background: var(--mig-mist); box-shadow: inset 0 0 0 calc(5 * var(--px)) var(--mig-slate-400); }
   #s-04 .dia { width: calc(34 * var(--px)); height: calc(34 * var(--px)); margin-block: calc(-1 * var(--px)); background: var(--mig-ink); border-radius: calc(4 * var(--px)); transform: rotate(45deg); }
   #s-04 .fork {
     position: absolute; left: calc(var(--x) / 1640 * 100%); top: calc(var(--y) / 250 * 100%); transform: translate(-50%, -50%);
@@ -2744,10 +2586,10 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     padding: calc(9 * var(--px)) calc(22 * var(--px)); border-radius: var(--r-pill);
     font-size: calc(26 * var(--px)); font-weight: 700; line-height: 1.2;
   }
-  #s-04 .mk.today .mk-l { background: var(--warning-bg); color: var(--warning); box-shadow: inset 0 0 0 calc(2 * var(--px)) var(--mig-amber); }
+  #s-04 .mk.today .mk-l { background: var(--mig-mist); color: var(--mig-slate-600); box-shadow: inset 0 0 0 calc(2 * var(--px)) var(--mig-slate-400); }
   #s-04 .mk-stack { display: grid; padding: 0; background: var(--mig-green); color: var(--mig-ink); box-shadow: 0 calc(8 * var(--px)) calc(22 * var(--px)) rgba(2, 1, 64, .14); }
   #s-04 .mk-stack > .mk-l { grid-area: 1 / 1; }
-  #s-04 .mk-stack .old { color: var(--warning); opacity: 0; }
+  #s-04 .mk-stack .old { color: var(--mig-slate-600); opacity: 0; }
 
   /* lines and the takeaway */
   #s-04 .lines { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-l); }
@@ -2799,7 +2641,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   /* its dotted stem hides while it travels, so it never runs through the הסדר chip */
   @keyframes s07-stem { 0%, 28% { opacity: 1; } 32%, 88% { opacity: 0; } 92%, 100% { opacity: 1; } }
   @keyframes s07-tint {
-    0%, 42% { background-color: var(--warning-bg); box-shadow: inset 0 0 0 calc(2 * var(--px)) var(--mig-amber); }
+    0%, 42% { background-color: var(--mig-mist); box-shadow: inset 0 0 0 calc(2 * var(--px)) var(--mig-slate-400); }
     70%, 100% { background-color: var(--mig-green); box-shadow: 0 calc(8 * var(--px)) calc(22 * var(--px)) rgba(2, 1, 64, .14); }
   }
   @keyframes s07-old { 0%, 46% { opacity: 1; } 60%, 100% { opacity: 0; } }
@@ -2819,13 +2661,13 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   html.mode-scroll #s-04 .tl-v li.q b { color: var(--mig-blue); }
   html.mode-scroll #s-04 .tl-v .dot { position: relative; z-index: 1; width: 22px; height: 22px; box-shadow: inset 0 0 0 4px var(--mig-ink); }
   html.mode-scroll #s-04 .tl-v li.q .dot { background: var(--mig-green); box-shadow: inset 0 0 0 4px var(--mig-ink), 0 0 0 5px rgba(162, 235, 154, .35); }
-  html.mode-scroll #s-04 .tl-v li.claim .dot { background: var(--warning-bg); box-shadow: inset 0 0 0 4px var(--mig-amber); }
+  html.mode-scroll #s-04 .tl-v li.claim .dot { background: var(--mig-mist); box-shadow: inset 0 0 0 4px var(--mig-slate-400); }
   html.mode-scroll #s-04 .tl-v .dia { position: relative; z-index: 1; width: 18px; height: 18px; margin: 2px; }
   html.mode-scroll #s-04 .forks { display: inline-flex; gap: 6px; }
   html.mode-scroll #s-04 .fork { position: static; transform: none; font-size: 13px; padding: 3px 10px; }
   html.mode-scroll #s-04 .mk-chip { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap; }
   html.mode-scroll #s-04 .mk-chip.mint { background: var(--mig-green); color: var(--mig-ink); }
-  html.mode-scroll #s-04 .mk-chip.amber { background: var(--warning-bg); color: var(--warning); box-shadow: inset 0 0 0 1.5px var(--mig-amber); }
+  html.mode-scroll #s-04 .mk-chip.amber { background: var(--mig-mist); color: var(--mig-slate-600); box-shadow: inset 0 0 0 1.5px var(--mig-slate-400); }
   html.mode-scroll #s-04 .lines { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   html.mode-scroll #s-04 .lines p { font-size: 16px; gap: 10px; }
   html.mode-scroll #s-04 .lines .ic { width: 18px; height: 18px; margin-top: 2px; }
@@ -2857,7 +2699,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
       </div>
       <div class="s09-body anim a-rise" style="--i:0">
         <h3 class="s09-he">כיסוי</h3>
-        <p class="s09-line">כל הפוליסות, פרט וקולקטיב. מה מכוסה, כמה, וכמה כבר נוצל.</p>
+        <p class="s09-line">כל הפוליסות. מה מכוסה, וכמה נשאר.</p>
       </div>
     </li>
     <li class="s09-col" style="--i:1">
@@ -2867,7 +2709,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
       </div>
       <div class="s09-body anim a-rise" style="--i:1">
         <h3 class="s09-he">הסדר</h3>
-        <p class="s09-line">נותני שירות בהסדר, קרוב לבית, עם העלות המדויקת.</p>
+        <p class="s09-line">נותני שירות בהסדר, קרוב לבית.</p>
       </div>
     </li>
     <li class="s09-col" style="--i:2">
@@ -2877,7 +2719,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
       </div>
       <div class="s09-body anim a-rise" style="--i:2">
         <h3 class="s09-he">החרגות</h3>
-        <p class="s09-line">ההחרגות האישיות, בשפה פשוטה, לפני שיוצאים לטיפול. בלי הפתעות בתביעה.</p>
+        <p class="s09-line">ההחרגות האישיות, בשפה פשוטה, מראש.</p>
       </div>
     </li>
     <li class="s09-col" style="--i:3">
@@ -2887,7 +2729,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
       </div>
       <div class="s09-body anim a-rise" style="--i:3">
         <h3 class="s09-he">הצעד הבא</h3>
-        <p class="s09-line">נציג שחוזר, ליד למוקד או לסוכן. בהמשך תור, אישור מראש ותביעה.</p>
+        <p class="s09-line">נציג שחוזר. בהמשך תור ותביעה.</p>
       </div>
     </li>
   </ol>
@@ -2977,8 +2819,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
 </style>
 
 <section class="slide" id="s-06" data-chapter="2" data-title="המטרות">
-  <ol class="ladder s17-ladder" data-active="2"></ol>
-  <p class="eyebrow">המטרות והמדדים</p>
+    <p class="eyebrow">המטרות והמדדים</p>
   <h2 class="title">שלוש מטרות, <b>ואחת שצומחת מהן</b></h2>
 
   <ol class="grid-3 s17-goals" aria-label="שלוש המטרות">
@@ -3128,7 +2969,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
 
   <p class="takeaway s10-take"><span>שאלה אחת, כמה שניות: <b>תשובה מהפוליסה, והצעד הבא.</b></span></p>
 
-  <aside class="notes">דיבור: לפני הדמו: מניחים על השולחן פוליסה מודפסת ומבקשים מהחדר למצוא תוך דקה כמה טיפולי פיזיותרפיה מגיעים. החדר מקבל דקה. <bdi class="en">Migdal Care</bdi> צריך כמה שניות. השיחה עוצרת אחרי ״כדאי לדעת״: כן, כמה נשאר, ובדיקת ההחרגות. לחיצה אחת ממשיכה למכונים בהסדר ולנציג שחוזר, לחיצה שנייה עוברת לשקף הבא. המתג עובר להתייעצות עם אורתופד, הכותרת עוברת איתו, והקישור פותח את ההדגמה המלאה באותה שאלה.</aside>
+  <aside class="notes">דיבור: לפני הדמו: מניחים על השולחן פוליסה מודפסת ומבקשים מהחדר למצוא תוך דקה כמה טיפולי פיזיותרפיה מגיעים. החדר מקבל דקה. <bdi class="en">Migdal Care</bdi> צריך כמה שניות. השיחה מתקדמת לאט, שלב אחרי שלב. כל לחיצה על החץ, או נגיעה בטלפון, מקדמת שלב: כן, כמה נשאר, מכונים בהסדר, ונציג שחוזר. כשהשיחה נגמרת, החץ עובר לשקף הבא. המתג עובר להתייעצות עם אורתופד, הכותרת עוברת איתו, והקישור פותח את ההדגמה המלאה באותה שאלה.</aside>
 </section>
 <style>
   /* ---------- stage: copy on the right (1060u), phone frame 470x860u at x=140u, y=120u ---------- */
@@ -3295,7 +3136,9 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   /* compact speed 1.25 (plan 3.6). Holding after beat 2 uses only the public api: a very slow speed parks the
      engine on its next wait (the typing dots of the next line, hidden while held), and next() skips that wait.
      setTimeout caps a delay at about 24.8 days, so the parked wait (under 3 hours) never wraps to zero. */
-  var SPEED = 1.25, PARK = 0.0001, RUSH = 100000, HOLD_AT = 2;
+  /* v3 (Tom): calmer pace, and the presenter drives it. Each step plays, then rests (DWELL); Next / a tap on the
+     chat moves one step (finish the step in play, or start the next one); once the chat has ended Next moves on. */
+  var SPEED = 0.8, PARK = 0.0001, RUSH = 100000, HOLD_AT = 0, DWELL = 2600;
   var TITLES = {
     physio: ['יש לי כיסוי לפיזיותרפיה?', 'כן, כמה נשאר, ואיפה בהסדר'],
     specialist: ['יש לי כיסוי להתייעצות עם אורתופד?', 'כן, כמה נשאר, ואיזה רופא בהסדר']
@@ -3399,7 +3242,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     if (chat) return chat;
     if (!window.MC || !window.MC.createChat || !window.MC_DATA) return null;
     chat = window.MC.createChat(q(el, '.s10-screen'), {
-      data: window.MC_DATA, scenario: key, mode: 'compact', speed: SPEED,
+      data: window.MC_DATA, scenario: key, mode: 'compact', speed: SPEED, dwell: DWELL,
       hooks: {
         onReset: function () { clearRest(); el.classList.remove('s10-done'); light(el, 0); setLabels(el, window.MC_DATA.compact[key].beats); },
         onBeat: function (p) {
@@ -3511,6 +3354,12 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     });
     var r = q(el, '.s10-replay');
     if (r) r.addEventListener('click', function () { r.blur(); unwatch(); run(el, reduced()); });
+    /* a tap on the chat moves the conversation one step (the presenter's pace, also on a phone) */
+    var sc = q(el, '.s10-screen');
+    if (sc) sc.addEventListener('click', function (e) {
+      if (e.target.closest('button, a, input')) return;
+      if (chat && !chat.ended && chat.nextBeat) chat.nextBeat();
+    });
   }
 
   window.MCSlideHooks = window.MCSlideHooks || {};
@@ -3545,7 +3394,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     next: function (el) {
       if (!chat) return false;
       if (held) { resume(el); return true; }
-      if (holdAt && !chat.ended) { rush(); return true; }
+      if (!chat.ended && chat.nextBeat && chat.nextBeat()) return true;
       if (!chat.ended) { chat.finish(); el.setAttribute('data-step-cur', '1'); return true; }
       el.setAttribute('data-step-cur', '1');
       return false;
@@ -3708,499 +3557,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   }
 </style>
 
-<section class="slide" id="s-09" data-chapter="3" data-title="לידים" data-steps="1">
-  <p class="eyebrow">ערוץ חדש עם הלקוח</p>
-  <h2 class="title">כל שיחה יכולה להמשיך, <b>לפי מה שהלקוח צריך</b></h2>
-
-  <div class="s16-stage fill">
-    <div class="s16-flow">
-      <div class="flow" data-flow="leads"><p class="sr-only" data-keep aria-hidden="true">שיחה ב-<bdi class="en">Migdal Care</bdi> · הקשר: פיזיותרפיה · נותרו 9 · רמת גן · 3 מכונים · נתוני דוגמה</p></div>
-    </div>
-
-    <div class="s16-crm" data-step="1">
-      <div class="crm-win anim a-slide" data-interactive>
-        <div class="crm-bar">
-          <span class="crm-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="crm-frame-t"><bdi class="en">CRM</bdi> · לדוגמה</span>
-          <span class="sample-tag crm-sample">נתוני דוגמה</span>
-        </div>
-        <div class="crm-body" data-crm-body></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="banner"><span>ערוץ תקשורת חדש וקבוע עם הלקוח. <b>ממנו אוספים לידים, לפי ההבנה והצורך.</b></span></div>
-  <aside class="notes">דיבור: <bdi class="en">Migdal Care</bdi> הוא ערוץ תקשורת חדש וקבוע עם הלקוח. כל שיחה נגמרת בצעד הבא: ליד להסדר כשהוצגו מכונים ולא נקבע תור, העברה חמה לנציג עם סיכום, או ליד לפי צורך שהלקוח עצמו העלה, בהסכמה. ובלחיצה הבאה: ככה ליד השירות נראה אצל הנציג במוקד, עם כל מה שנבדק בשיחה.</aside>
-</section>
-<style>
-  /* ---------- stage: one 1640u-wide box that holds both steps ---------- */
-  #s-09 .s16-stage { position: relative; display: flex; flex-direction: column; justify-content: center; gap: calc(22 * var(--px)); min-height: 0; }
-  /* stage: the content sits on the bottom edge, so the guardrails row keeps its place from step 1 to step 2 */
-  html.mode-stage #s-09 .s16-stage { justify-content: flex-end; }
-  #s-09 .s16-flow { width: 100%; flex: none; }
-  #s-09 .s16-flow > .flow { width: 100%; }
-  #s-09 .s16-more { display: flex; flex-direction: column; gap: calc(18 * var(--px)); }
-
-  /* the car sales lead lives in the demo (S6): a link under branch C (the outcomes column on step 1, the hub column on step 2) */
-  #s-09 .s16-car {
-    align-self: flex-end; display: inline-flex; align-items: center; gap: calc(12 * var(--px));
-    font-size: var(--t-small); line-height: 1.25; white-space: nowrap;
-  }
-  #s-09 .s16-car-ic {
-    display: grid; place-items: center; flex: none; width: calc(44 * var(--px)); height: calc(44 * var(--px));
-    border-radius: 50%; background: var(--mig-green); color: var(--mig-ink);
-  }
-  #s-09 .s16-car-ic .ic { width: 54%; height: 54%; }
-  #s-09 .s16-car-go { width: 1.05em; height: 1.05em; flex: none; }
-  /* the context packet that rides branch A: slimmer, and below the column heads (never over "פעולה" or "תוצאה") */
-  #s-09 .fl-full .fl-pkt { padding-block: calc(2 * var(--fu)); line-height: 1.2; }
-
-  /* guardrails strip + evidence chip, one row */
-  #s-09 .s16-row { display: flex; align-items: center; gap: var(--gap-m); }
-  #s-09 .s16-guard {
-    flex: 1 1 auto; min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: calc(6 * var(--px)) calc(12 * var(--px));
-    padding: calc(6 * var(--px)) calc(22 * var(--px)) calc(6 * var(--px)) calc(26 * var(--px));
-    border-radius: var(--r-pill); background: var(--mig-mist);
-    font-size: var(--t-label); font-weight: 700; line-height: 1.3; color: var(--mig-ink);
-  }
-  /* "a · b · c" that wraps without a separator dangling at a line end: each item carries its own leading dot,
-     and the dot of whichever item starts a line falls outside the clip box (the flows.js dots pattern) */
-  #s-09 .s16-gl { flex: 1 1 auto; min-width: 0; display: block; overflow: hidden; --dot-w: 1.4em; padding-block: .12em; margin-block: -.12em; }
-  #s-09 .s16-gl-in { display: block; margin-inline-start: calc(-1 * var(--dot-w)); }
-  #s-09 .s16-gi { white-space: nowrap; }
-  #s-09 .s16-gi::before { content: "\00B7"; display: inline-block; width: var(--dot-w); text-align: center; color: var(--mig-slate-400); }
-  #s-09 .s16-guard-ic { display: inline-grid; place-items: center; color: var(--mig-green-700); margin-inline-end: calc(4 * var(--px)); }
-  #s-09 .s16-guard-ic .ic { width: calc(30 * var(--px)); height: calc(30 * var(--px)); }
-  #s-09 .s16-evidence { flex: none; padding-block: calc(6 * var(--px)); }
-  #s-09 .s16-zero { color: var(--warning); font-weight: 900; }
-
-  /* ---------- the CRM service-lead card (plan 3.3, the S1 lead in state "חדש") ---------- */
-  #s-09 .s16-crm { display: none; min-height: 0; }
-  #s-09 .crm-win {
-    height: 100%; display: flex; flex-direction: column; overflow: hidden;
-    background: var(--mig-white); border-radius: var(--card-r);
-    box-shadow: 0 calc(24 * var(--px)) calc(60 * var(--px)) rgba(2, 1, 64, .14), 0 0 0 var(--hair) var(--mig-line-soft);
-    --slide-from: calc(-48 * var(--px));
-  }
-  #s-09 .crm-bar {
-    flex: none; display: flex; align-items: center; gap: calc(16 * var(--px));
-    padding: calc(6 * var(--px)) calc(22 * var(--px)); background: var(--mig-mist);
-    border-bottom: var(--hair) solid var(--mig-line-soft);
-    font-size: var(--t-label); font-weight: 700; color: var(--mig-slate-600);
-  }
-  #s-09 .crm-dots { display: inline-flex; gap: calc(8 * var(--px)); direction: ltr; }
-  #s-09 .crm-dots i { width: calc(12 * var(--px)); height: calc(12 * var(--px)); border-radius: 50%; background: var(--mig-line); }
-  #s-09 .crm-frame-t { flex: 1 1 auto; }
-  #s-09 .crm-sample::before { content: ""; width: calc(10 * var(--px)); height: calc(10 * var(--px)); border-radius: 50%; background: var(--mig-slate-400); }
-
-  #s-09 .crm-body {
-    flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: calc(9 * var(--px));
-    padding: calc(12 * var(--px)) calc(24 * var(--px));
-    font-size: var(--t-label); line-height: 1.25; color: var(--mig-ink);
-  }
-  #s-09 .crm-head { display: flex; flex-direction: column; gap: calc(4 * var(--px)); padding-bottom: calc(9 * var(--px)); border-bottom: var(--hair) solid var(--mig-line-soft); }
-  #s-09 .crm-row { display: flex; align-items: center; gap: calc(12 * var(--px)); }
-  #s-09 .crm-kind {
-    display: grid; place-items: center; flex: none; width: calc(42 * var(--px)); height: calc(42 * var(--px));
-    border-radius: calc(11 * var(--px)); background: var(--mig-ink); color: var(--mig-green);
-  }
-  #s-09 .crm-kind .ic { width: 56%; height: 56%; }
-  #s-09 .crm-title { font-size: calc(30 * var(--px)); font-weight: 900; line-height: 1.15; flex: 0 1 auto; min-width: 0; }
-  #s-09 .crm-pill.is-new { margin-inline-start: auto; }
-  #s-09 .crm-pill {
-    display: inline-flex; align-items: center; gap: .4em; white-space: nowrap; flex: none;
-    padding: calc(4 * var(--px)) calc(14 * var(--px)); border-radius: var(--r-pill);
-    font-size: var(--t-label); font-weight: 700; line-height: 1.2;
-    background: var(--mig-mist); color: var(--mig-slate-600);
-  }
-  #s-09 .crm-pill.is-new { background: var(--mig-green); color: var(--mig-ink); }
-  #s-09 .crm-pill.is-src { background: var(--st-offer-bg); color: var(--mig-blue); }
-  #s-09 .crm-pill .ic { width: 1.05em; height: 1.05em; }
-  #s-09 .crm-cust { font-weight: 700; }
-  #s-09 .crm-sla { display: inline-flex; align-items: center; gap: calc(10 * var(--px)); margin-inline-start: auto; color: var(--mig-slate-600); white-space: nowrap; }
-  #s-09 .crm-sla-t { white-space: nowrap; }
-  #s-09 .crm-sla-bar { position: relative; width: calc(110 * var(--px)); height: calc(8 * var(--px)); border-radius: 99px; background: var(--mig-line-soft); overflow: hidden; }
-  #s-09 .crm-sla-bar b { position: absolute; inset-block: 0; inset-inline-start: 0; width: 18%; border-radius: inherit; background: var(--mig-blue); }
-
-  #s-09 .crm-h { display: inline-flex; align-items: center; gap: calc(8 * var(--px)); font-weight: 700; color: var(--mig-slate-600); white-space: nowrap; }
-  #s-09 .crm-h .ic { width: calc(26 * var(--px)); height: calc(26 * var(--px)); color: var(--mig-magenta); }
-  #s-09 .crm-sum {
-    display: flex; flex-direction: column; gap: calc(6 * var(--px));
-    padding: calc(9 * var(--px)) calc(18 * var(--px)); border-radius: calc(12 * var(--px));
-    background: #f6f9fd; box-shadow: inset 0 0 0 var(--hair) var(--mig-line-soft);
-  }
-  #s-09 .crm-sum ul { display: flex; flex-direction: column; gap: calc(1 * var(--px)); }
-  #s-09 .crm-sum li { position: relative; padding-inline-start: calc(20 * var(--px)); }
-  #s-09 .crm-sum li::before { content: ""; position: absolute; inset-inline-start: 0; top: .58em; width: calc(8 * var(--px)); height: calc(8 * var(--px)); border-radius: 50%; background: var(--mig-blue); opacity: .55; }
-  #s-09 .crm-ghost { visibility: hidden; }
-  #s-09 .crm-typed { position: absolute; inset-block-start: 0; inset-inline: calc(20 * var(--px)) 0; }
-  #s-09 .crm-chkrow { display: flex; align-items: center; flex-wrap: wrap; gap: calc(8 * var(--px)); padding-top: calc(6 * var(--px)); border-top: var(--hair) dashed var(--mig-line); }
-  #s-09 .crm-chkrow .crm-h { margin-inline-end: calc(4 * var(--px)); }
-  #s-09 .crm-chk { display: inline-flex; align-items: center; gap: calc(8 * var(--px)); padding: calc(3 * var(--px)) calc(12 * var(--px)) calc(3 * var(--px)) calc(4 * var(--px)); border-radius: var(--r-pill); background: var(--mig-white); box-shadow: inset 0 0 0 var(--hair) var(--mig-line-soft); font-weight: 700; white-space: nowrap; }
-  #s-09 .crm-chk .care-pill { --chip-py: calc(1 * var(--px)); --chip-px: calc(9 * var(--px)); }
-
-  #s-09 .crm-rec {
-    display: flex; align-items: center; gap: calc(14 * var(--px));
-    padding: calc(6 * var(--px)) calc(8 * var(--px)) calc(6 * var(--px)) calc(18 * var(--px));
-    border-radius: calc(12 * var(--px)); background: var(--mig-white); box-shadow: inset 0 0 0 var(--bw) var(--mig-green);
-  }
-  #s-09 .crm-rec-t { flex: 1 1 auto; min-width: 0; font-weight: 700; }
-  #s-09 .crm-rec-t .crm-h { margin-inline-end: calc(10 * var(--px)); }
-  #s-09 .crm-btn {
-    display: inline-flex; align-items: center; gap: .45em; white-space: nowrap; flex: none;
-    padding: calc(9 * var(--px)) calc(20 * var(--px)); border-radius: calc(4 * var(--px));
-    font-weight: 700; line-height: 1.2; background: var(--mig-green); color: var(--mig-ink);
-  }
-  #s-09 .crm-btn .ic { width: 1em; height: 1em; fill: currentColor; }
-
-  #s-09 .crm-loop { display: flex; flex-direction: column; gap: calc(4 * var(--px)); margin-top: auto; }
-  #s-09 .crm-pipe { display: flex; align-items: center; gap: calc(10 * var(--px)); }
-  #s-09 .crm-pipe-ic { display: grid; place-items: center; flex: none; width: calc(38 * var(--px)); height: calc(38 * var(--px)); border-radius: 50%; background: var(--mig-ink); color: var(--mig-green); }
-  #s-09 .crm-pipe-ic .ic { width: 55%; height: 55%; }
-  #s-09 .crm-pg { display: inline-flex; align-items: center; gap: calc(10 * var(--px)); white-space: nowrap; }
-  #s-09 .crm-pg > i { font-style: normal; color: var(--mig-slate-400); font-weight: 700; }
-  #s-09 .crm-step {
-    position: relative; overflow: hidden; display: inline-flex; align-items: baseline; gap: calc(10 * var(--px)); white-space: nowrap;
-    padding: calc(5 * var(--px)) calc(16 * var(--px)); border-radius: var(--r-pill);
-    border: var(--hair) dashed var(--mig-slate-400); color: var(--mig-slate-600); font-weight: 700;
-  }
-  #s-09 .crm-step.is-done { border: 0; color: var(--mig-ink); padding: calc(6 * var(--px)) calc(17 * var(--px)); }
-  #s-09 .crm-step.is-done > b { position: absolute; inset: 0; z-index: -1; background: var(--mig-green); transform-origin: 100% 50%; }
-  #s-09 .crm-step.is-done { isolation: isolate; }
-  #s-09 .crm-step-t { font-weight: 300; }
-  #s-09 .crm-cap { color: var(--mig-slate-600); }
-
-  /* ---------- step 2 on stage and in print: hub shrinks to the right 40%, CRM card on the left 60%,
-     and the guardrails row with the evidence chip stays under both (it never leaves the slide) ---------- */
-  html.mode-stage #s-09.s16-on .s16-stage, #s-09.s16-on .s16-stage {
-    display: grid; grid-template-columns: minmax(0, 40fr) minmax(0, 60fr); grid-template-rows: minmax(0, 1fr) auto auto;
-    column-gap: calc(32 * var(--px)); row-gap: calc(16 * var(--px)); align-items: stretch;
-  }
-  #s-09.s16-on .s16-flow { grid-column: 1; grid-row: 1; align-self: start; }
-  #s-09.s16-on .s16-more { display: contents; }
-  #s-09.s16-on .s16-car { grid-column: 1; grid-row: 2; justify-self: start; align-self: center; }
-  #s-09.s16-on .s16-row { grid-column: 1 / -1; grid-row: 3; }
-  #s-09.s16-on .s16-crm { display: block; grid-column: 2; grid-row: 1 / span 2; }
-
-  /* print: flows.css forces the full flow visible in print; on this slide the end state is the compact hub */
-  @media print { #s-09 .flow.is-compact .fl-full { display: none; } }
-
-  /* motion: the CRM card assembles field by field once it is revealed */
-  #s-09 .crm-part { --anim: mc-rise; }
-  #s-09 .crm-step.is-done > b { --anim: mc-fill; --dur: 700ms; }
-
-  /* ---------- phone (scroll mode): everything stacked, no hiding ---------- */
-  @media screen {
-    html.mode-scroll #s-09 .s16-stage { display: flex; gap: var(--gap-m); }
-    html.mode-scroll #s-09 .s16-more { display: flex; }
-    html.mode-scroll #s-09 .s16-crm { display: block; }
-    html.mode-scroll #s-09 .s16-row { flex-direction: column; align-items: stretch; gap: 10px; }
-    html.mode-scroll #s-09 .s16-car { align-self: flex-start; gap: 8px; font-size: 15px; white-space: normal; }
-    html.mode-scroll #s-09 .s16-car-ic { width: 30px; height: 30px; }
-    html.mode-scroll #s-09 .s16-guard { flex-wrap: nowrap; align-items: flex-start; border-radius: 14px; padding: 10px 12px; font-size: 14px; line-height: 1.45; }
-    html.mode-scroll #s-09 .s16-guard-ic { margin-top: 1px; }
-    html.mode-scroll #s-09 .s16-guard-ic .ic { width: 18px; height: 18px; }
-    html.mode-scroll #s-09 .s16-evidence { align-self: flex-start; white-space: normal; font-size: 15px; padding: 6px 12px; }
-    html.mode-scroll #s-09 .crm-win { height: auto; border-radius: 14px; }
-    html.mode-scroll #s-09 .crm-bar { padding: 7px 12px; gap: 10px; font-size: 13px; }
-    html.mode-scroll #s-09 .crm-dots i { width: 7px; height: 7px; }
-    html.mode-scroll #s-09 .crm-sample::before { width: 6px; height: 6px; }
-    html.mode-scroll #s-09 .crm-body { padding: 14px 14px 16px; gap: 12px; font-size: 14.5px; line-height: 1.4; }
-    html.mode-scroll #s-09 .crm-row { flex-wrap: wrap; gap: 8px; }
-    html.mode-scroll #s-09 .crm-title { font-size: 17px; flex-basis: 60%; }
-    html.mode-scroll #s-09 .crm-kind { width: 32px; height: 32px; border-radius: 9px; }
-    html.mode-scroll #s-09 .crm-pill { font-size: 13px; padding: 3px 9px; }
-    html.mode-scroll #s-09 .crm-sla { margin-inline-start: 0; white-space: normal; gap: 8px; }
-    html.mode-scroll #s-09 .crm-sla-t { white-space: normal; }
-    html.mode-scroll #s-09 .crm-sla-bar { width: 60px; height: 5px; }
-    html.mode-scroll #s-09 .crm-sum { padding: 10px 12px; border-radius: 10px; }
-    html.mode-scroll #s-09 .crm-sum li { padding-inline-start: 13px; }
-    html.mode-scroll #s-09 .crm-sum li::before { width: 5px; height: 5px; }
-    html.mode-scroll #s-09 .crm-typed { inset-inline: 13px 0; }
-    html.mode-scroll #s-09 .crm-h { white-space: normal; }
-    html.mode-scroll #s-09 .crm-h .ic { width: 16px; height: 16px; }
-    html.mode-scroll #s-09 .crm-chk { padding: 2px 9px 2px 3px; gap: 6px; }
-    html.mode-scroll #s-09 .crm-rec { flex-wrap: wrap; padding: 10px 12px; border-radius: 10px; box-shadow: inset 0 0 0 2px var(--mig-green); }
-    html.mode-scroll #s-09 .crm-rec-t { flex-basis: 100%; }
-    html.mode-scroll #s-09 .crm-rec-t .crm-h { display: flex; margin: 0 0 2px; }
-    html.mode-scroll #s-09 .crm-btn { padding: 7px 12px; }
-    html.mode-scroll #s-09 .crm-pipe { flex-wrap: wrap; gap: 6px; }
-    html.mode-scroll #s-09 .crm-pg { gap: 6px; }
-    html.mode-scroll #s-09 .crm-pipe-ic { width: 26px; height: 26px; }
-    html.mode-scroll #s-09 .crm-step { padding: 3px 10px; }
-    html.mode-scroll #s-09 .crm-step.is-done { padding: 4px 11px; }
-  }
-</style>
-<script>
-(function () {
-  'use strict';
-  var SID = '09';
-  var lead = null, typing = null;
-
-  function stageMode() { return document.documentElement.classList.contains('mode-stage'); }
-  function reduced() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
-  function mk(tag, cls, text) {
-    var e = document.createElement(tag);
-    if (cls) e.className = cls;
-    if (text != null) e.textContent = text;
-    return e;
-  }
-  function ic(name) {
-    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    s.setAttribute('class', 'ic');
-    s.setAttribute('aria-hidden', 'true');
-    var u = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-    u.setAttribute('href', '#i-' + name);
-    s.appendChild(u);
-    return s;
-  }
-  /* Latin runs (Migdal Care, SLA, MC-20417) go inside <bdi>; "Migdal Care" gets class en */
-  function txt(parent, s) {
-    var re = /(Migdal Care)|([A-Za-z][A-Za-z0-9]*(?:-[A-Za-z0-9]+)*)/g, last = 0, m;
-    s = String(s == null ? '' : s);
-    while ((m = re.exec(s))) {
-      if (m.index > last) parent.appendChild(document.createTextNode(s.slice(last, m.index)));
-      var b = mk('bdi', m[1] ? 'en' : null, m[0]);
-      parent.appendChild(b);
-      last = re.lastIndex;
-    }
-    if (last < s.length) parent.appendChild(document.createTextNode(s.slice(last)));
-    return parent;
-  }
-
-  /* The S1 service lead exactly as the demo's CRM panel receives it: one silent S1 run of the shared
-     chat engine, captured at the moment the lead is created (status "חדש", loop "הומלץ" only). */
-  function getLead() {
-    if (lead) return lead;
-    if (!window.MC || !window.MC.createChat || !window.MC_DATA) return null;
-    var box = mk('div');
-    box.setAttribute('aria-hidden', 'true');
-    box.style.cssText = 'position:fixed;left:-20000px;top:0;width:390px;height:800px;visibility:hidden;pointer-events:none';
-    document.body.appendChild(box);
-    try {
-      var c = window.MC.createChat(box, { data: window.MC_DATA, scenario: 'S1', mode: 'auto', statusBar: false,
-        hooks: { onLead: function (L) { if (!lead) lead = JSON.parse(JSON.stringify(L)); } } });
-      c.renderAll();
-      c.reset('S1');
-    } catch (err) { if (window.console) console.error('[slide 16] lead', err); }
-    box.remove();
-    return lead;
-  }
-
-  function part(cls, i) {
-    var e = mk('div', cls + ' crm-part anim');
-    e.style.setProperty('--i', String(i));
-    return e;
-  }
-
-  function build(el) {
-    var body = el.querySelector('[data-crm-body]');
-    if (!body || body.firstChild) return;
-    var L = getLead();
-    if (!L) return;
-
-    /* header: title + status, source + SLA, customer */
-    var head = part('crm-head', 1);
-    var r1 = mk('div', 'crm-row');
-    var kind = mk('span', 'crm-kind'); kind.appendChild(ic('headset'));
-    r1.appendChild(kind);
-    r1.appendChild(txt(mk('h3', 'crm-title'), L.title));
-    var src = mk('span', 'crm-pill is-src'); src.appendChild(ic('sparkle')); src.appendChild(txt(mk('span'), L.source)); r1.appendChild(src);
-    r1.appendChild(mk('span', 'crm-pill is-new', L.statusText));
-    head.appendChild(r1);
-    var r2 = mk('div', 'crm-row');
-    r2.appendChild(txt(mk('div', 'crm-cust'), L.customer));
-    /* one run for the whole SLA text, so the flex gap never splits "SLA:" from its colon */
-    var sla = mk('span', 'crm-sla'); sla.appendChild(txt(mk('span', 'crm-sla-t'), L.sla));
-    var bar = mk('i', 'crm-sla-bar'); bar.appendChild(mk('b')); sla.appendChild(bar);
-    r2.appendChild(sla);
-    head.appendChild(r2);
-    body.appendChild(head);
-
-    /* the AI summary, with what was already checked */
-    var sum = part('crm-sum', 2);
-    var h1 = mk('div', 'crm-h'); h1.appendChild(ic('sparkle')); h1.appendChild(txt(mk('span'), L.summaryTitle)); sum.appendChild(h1);
-    var ul = mk('ul');
-    (L.summary || []).forEach(function (line) {
-      var li = mk('li');
-      var ghost = txt(mk('span', 'crm-ghost'), line);
-      ghost.setAttribute('aria-hidden', 'true');
-      var typed = mk('span', 'crm-typed');
-      typed.setAttribute('data-full', line);
-      txt(typed, line);
-      li.appendChild(ghost);
-      li.appendChild(typed);
-      ul.appendChild(li);
-    });
-    sum.appendChild(ul);
-    if ((L.checked || []).length) {
-      var cr = mk('div', 'crm-chkrow');
-      cr.appendChild(txt(mk('span', 'crm-h'), L.checkedTitle));
-      L.checked.forEach(function (c) {
-        var m = /^([CARE])\s+(.*)$/.exec(c);
-        var ch = mk('span', 'crm-chk');
-        if (m) { ch.appendChild(mk('b', 'care-pill light', m[1])); ch.appendChild(txt(mk('span'), m[2])); } else ch.appendChild(txt(mk('span'), c));
-        cr.appendChild(ch);
-      });
-      sum.appendChild(cr);
-    }
-    body.appendChild(sum);
-
-    /* recommended action and the one active button */
-    var rec = part('crm-rec', 3);
-    var rt = mk('div', 'crm-rec-t');
-    rt.appendChild(txt(mk('span', 'crm-h'), L.recommendedTitle));
-    txt(rt, L.recommended);
-    rec.appendChild(rt);
-    if (L.action) {
-      var star = mk('span', 'crm-btn anim a-pulse');
-      star.style.setProperty('--pulse-delay', '1500ms');
-      star.style.setProperty('--pulse-r', 'calc(14 * var(--px))');
-      star.appendChild(ic('star'));
-      star.appendChild(txt(mk('span'), L.action.l));
-      rec.appendChild(star);
-    }
-    body.appendChild(rec);
-
-    /* the loop strip: הומלץ › נקבע › טופל בהסדר */
-    if (L.loop) {
-      var lo = L.loop, lp = part('crm-loop', 4);
-      var pipe = mk('div', 'crm-pipe');
-      var pi = mk('span', 'crm-pipe-ic'); pi.appendChild(ic('repeat')); pipe.appendChild(pi);
-      var vals = [lo.recommended, lo.booked, lo.treated];
-      /* each "›" travels with the step after it, so a wrapped strip never ends a line on a chevron */
-      lo.steps.forEach(function (name, i) {
-        var s = mk('span', 'crm-step' + (vals[i] ? ' is-done' : ''));
-        if (vals[i]) { var f = mk('b', 'anim'); f.style.setProperty('--delay', '950ms'); s.appendChild(f); }
-        s.appendChild(mk('span', null, name));
-        if (vals[i]) s.appendChild(mk('span', 'crm-step-t', vals[i]));
-        if (!i) { pipe.appendChild(s); return; }
-        var g = mk('span', 'crm-pg');
-        g.appendChild(mk('i', null, '›'));
-        g.appendChild(s);
-        pipe.appendChild(g);
-      });
-      lp.appendChild(pipe);
-      lp.appendChild(txt(mk('div', 'crm-cap'), lo.caption));
-      body.appendChild(lp);
-    }
-  }
-
-  /* the AI summary types in, line after line; layout never moves (ghost text keeps the size) */
-  function stopTyping(el) {
-    if (typing) { clearTimeout(typing); typing = null; }
-    var t = el.querySelectorAll('.crm-typed');
-    for (var i = 0; i < t.length; i++) { t[i].textContent = ''; txt(t[i], t[i].getAttribute('data-full')); }
-  }
-  function typeIn(el) {
-    stopTyping(el);
-    if (!stageMode() || reduced()) return;
-    var t = Array.prototype.slice.call(el.querySelectorAll('.crm-typed'));
-    var total = t.reduce(function (n, x) { return n + x.getAttribute('data-full').length; }, 0);
-    if (!total) return;
-    var per = Math.max(8, Math.min(18, 2200 / total));
-    t.forEach(function (x) { x.textContent = ''; });
-    var li = 0, ci = 0;
-    function tick() {
-      if (li >= t.length) { typing = null; return; }
-      var full = t[li].getAttribute('data-full');
-      ci = Math.min(full.length, ci + 2);
-      t[li].textContent = full.slice(0, ci);
-      if (ci >= full.length) { t[li].textContent = ''; txt(t[li], full); li++; ci = 0; }
-      typing = setTimeout(tick, per * 2);
-    }
-    typing = setTimeout(tick, 650);
-  }
-
-  function setCrm(el, on, animate) {
-    var flow = el.querySelector('.flow');
-    el.classList.toggle('s16-on', !!on);
-    if (window.MCFlows && flow) { try { window.MCFlows.compact(flow, !!on && stageMode()); } catch (err) { /* keep going */ } }
-    /* MCFlows.compact plays a short entrance; an instant switch (Back into the slide, reduced motion, print) ends it at once */
-    if (!animate && flow && flow.getAnimations) {
-      try { flow.getAnimations({ subtree: true }).forEach(function (a) { a.finish(); }); } catch (err) { /* keep going */ }
-    }
-    if (on && animate) typeIn(el); else stopTyping(el);
-  }
-
-  /* This slide owns its flow copy and geometry; both are applied to the leads spec before flows.js renders
-     (this listener is registered first), and the flow is rendered again if it was already built.
-     Full flow: captions as nouns, the timer worded without a placeholder (and wide enough for it), and the
-     context packet riding just under the column heads. */
-  var FULL = {
-    aA: 'חזרה מהמוקד, עם כל ההקשר',
-    cT: 'צורך חדש שהלקוח העלה',
-    cA: 'איסוף פרטים, בהסכמה',
-    timer: 'אין תור אחרי כמה ימים? פנייה אחת, עם סיבה'
-  };
-  var TIMER_W = 520, RIDE = -48;
-  /* Step 2 (stage and print): the compact hub in the right 40% column, 640 by 500, so the car-lead link and the
-     guardrails row both fit under it at 24u; branch C names the car example. */
-  var COMPACT = {
-    viewBox: [640, 500],
-    nodes: [
-      {id: 'hub', x: 330, y: 54, w: 420, h: 100, tpl: 'chathub', title: '', wide: true},   /* title: the full flow's hub */
-      {id: 'aL', x: 290, y: 196, w: 580, h: 92, tpl: 'branchrow', br: 'a', t: 'A · ליד להסדר', out: 'טיפול בהסדר'},
-      {id: 'bL', x: 290, y: 320, w: 580, h: 92, tpl: 'branchrow', br: 'b', t: 'B · העברה חמה', out: 'פנייה אחת, לא כמה'},
-      {id: 'cL', x: 290, y: 444, w: 580, h: 92, tpl: 'branchrow', br: 'c', t: 'C · ליד לפי הצורך', out: 'הגורם הנכון, עם ליד מוכן'}
-    ],
-    edges: [
-      {id: 'k1', pts: [[330, 104], [330, 124], [612, 124], [612, 196], [580, 196]], style: 'happy'},
-      {id: 'k2', pts: [[612, 124], [612, 320], [580, 320]], style: 'happy'},
-      {id: 'k3', pts: [[612, 124], [612, 444], [580, 444]], style: 'mint'}
-    ]
-  };
-  function patchSpec(el) {
-    var F = window.MCFlows, spec = F && F.specs && F.specs.leads;
-    if (!spec || spec.s16Patched) return;
-    var hub = (spec.nodes || []).filter(function (n) { return n.id === 'hub'; })[0];
-    if (!hub || !hub.title) return;
-    (spec.nodes || []).forEach(function (n) {
-      if (FULL[n.id]) n.t = FULL[n.id];
-      if (n.id === 'timer') n.w = TIMER_W;
-    });
-    if (spec.packet) spec.packet.ride = RIDE;
-    spec.label = 'לידים: כל שיחה יכולה להמשיך, לפי מה שהלקוח צריך';
-    COMPACT.nodes[0].title = hub.title;
-    spec.compact = COMPACT;
-    spec.s16Patched = true;
-    var flow = el && el.querySelector('.flow[data-flow="leads"]');
-    if (flow && flow.hasAttribute('data-flow-ready') && F.render) {
-      var on = flow.classList.contains('is-compact');
-      try { F.render(flow); if (on && F.compact) F.compact(flow, true); } catch (err) { /* keep going */ }
-    }
-  }
-
-  function boot() { var el = document.getElementById('s-' + SID); if (el) { patchSpec(el); build(el); } }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-  else setTimeout(boot, 0);
-
-  window.MCSlideHooks = window.MCSlideHooks || {};
-  window.MCSlideHooks[SID] = {
-    enter: function (el, mode, info) {
-      patchSpec(el);
-      build(el);
-      var cur = parseInt(el.getAttribute('data-step-cur') || '0', 10) || 0;
-      if (mode === 'stage') setCrm(el, cur >= 1, false);
-      else setCrm(el, false, false);
-    },
-    leave: function (el, mode) {
-      if (mode === 'stage') setCrm(el, false, false);
-      else stopTyping(el);
-    },
-    step: function (el, k, info) {
-      build(el);
-      if (!stageMode()) return false;
-      if (k === 1 && info && info.dir === 1) setCrm(el, true, !info.instant && !reduced());
-      if (k === 0 && info && info.dir === -1) setCrm(el, false, false);
-      return false;
-    },
-    print: function (el) { patchSpec(el); build(el); setCrm(el, true, false); }
-  };
-})();
-</script>
-
-<section class="slide" id="s-10" data-chapter="4" data-title="הבקשה">
+<section class="slide" id="s-09" data-chapter="4" data-title="הבקשה">
   <p class="eyebrow">צעדים להמשך</p>
   <h2 class="title">שתי החלטות, <b>ואנחנו בדרך</b></h2>
 
@@ -4234,23 +3591,23 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
 </section>
 <style>
   /* three decisions on one rail: navy discs with mint numerals, the rail runs right to left and keeps going ("בדרך") */
-  #s-10 { --s24-disc: calc(120 * var(--px)); --s24-gap: calc(40 * var(--px)); }
-  #s-10 .s24-path { position: relative; margin-top: calc(18 * var(--px)); }
-  #s-10 .s24-rail {
+  #s-09 { --s24-disc: calc(120 * var(--px)); --s24-gap: calc(40 * var(--px)); }
+  #s-09 .s24-path { position: relative; margin-top: calc(18 * var(--px)); }
+  #s-09 .s24-rail {
     position: absolute; z-index: 0; top: calc(var(--s24-disc) / 2 - 3 * var(--px)); height: calc(6 * var(--px));
     right: calc(var(--s24-disc) / 2); left: 0; border-radius: 99px;
     background: linear-gradient(270deg, var(--mig-ink) 0%, var(--mig-blue) 62%, var(--mig-green-700) 100%);
     --dur: 1300ms; --delay: 120ms;
   }
   /* arrow head at the far (left) end of the rail */
-  #s-10 .s24-head {
+  #s-09 .s24-head {
     position: absolute; left: calc(-2 * var(--px)); top: 50%; width: calc(26 * var(--px)); height: calc(26 * var(--px));
     border-left: calc(6 * var(--px)) solid var(--mig-green-700); border-bottom: calc(6 * var(--px)) solid var(--mig-green-700);
     border-radius: calc(3 * var(--px)); transform: translateY(-50%) rotate(45deg);
   }
-  #s-10 .s24-steps { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s24-gap); }
-  #s-10 .s24-step { display: flex; flex-direction: column; align-items: flex-start; gap: calc(24 * var(--px)); min-width: 0; }
-  #s-10 .s24-n {
+  #s-09 .s24-steps { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s24-gap); }
+  #s-09 .s24-step { display: flex; flex-direction: column; align-items: flex-start; gap: calc(24 * var(--px)); min-width: 0; }
+  #s-09 .s24-n {
     display: grid; place-items: center; flex: none;
     width: var(--s24-disc); height: var(--s24-disc); border-radius: 50%;
     background: var(--mig-ink); color: var(--mig-green);
@@ -4258,15 +3615,15 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     font-size: calc(78 * var(--px)); font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums;
     padding-top: calc(6 * var(--px));
   }
-  #s-10 .s24-card {
+  #s-09 .s24-card {
     align-self: stretch; flex: 1 1 auto; gap: calc(18 * var(--px));
     padding: calc(30 * var(--px)) calc(38 * var(--px)) calc(34 * var(--px));
     box-shadow: 0 calc(12 * var(--px)) calc(36 * var(--px)) rgba(2, 1, 64, .08);
   }
-  #s-10 .s24-h { font-size: var(--t-h2); font-weight: 900; line-height: 1.05; letter-spacing: -.01em; color: var(--mig-ink); }
-  #s-10 .s24-x { font-size: calc(30 * var(--px)); line-height: 1.42; color: var(--mig-ink-2); text-wrap: pretty; }
-  #s-10 .s24-team { display: flex; flex-wrap: wrap; gap: calc(12 * var(--px)); }
-  #s-10 .s24-team li {
+  #s-09 .s24-h { font-size: var(--t-h2); font-weight: 900; line-height: 1.05; letter-spacing: -.01em; color: var(--mig-ink); }
+  #s-09 .s24-x { font-size: calc(30 * var(--px)); line-height: 1.42; color: var(--mig-ink-2); text-wrap: pretty; }
+  #s-09 .s24-team { display: flex; flex-wrap: wrap; gap: calc(12 * var(--px)); }
+  #s-09 .s24-team li {
     display: inline-flex; align-items: center; padding: calc(8 * var(--px)) calc(18 * var(--px));
     border-radius: var(--r-pill); background: var(--mig-mist); color: var(--mig-ink);
     font-size: calc(26 * var(--px)); font-weight: 700; line-height: 1.2; white-space: nowrap;
@@ -4274,43 +3631,43 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   }
 
   /* the closing banner: the ask to finance, three numbers before the workshop, and the way into appendix 1 */
-  #s-10 .s24-fin { gap: calc(28 * var(--px)); padding: calc(30 * var(--px)) calc(44 * var(--px)); }
-  #s-10 .s24-fin-t { flex: 1 1 auto; min-width: 0; text-wrap: balance; }
-  #s-10 .s24-fin-link {
+  #s-09 .s24-fin { gap: calc(28 * var(--px)); padding: calc(30 * var(--px)) calc(44 * var(--px)); }
+  #s-09 .s24-fin-t { flex: 1 1 auto; min-width: 0; text-wrap: balance; }
+  #s-09 .s24-fin-link {
     flex: none; display: inline-flex; align-items: center; gap: calc(10 * var(--px));
     padding: calc(10 * var(--px)) calc(22 * var(--px)); border-radius: var(--r-pill);
     color: var(--mig-green); box-shadow: inset 0 0 0 calc(2 * var(--px)) rgba(162, 235, 154, .55);
     font-size: var(--t-label); font-weight: 700; line-height: 1.2; text-decoration: none; white-space: nowrap;
   }
-  #s-10 .s24-fin-link:hover { background: rgba(162, 235, 154, .12); }
-  #s-10 .s24-fin-link:focus-visible { box-shadow: var(--sh-focus); }
-  #s-10 .s24-fin-link .ic { width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
+  #s-09 .s24-fin-link:hover { background: rgba(162, 235, 154, .12); }
+  #s-09 .s24-fin-link:focus-visible { box-shadow: var(--sh-focus); }
+  #s-09 .s24-fin-link .ic { width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
 
   /* phone: one vertical rail on the inline start, the discs sit on it */
-  html.mode-scroll #s-10 { --s24-disc: 44px; }
-  html.mode-scroll #s-10 .s24-path { margin-top: 6px; }
-  html.mode-scroll #s-10 .s24-rail {
+  html.mode-scroll #s-09 { --s24-disc: 44px; }
+  html.mode-scroll #s-09 .s24-path { margin-top: 6px; }
+  html.mode-scroll #s-09 .s24-rail {
     top: 22px; bottom: 26px; right: 21px; left: auto; width: 2px; height: auto;
     background: linear-gradient(180deg, var(--mig-ink), var(--mig-blue) 60%, var(--mig-green-700));
     --anim: mc-grow-y; transform-origin: 50% 0;
   }
-  html.mode-scroll #s-10 .s24-head { display: none; }
-  html.mode-scroll #s-10 .s24-steps { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  html.mode-scroll #s-10 .s24-step { flex-direction: row; align-items: flex-start; gap: 12px; }
-  html.mode-scroll #s-10 .s24-n { font-size: 24px; padding-top: 2px; box-shadow: 0 0 0 4px var(--mig-paper); }
-  html.mode-scroll #s-10 .s24-card { padding: 14px 16px 16px; gap: 8px; }
-  html.mode-scroll #s-10 .s24-h { font-size: 20px; }
-  html.mode-scroll #s-10 .s24-x { font-size: 16px; line-height: 1.45; }
-  html.mode-scroll #s-10 .s24-team { gap: 6px; }
-  html.mode-scroll #s-10 .s24-team li { font-size: 14px; padding: 4px 10px; }
-  html.mode-scroll #s-10 .s24-fin { margin-top: 18px; flex-wrap: wrap; align-items: flex-start; gap: 10px 12px; }
-  html.mode-scroll #s-10 .s24-fin::before { margin-top: 6px; }
-  html.mode-scroll #s-10 .s24-fin-t { flex: 1 1 calc(100% - 30px); font-size: 16.5px; line-height: 1.45; text-wrap: pretty; }
-  html.mode-scroll #s-10 .s24-fin-link { font-size: 14px; padding: 6px 14px; gap: 6px; margin-inline-start: 21px; }
-  html.mode-scroll #s-10 .s24-fin-link .ic { width: 14px; height: 14px; }
-  #s-10 .s24-check { margin-top: auto; font-size: var(--t-small); line-height: 1.45; color: var(--mig-slate-600); text-wrap: pretty; }
-  #s-10 .s24-check b { color: var(--mig-ink); font-weight: 700; }
-  @media screen { html:not(.mode-stage) #s-10 .s24-check { font-size: 14.5px; margin-top: 8px; } }
+  html.mode-scroll #s-09 .s24-head { display: none; }
+  html.mode-scroll #s-09 .s24-steps { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  html.mode-scroll #s-09 .s24-step { flex-direction: row; align-items: flex-start; gap: 12px; }
+  html.mode-scroll #s-09 .s24-n { font-size: 24px; padding-top: 2px; box-shadow: 0 0 0 4px var(--mig-paper); }
+  html.mode-scroll #s-09 .s24-card { padding: 14px 16px 16px; gap: 8px; }
+  html.mode-scroll #s-09 .s24-h { font-size: 20px; }
+  html.mode-scroll #s-09 .s24-x { font-size: 16px; line-height: 1.45; }
+  html.mode-scroll #s-09 .s24-team { gap: 6px; }
+  html.mode-scroll #s-09 .s24-team li { font-size: 14px; padding: 4px 10px; }
+  html.mode-scroll #s-09 .s24-fin { margin-top: 18px; flex-wrap: wrap; align-items: flex-start; gap: 10px 12px; }
+  html.mode-scroll #s-09 .s24-fin::before { margin-top: 6px; }
+  html.mode-scroll #s-09 .s24-fin-t { flex: 1 1 calc(100% - 30px); font-size: 16.5px; line-height: 1.45; text-wrap: pretty; }
+  html.mode-scroll #s-09 .s24-fin-link { font-size: 14px; padding: 6px 14px; gap: 6px; margin-inline-start: 21px; }
+  html.mode-scroll #s-09 .s24-fin-link .ic { width: 14px; height: 14px; }
+  #s-09 .s24-check { margin-top: auto; font-size: var(--t-small); line-height: 1.45; color: var(--mig-slate-600); text-wrap: pretty; }
+  #s-09 .s24-check b { color: var(--mig-ink); font-weight: 700; }
+  @media screen { html:not(.mode-stage) #s-09 .s24-check { font-size: 14.5px; margin-top: 8px; } }
 </style>
 
 </main>
@@ -5139,6 +4496,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   /* ---------------- the runner (generators; synchronous when instant) ---------------- */
   P._ms = function (w) {
     if (this.instant || !w || !w.ms) return 0;
+    if (this.ffBeat && w.key !== 'dwell') return 0;   /* nextBeat(): finish the current beat at once */
     return w.raw ? w.ms : Math.round(w.ms / this.speed);
   };
   P._drive = function (gen) {
@@ -6626,7 +5984,11 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
         }
       }
       if (step.beat) this._hook('onBeat', { scenario: this.st.scenario, index: step.beat - 1, n: step.beat, label: script.beats[step.beat - 1] || '', beats: script.beats, reached: [] });
+      /* presenter pace (v3): a calm dwell after each step; nextBeat() (the deck's Next key) ends it early */
+      this.ffBeat = false;
+      if (this.o.dwell && step !== script.steps[script.steps.length - 1]) yield { ms: this.o.dwell, raw: true, key: 'dwell' };
     }
+    this.ffBeat = false;
     if (REDUCED() && !this.root.querySelector('.mc-replay')) {
       this._append(h('button', { type: 'button', class: 'mc-replay', onclick: () => { this.reset(); this.play(); } }, [icon('replay'), h('span', { text: this.T.replay })]));
     }
@@ -6651,6 +6013,16 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     if (pick) { this._click(pick); return; }
     const lead = this.st.leads.find(L => L.closable && L.status !== 'closed');
     if (lead) this.closeLead(lead.id);
+  };
+
+  /* v3: one presenter step. During a step's animation: show the rest of that step at once.
+     During the dwell after a step: start the next step now. Returns false once the chat has ended. */
+  P.nextBeat = function () {
+    if (this.ended || !this.busy) return false;
+    if (this.waitKey === 'dwell') { this._skipWait(); return true; }
+    this.ffBeat = true;
+    this._skipWait();
+    return true;
   };
 
   P.finish = function () {
@@ -6701,6 +6073,8 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
       el: root,
       play: id => c.play(id),
       next: () => c.next(),
+      nextBeat: () => c.nextBeat(),
+      ended: () => !!c.ended,
       finish: () => c.finish(),
       renderAll: () => c.renderAll(),
       reset: (id, o) => c.reset(id, o),
@@ -10376,7 +9750,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
     if (j >= 0) go(j, {dir: 'prev'});
   }
   function end() {
-    let j = indexOfId('10');
+    let j = indexOfId('09');
     if (j < 0 || !navigable(slides[j])) j = step(slides.length, -1);
     if (j >= 0) go(j, {dir: 'next'});
   }
