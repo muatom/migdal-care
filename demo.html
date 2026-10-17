@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Migdal Care · הדגמה">
+<meta property="og:description" content="שאלה אחת, וכל הפוליסות עונות. הדגמה עם נתוני דוגמה.">
+<meta property="og:url" content="https://muatom.github.io/migdal-care/demo.html">
+<meta property="og:image" content="https://muatom.github.io/migdal-care/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="שאלה אחת, וכל הפוליסות עונות. הדגמה עם נתוני דוגמה.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#020140">
@@ -70,15 +79,15 @@
   --bg-dark:        var(--mig-ink);      /* dark surface          */
   --accent:         var(--mig-green);    /* primary action        */
   --accent-fg:      var(--mig-ink);      /* text on green         */
-  /* ---------- BRAND GOLD (ratings, highlights, warnings) ---------- */
+  /* ---------- attention (v4: mapped to Migdal blue; no amber in Migdal Care, Tom 17/10/2026) ---------- */
   --mig-gold:       #ffd044; /* rating star / highlight fill           */
-  --mig-amber:      #f5af35; /* warning fill / attention               */
-  --mig-amber-soft: #ffcb80; /* soft amber tint                        */
+  --mig-amber:      #3c65e3; /* warning fill / attention               */
+  --mig-amber-soft: #cfe0f3; /* soft amber tint                        */
 
   --success:        #3f8568; /* muted, mint-family green               */
   --success-bg:     #e9f6ef; /* success callout fill                   */
-  --warning:        #8f7636; /* warning TEXT (legible on white)        */
-  --warning-bg:     #fff6e3; /* warning callout fill (amber wash)      */
+  --warning:        #2a49ad; /* warning TEXT (legible on white)        */
+  --warning-bg:     #eef3fd; /* warning callout fill (amber wash)      */
   --error:          #ee6a5f; /* validation / required — real Figma coral */
   --error-strong:   #ff4444; /* hard error / destructive               */
   --error-bg:       #fdecea; /* error callout fill                     */
@@ -154,7 +163,7 @@
   --st-pilot-bg:#e9f6ef; --st-pilot-fg:#3f8568;      /* קיים בפיילוט */
   --st-new-bg:var(--mig-green); --st-new-fg:var(--mig-ink); /* חדש */
   --st-vision-line:var(--mig-ink);                    /* חזון: dashed outline */
-  --st-tbd-bg:#fff6e3; --st-tbd-fg:#8f7636;           /* לבירור / לאימות */
+  --st-tbd-bg:#eef3fd; --st-tbd-fg:#2a49ad;           /* לבירור / לאימות */
   --st-offer-bg:#e7ecfb; --st-offer-fg:var(--mig-blue); /* הצעה */
   --st-out:#9aa3bd;                                   /* לא נכלל (grey) */
 
@@ -242,7 +251,7 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 @keyframes mc-grow-y { from { transform: scaleY(0); } to { transform: none; } }
 @keyframes mc-slide-in { from { opacity: 0; transform: translateX(var(--slide-from, -24px)); } to { opacity: 1; transform: none; } }
 @keyframes mc-pulse { 0% { box-shadow: 0 0 0 0 rgba(60,101,227,.45); } 100% { box-shadow: 0 0 0 var(--pulse-r, 14px) rgba(60,101,227,0); } }
-@keyframes mc-pulse-amber { 0% { box-shadow: 0 0 0 0 rgba(245,175,53,.55); } 100% { box-shadow: 0 0 0 var(--pulse-r, 14px) rgba(245,175,53,0); } }
+@keyframes mc-pulse-amber { 0% { box-shadow: 0 0 0 0 rgba(60,101,227,.45); } 100% { box-shadow: 0 0 0 var(--pulse-r, 14px) rgba(60,101,227,0); } }
 @keyframes mc-pulse-slate { 0% { box-shadow: 0 0 0 0 rgba(91,101,138,.40); } 100% { box-shadow: 0 0 0 var(--pulse-r, 14px) rgba(91,101,138,0); } }
 
 /* ================= status grammar (plan 2.1) ================= */
@@ -559,7 +568,7 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 .mc-dot i { width: calc(9 * var(--dpx)); height: calc(9 * var(--dpx)); border-radius: 50%; background: var(--dotc, currentColor); }
 .mc-c-green { --c: var(--success, #3f8568); --dotc: #5cc46a; }
 .mc-c-indigo { --c: var(--mc-blue); --dotc: var(--mc-blue); }
-.mc-c-amber { --c: var(--warning, #8f7636); --dotc: var(--mig-amber, #f5af35); }
+.mc-c-amber { --c: var(--warning, #2a49ad); --dotc: var(--mig-amber, #3c65e3); }
 .mc-c-grey { --c: var(--mc-slate); --dotc: var(--mc-slate-2); }
 .mc-c-slate { --c: var(--mc-slate); --dotc: #c3cbe0; }
 .mc-tag { display: inline-block; padding: calc(2.5 * var(--dpx)) calc(7 * var(--dpx)); border-radius: calc(6 * var(--dpx)); background: var(--mig-mist, #f3f6fb); color: var(--mc-slate); font-size: calc(12 * var(--dpx)); font-weight: 700; line-height: 1.3; white-space: nowrap; }
@@ -572,8 +581,8 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 .mc-row-dot { width: calc(8 * var(--dpx)); height: calc(8 * var(--dpx)); margin-top: calc(7.5 * var(--dpx)); border-radius: 50%; background: var(--dotc, #c3cbe0); }
 .mc-row .mc-tags { margin-top: calc(1 * var(--dpx)); }
 .mc-row.mc-c-grey .mc-row-x { color: var(--mc-slate); }
-.mc-row.mc-c-amber { background: var(--warning-bg, #fff6e3); border-radius: calc(8 * var(--dpx)); padding: calc(6 * var(--dpx)) calc(8 * var(--dpx)); margin-inline: calc(-4 * var(--dpx)); }
-.mc-row.mc-c-amber .mc-row-x { color: #5d4a1d; }
+.mc-row.mc-c-amber { background: var(--warning-bg, #eef3fd); border-radius: calc(8 * var(--dpx)); padding: calc(6 * var(--dpx)) calc(8 * var(--dpx)); margin-inline: calc(-4 * var(--dpx)); }
+.mc-row.mc-c-amber .mc-row-x { color: var(--mig-ink-2, #212058); }
 .mc-row.mc-updated { animation: mc-flash 1.2s var(--ease-out, ease-out) 1; border-radius: calc(6 * var(--dpx)); }
 .mc-policies .mc-row { padding-block: calc(4 * var(--dpx)); }
 .mc-policies .mc-row + .mc-row { border-top: 1px solid var(--mc-line); padding-top: calc(9 * var(--dpx)); }
@@ -594,7 +603,7 @@ bdi.ltr, .ltr { direction: ltr; unicode-bidi: isolate; }
 .mc-note-info { background: var(--mig-tint-info, #e8f4ff); color: var(--mig-ink-2, #212058); border: 1px solid #d3e6fb; }
 .mc-note-info > .mc-ic { color: var(--mc-blue); }
 .mc-note-ok { background: var(--success-bg, #e9f6ef); color: #1f4f3b; border: 1px solid #cfe9db; }
-.mc-note-warn { background: var(--warning-bg, #fff6e3); color: #5d4a1d; border: 1px solid #f3e2b9; }
+.mc-note-warn { background: var(--warning-bg, #eef3fd); color: var(--mig-ink-2, #212058); border: 1px solid #d6e2fa; }
 .mc-note-flat { background: #fff; color: var(--mig-ink-2, #212058); border: 1px solid var(--mc-line); }
 .mc-note-flat > .mc-ic { color: var(--mc-slate); }
 .mc-note-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: calc(6 * var(--dpx)); }
@@ -862,7 +871,7 @@ html:not(.mode-scroll) .deck .screen.mc-mode-compact .mc-disclosure { line-heigh
   mask-image: linear-gradient(to bottom, transparent 0, #000 calc(28 * var(--dpx)));
 }
 </style>
-<style>/* Migdal Care v3 · demo.css · one phone on a calm stage, an iOS-quality chat inside it.
+<style>/* Migdal Care v4 · demo.css · one phone on a calm stage, an iOS-quality chat inside it.
    520px and wider: deep navy with a slow indigo and mint glow, the logo above the phone, a tiny caption below,
    the phone with a thin titanium frame, a black bezel, its side keys and a soft floor shadow. The screen is
    390 by 844 at most; a shorter window makes it squatter first (down to a 16:9 phone), then smaller.
@@ -1728,7 +1737,7 @@ body.dm {
     isYes: isYes, isNo: isNo, specs: SPECS, organs: ORGANS };
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
-<script>/* Migdal Care v3 · demo.js · the demo: one phone, one free chat, one sample customer (עמית).
+<script>/* Migdal Care v4 · demo.js · the demo: one phone, one free chat, one sample customer (עמית).
    Self-contained: it needs only router.js (window.MCRouter) and the chat.css classes (demo.css refines them).
    No network, no storage.
 
@@ -2040,8 +2049,8 @@ body.dm {
             : 'הכי משתלם בהסדר: ' + ILS(60) + ', בלי תביעה. להציג מכונים קרובים?')
         ],
         chips: shown
-          ? [cbChip('physio', { star: 1 }), chip('ואם אלך למטפל פרטי?', 'physio_private')].concat(next('physio', 1))
-          : [chip('כן, מי בהסדר לידי?', 'physio_prov', null, { star: 1 }), chip('ואם אלך למטפל פרטי?', 'physio_private'), chip('לא עכשיו', 'later', { topic: 'physio' }, { alt: 1 })],
+          ? [cbChip('physio', { star: 1 }), chip('ואם אלך באופן פרטי?', 'physio_private')].concat(next('physio', 1))
+          : [chip('כן, מי בהסדר לידי?', 'physio_prov', null, { star: 1 }), chip('ואם אלך באופן פרטי?', 'physio_private'), chip('לא עכשיו', 'later', { topic: 'physio' }, { alt: 1 })],
         expect: shown ? null : { yes: ['physio_prov'], no: ['later', { topic: 'physio' }] }
       };
     },
@@ -2052,7 +2061,7 @@ body.dm {
           txt('שלושה מכונים בהסדר, הכי קרובים לבית:'),
           { t: 'providers', list: PHYSIO_PROV, link: { l: 'לרשימה המלאה', toast: 'בהדגמה מוצגים שלושה' } }
         ],
-        chips: [cbChip('physio', { star: 1 }), chip('ואם אלך למטפל פרטי?', 'physio_private'), chip('לא עכשיו', 'later', { topic: 'physio' }, { alt: 1 })],
+        chips: [cbChip('physio', { star: 1 }), chip('ואם אלך באופן פרטי?', 'physio_private'), chip('לא עכשיו', 'later', { topic: 'physio' }, { alt: 1 })],
         expect: { no: ['later', { topic: 'physio' }] }
       };
     },
@@ -2061,7 +2070,7 @@ body.dm {
       const shown = S.prov.physio;
       return {
         bot: [
-          txt('אפשר, הבחירה שלך. אצל מטפל שלא בהסדר יש החזר של 70%, עד ' + ILS(150) + ' לטיפול, עם קבלה.'),
+          txt('אפשר, הבחירה שלך. אצל פיזיותרפיסט שלא בהסדר יש החזר של 70%, עד ' + ILS(150) + ' לטיפול, עם קבלה.'),
           { t: 'compare', cols: [
             { title: 'בהסדר', hi: 1, lines: [ILS(60) + ' לטיפול', 'בלי תשלום מראש', 'בלי תביעה'] },
             { title: 'פרטי, ב-' + ILS(250), lines: ['החזר ' + ILS(150), ILS(100) + ' מהכיס', 'תביעה עם קבלה'] }
@@ -2236,7 +2245,7 @@ body.dm {
       S.topic = 'claim';
       return {
         bot: [
-          txt('יש לך תביעה אחת פתוחה: החזר על פיזיותרפיה מ-1.10, אצל מטפל שלא בהסדר.'),
+          txt('יש לך תביעה אחת פתוחה: החזר על פיזיותרפיה מ-1.10, אצל פיזיותרפיסט שלא בהסדר.'),
           { t: 'timeline', title: 'תביעה 77-10394', steps: [
             { x: 'הוגשה · 2.10', st: 'done' },
             { x: 'המסמכים הגיעו', st: 'done' },
@@ -2312,11 +2321,11 @@ body.dm {
     /* ----- car: a sales lead only because the customer asked (typed), with consent, no medical data ----- */
     car: () => {
       S.topic = 'car';
-      if (S.leads.car) return { bot: [txt('כבר העברתי את הבקשה לנציג מכירות רכב, ' + S.leads.car.ref + '. הנציג יחזור אליך מחר, עד 12:00.')], chips: next('car') };
+      if (S.leads.car) return { bot: [txt('כבר העברתי את הבקשה לנציג ביטוח רכב, ' + S.leads.car.ref + '. הנציג יחזור אליך מחר, עד 12:00.')], chips: next('car') };
       S.car = {};
       return {
         bot: [
-          txt('בטח. כרגע אין לך ביטוח רכב במגדל, אז אעביר את הבקשה לנציג מכירות. שלוש שאלות קצרות.'),
+          txt('בטח. כרגע אין לך ביטוח רכב במגדל, אז אעביר את הבקשה לנציג. שלוש שאלות קצרות.'),
           txt('1 מתוך 3 · איזה רכב?')
         ],
         chips: [chip('טויוטה קורולה 2021', 'car2', { car: 'טויוטה קורולה 2021' }, { star: 1 }), chip('יונדאי טוסון 2023', 'car2', { car: 'יונדאי טוסון 2023' }), chip('רכב אחר', 'car_other')],
@@ -2353,7 +2362,7 @@ body.dm {
       S.leads.car = { ref: ref, short: 'מחר, עד 12:00' };
       return {
         bot: [
-          { t: 'confirm', icon: 'phone', title: 'נציג מכירות רכב יחזור אליך', rows: [['מתי', 'מחר, עד 12:00'], ['בנושא', 'הצעה לביטוח רכב'], ['פנייה', ref]],
+          { t: 'confirm', icon: 'phone', title: 'נציג ביטוח רכב יחזור אליך', rows: [['מתי', 'מחר, עד 12:00'], ['בנושא', 'הצעה לביטוח רכב'], ['פנייה', ref]],
             foot: 'הנציג יראה רק את פרטי הרכב.' },
           txt('עוד משהו?')
         ],
@@ -2407,7 +2416,7 @@ body.dm {
       surgery: 'בהסדר: תשלום ישיר, ' + ILS(0) + ' מהכיס. שלא בהסדר: החזר עד תקרת הפוליסה. בשני המקרים, בכפוף לאישור מראש.',
       mri: 'בהסדר, בלי השתתפות עצמית, בכפוף להפניה ולאישור מראש.',
       claim: 'ההחזר הצפוי על התביעה: ' + ILS(150) + '.',
-      car: 'את המחיר יציג נציג המכירות, לפי פרטי הרכב.'
+      car: 'את המחיר יציג הנציג, לפי פרטי הרכב.'
     }, 'price'),
     balance: () => topical({
       physio: 'נותרו לך 9 טיפולים מתוך 12 השנה. האחרון נוצל ב-1.10.',
@@ -2642,7 +2651,7 @@ body.dm {
   function footer(text) { return text === false ? null : h('div', { class: 'mc-card-foot' }, h('span', { rich: text || FOOT })); }
   function sourceLink(s) {
     return s ? h('button', { type: 'button', class: 'mc-link mc-source', onclick: () => sheet('נוסח לדוגמה', s.body) },
-      [h('span', { text: s.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ›' })]) : null;
+      [h('span', { text: s.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ‹' })]) : null;
   }
   function countUp(el, to) {
     if (REDUCED() || !(to > 0)) { el.textContent = String(to); return; }
@@ -2707,7 +2716,7 @@ body.dm {
         h('div', { class: 'dm-prov-foot' }, [
           h('p', { class: 'mc-disclosure', rich: DISCLOSURE }),
           it.link ? h('button', { type: 'button', class: 'mc-link', onclick: () => toast(it.link.toast) },
-            [h('span', { text: it.link.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ›' })]) : null
+            [h('span', { text: it.link.l }), h('span', { class: 'mc-arrow', 'aria-hidden': 'true', text: ' ‹' })]) : null
         ])
       ])], 'mc-wide');
       return null;
